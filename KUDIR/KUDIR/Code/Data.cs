@@ -42,6 +42,9 @@ namespace KUDIR.Code
                 case DataTypes.Предоплата:
                     Create_Предоплата();
                     break;
+                case DataTypes.Кредитор:
+                    Create_Кредитор();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -117,13 +120,26 @@ namespace KUDIR.Code
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("Предоплачено"));
         }
+        void Create_Кредитор()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM Кредитор", connect);
+            new SqlCommandBuilder(_adapter);
+
+            _adapter.Fill(_dataSet);
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+
+            ColumnPositions = new string[] { "Название", "Номер_договора", "Дата_договора", "Предмет_договора", "Док_задолж_Наим", "Док_задолж_Номер", "Док_задолж_Дата", "Сумма_бр", "Наим_валюты", "Сумма_в_валюте" };
+            ColumnNames = new string[] { "Кредитор", "Номер договора", "Дата договора", "Предмет договора", "Наим док задолж", "Номер док задолж", "Дата док задолж", "Сумма в бр", "Наим валюты", "Сумма в валюте" };
+        }
 
 
 
 
         public enum DataTypes
         {
-            Выручка, Отгрузка, Предоплата
+            Выручка, Отгрузка, Предоплата, Кредитор
         }
 
         public void Update()
