@@ -87,6 +87,19 @@ namespace KUDIR.Code
             //comIns.Parameters.Add("@Дата_док", SqlDbType.DateTime, 8, "Дата документа");
 
             //_adapter.InsertCommand = comIns;
+        }
+        void Create_Отгрузка()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM view_Отгрузка", connect);
+            new SqlCommandBuilder(_adapter);
+
+            _adapter.Fill(_dataSet);
+            _dataSet.Tables[0].Columns["Предоплачено"].DefaultValue = false;
+
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("Предоплачено"));
 
 
 
@@ -126,6 +139,7 @@ namespace KUDIR.Code
 
         public enum DataTypes
         {
+            Выручка, Отгрузка
         }
 
         public void Update()
