@@ -57,6 +57,10 @@ namespace KUDIR.Code
 
             _adapter.Fill(_dataSet);
 
+            SqlCommand comDel = new SqlCommand("UPDATE Выручка SET DEL = 1 WHERE ID = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            _adapter.DeleteCommand = comDel;
+
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
 
@@ -100,6 +104,11 @@ namespace KUDIR.Code
             new SqlCommandBuilder(_adapter);
 
             _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE Отгрузка_товаров SET DEL = 1 WHERE ID = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            _adapter.DeleteCommand = comDel;
+
             _dataSet.Tables[0].Columns["Предоплачено"].DefaultValue = false;
 
 
@@ -113,6 +122,11 @@ namespace KUDIR.Code
             new SqlCommandBuilder(_adapter);
 
             _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE Отгрузка_товаров SET DEL = 1 WHERE ID = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            _adapter.DeleteCommand = comDel;
+
             _dataSet.Tables[0].Columns["Предоплачено"].DefaultValue = true;
 
 
@@ -122,10 +136,14 @@ namespace KUDIR.Code
         }
         void Create_Кредитор()
         {
-            _adapter = new SqlDataAdapter("Select * FROM Кредитор", connect);
+            _adapter = new SqlDataAdapter("Select * FROM Кредитор WHERE DEL = 0", connect);
             new SqlCommandBuilder(_adapter);
 
             _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE Кредитор SET DEL = 1 WHERE ID = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            _adapter.DeleteCommand = comDel;
 
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
