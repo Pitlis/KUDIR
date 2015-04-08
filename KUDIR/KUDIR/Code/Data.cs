@@ -45,6 +45,9 @@ namespace KUDIR.Code
                 case DataTypes.Кредитор:
                     Create_Кредитор();
                     break;
+                case DataTypes.Дивиденты:
+                    Create_Дивиденты();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -151,13 +154,56 @@ namespace KUDIR.Code
             ColumnPositions = new string[] { "Название", "Номер_договора", "Дата_договора", "Предмет_договора", "Док_задолж_Наим", "Док_задолж_Номер", "Док_задолж_Дата", "Сумма_бр", "Наим_валюты", "Сумма_в_валюте" };
             ColumnNames = new string[] { "Кредитор", "Номер договора", "Дата договора", "Предмет договора", "Наим док задолж", "Номер док задолж", "Дата док задолж", "Сумма в бр", "Наим валюты", "Сумма в валюте" };
         }
+        void Create_Дивиденты()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM view_Дивиденты", connect);
+
+            _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE Налоги_на_дивиденты SET DEL = 1 WHERE ID = @ID1; UPDATE Платежный_документ SET DEL = 1 WHERE ID_платежный_док = @ID2", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            comDel.Parameters.Add("@ID2", SqlDbType.Int, 4, "ID_платежный_док");
+
+            SqlCommand comUpd = new SqlCommand("upd_Дивиденты", connect);
+            comUpd.CommandType = CommandType.StoredProcedure;
+            comUpd.Parameters.Add("@ID", SqlDbType.Int, 4, "ID");
+            comUpd.Parameters.Add("@Дата_Начисл", SqlDbType.DateTime, 8, "Дата начисления");
+            comUpd.Parameters.Add("@Сумма", SqlDbType.Money, sizeof(Decimal), "Сумма");
+            comUpd.Parameters.Add("@Наим_орг", SqlDbType.VarChar, -1, "Наименование организации");
+            comUpd.Parameters.Add("@Налог_база", SqlDbType.Money, sizeof(Decimal), "Налоговая база");
+            comUpd.Parameters.Add("@Ставка_налог", SqlDbType.Int, 4, "Ставка налога");
+            comUpd.Parameters.Add("@Номер_ПД", SqlDbType.VarChar, -1, "Номер плат инстр");
+            comUpd.Parameters.Add("@ID_ПД", SqlDbType.Int, 4, "ID_платежный_док");
+            comUpd.Parameters.Add("@Дата_ПД", SqlDbType.DateTime, 8, "Дата плат инстр");
+            comUpd.Parameters.Add("@Сумма_ПД", SqlDbType.Money, sizeof(Decimal), "Перечислено налога");
+
+            SqlCommand comIns = new SqlCommand("add_Дивиденты", connect);
+            comIns.CommandType = CommandType.StoredProcedure;
+            comIns.Parameters.Add("@Дата_начисления", SqlDbType.DateTime, 8, "Дата начисления");
+            comIns.Parameters.Add("@Сумма", SqlDbType.Money, sizeof(Decimal), "Сумма");
+            comIns.Parameters.Add("@Организация", SqlDbType.VarChar, -1, "Наименование организации");
+            comIns.Parameters.Add("@Налоговая_база", SqlDbType.Money, sizeof(Decimal), "Налоговая база");
+            comIns.Parameters.Add("@Ставка_налога", SqlDbType.Int, 4, "Ставка налога");
+            comIns.Parameters.Add("@Номер_ПлатежныйДок", SqlDbType.VarChar, -1, "Номер плат инстр");
+            comIns.Parameters.Add("@Дата_ПлатежныйДок", SqlDbType.DateTime, 8, "Дата плат инстр");
+            comIns.Parameters.Add("@Сумма_ПлатежныйДок", SqlDbType.Money, sizeof(Decimal), "Перечислено налога");
+
+            _adapter.UpdateCommand = comUpd;
+            _adapter.InsertCommand = comIns;
+            _adapter.DeleteCommand = comDel;
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID_платежный_док"));
+
+        }
 
 
 
 
         public enum DataTypes
         {
-            Выручка, Отгрузка, Предоплата, Кредитор
+            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты
         }
 
         public void Update()
