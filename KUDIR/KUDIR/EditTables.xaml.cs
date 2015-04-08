@@ -1,6 +1,7 @@
 ﻿using KUDIR.Code;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace KUDIR
     /// </summary>
     public partial class EditTables : Window
     {
+        string strConnect = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\VirtualBox\BBD\SHARE\KUDIR.mdf;Integrated Security=True;Connect Timeout=30";
+        
         public EditTables()
         {
             InitializeComponent();
@@ -27,9 +30,9 @@ namespace KUDIR
         Data data;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            data = new Data(Data.DataTypes.Выручка, @"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\VirtualBox\BBD\SHARE\KUDIR1.mdf;Integrated Security=True;Connect Timeout=30");
-            dgTable.ItemsSource = data.Table.DefaultView;
-            HideColumns(data.HiddenColumns, dgTable);
+            data = new Data(Data.DataTypes.Отгрузка, strConnect);
+            DataGridConfig grid = new DataGridConfig(dgTable);
+            grid.ShowData(data);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -37,12 +40,6 @@ namespace KUDIR
             data.Update();
         }
 
-        void HideColumns(List<int> columns, DataGrid grid)
-        {
-            foreach(int index in columns)
-            {
-                grid.Columns[index].Visibility = System.Windows.Visibility.Collapsed;
-            }
-        }
+
     }
 }

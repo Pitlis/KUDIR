@@ -66,6 +66,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Code\Data.cs" />
+    <Compile Include="Code\DataGridConfig.cs" />
     <Compile Include="Code\Domain\Выплата_работнику.cs" />
     <Compile Include="Code\Domain\Выплаты.cs" />
     <Compile Include="Code\Domain\Выручка.cs" />
