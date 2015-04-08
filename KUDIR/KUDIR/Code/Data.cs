@@ -39,6 +39,9 @@ namespace KUDIR.Code
                 case DataTypes.Отгрузка:
                     Create_Отгрузка();
                     break;
+                case DataTypes.Предоплата:
+                    Create_Предоплата();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -100,38 +103,19 @@ namespace KUDIR.Code
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("Предоплачено"));
+        }
+        void Create_Предоплата()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM view_Предоплата", connect);
+            new SqlCommandBuilder(_adapter);
+
+            _adapter.Fill(_dataSet);
+            _dataSet.Tables[0].Columns["Предоплачено"].DefaultValue = true;
 
 
-
-
-            //SqlCommand comDel = new SqlCommand(@"Update Выручка SET DEL = 1 WHERE ID = @ID1; Update Документ SET DEL = 1 WHERE DocumentID = @ID2", connect);
-            //comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
-            //comDel.Parameters.Add("@ID2", SqlDbType.Int, 4, "Документ_выручка");
-            //_adapter.DeleteCommand = comDel;
-
-            //SqlCommand comUpd = new SqlCommand("upd_Выручка", connect);
-            //comUpd.CommandType = CommandType.StoredProcedure;
-            //comUpd.Parameters.Add("@ID", SqlDbType.Int, 4, "ID");
-            //comUpd.Parameters.Add("@Реализация", SqlDbType.Money, sizeof(Decimal), "Выручка от реализации");
-            //comUpd.Parameters.Add("@Внереализ", SqlDbType.Money, sizeof(Decimal), "Внереализационные доходы");
-            //comUpd.Parameters.Add("@Операция", SqlDbType.VarChar, -1, "Содержание операции");
-            //comUpd.Parameters.Add("@Дата_записи", SqlDbType.DateTime, 8, "Дата записи");
-            //comUpd.Parameters.Add("@Номер_док", SqlDbType.VarChar, -1, "Номер документа");
-            //comUpd.Parameters.Add("@Наим_док", SqlDbType.VarChar, -1, "Название документа");
-            //comUpd.Parameters.Add("@Дата_док", SqlDbType.DateTime, 8, "Дата документа");
-            //comUpd.Parameters.Add("@Док_выручка", SqlDbType.Int, 4, "Документ_выручка");
-            //_adapter.UpdateCommand = comUpd;
-
-            //SqlCommand comIns = new SqlCommand("add_Выручка", connect);
-            //comIns.CommandType = CommandType.StoredProcedure;
-            //comIns.Parameters.Add("@Реализация", SqlDbType.Money, sizeof(Decimal), "Выручка от реализации");
-            //comIns.Parameters.Add("@Внереализ", SqlDbType.Money, sizeof(Decimal), "Внереализационные доходы");
-            //comIns.Parameters.Add("@Операция", SqlDbType.VarChar, -1, "Содержание операции");
-            //comIns.Parameters.Add("@Номер_док", SqlDbType.VarChar, -1, "Номер документа");
-            //comIns.Parameters.Add("@Наим_док", SqlDbType.VarChar, -1, "Название документа");
-            //comIns.Parameters.Add("@Дата_док", SqlDbType.DateTime, 8, "Дата документа");
-
-            //_adapter.InsertCommand = comIns;
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("Предоплачено"));
         }
 
 
@@ -139,7 +123,7 @@ namespace KUDIR.Code
 
         public enum DataTypes
         {
-            Выручка, Отгрузка
+            Выручка, Отгрузка, Предоплата
         }
 
         public void Update()
