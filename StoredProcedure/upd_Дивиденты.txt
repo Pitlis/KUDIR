@@ -1,0 +1,35 @@
+CREATE PROCEDURE upd_Дивиденты
+@ID INT,
+@Дата_Начисл DATETIME,
+@Сумма MONEY,
+@Наим_орг VARCHAR(150),
+@Налог_база MONEY,
+@Ставка_налог INT,
+@Номер_ПД VARCHAR(20),
+@ID_ПД INT,
+@Дата_ПД DATETIME,
+@Сумма_ПД MONEY
+AS
+DECLARE @docID INT, @docIDold INT
+IF (@ID_ПД IS NULL) AND (@Номер_ПД IS NOT NULL) AND (@Сумма_ПД IS NOT NULL)
+	BEGIN
+		EXECUTE add_ПлатежныйДокумент @Номер_ПД, @Дата_ПД, @Сумма_ПД, @docID output
+	END
+
+IF (@ID_ПД IS NOT NULL) AND (@Номер_ПД IS NOT NULL) AND (@Сумма_ПД IS NOT NULL)
+	BEGIN
+		EXECUTE upd_Платежный_Док @Номер_ПД, @Дата_ПД, @Сумма_ПД, @ID_ПД
+		SET @docID = @ID_ПД
+	END
+	
+SET @docIDold = (SELECT Налоги_на_дивиденты.ID_платежный_док FROM Налоги_на_дивиденты WHERE Налоги_на_дивиденты.ID = @ID) 
+
+IF (@Номер_ПД = '') AND (@docIDold IS NOT NULL)
+	BEGIN
+		UPDATE Платежный_документ SET DEL = 1 WHERE ID_платежный_док = @docIDold
+		SET @docID = Null
+	END
+
+UPDATE Налоги_на_дивиденты SET ID_платежный_док = @docID, Дата_начисления_дивидентов = @Дата_Начисл, Сумма = @Сумма, Наименование_организации = @Наим_орг, 
+Налоговая_база = @Налог_база, Ставка_налога = @Ставка_налог
+WHERE ID = @ID
