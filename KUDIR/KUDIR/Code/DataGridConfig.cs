@@ -46,10 +46,6 @@ namespace KUDIR.Code
                     DGrid.Columns[t].Header = (string)newNames[i];
                 i++;
             }
-            for (int k = i; k < DGrid.Columns.Count; k++)
-            {
-                DGrid.Columns[k].DisplayIndex = k;
-            }
         }
     }
 }
