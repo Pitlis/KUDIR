@@ -19,6 +19,8 @@ namespace KUDIR.Code
             }
         }
         public List<int> HiddenColumns { get; private set; }
+        public string[] ColumnPositions { get; private set; }
+        public string[] ColumnNames { get; private set; } // новые имена упорядочены согласно их позиции в ColumnPosition
 
         DataSet _dataSet;
         SqlConnection connect;
@@ -34,6 +36,9 @@ namespace KUDIR.Code
                 case DataTypes.Выручка:
                     Create_Выручка();
                     break;
+                case DataTypes.Отгрузка:
+                    Create_Отгрузка();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -41,51 +46,93 @@ namespace KUDIR.Code
 
         void Create_Выручка()
         {
-            _adapter = new SqlDataAdapter("Select * FROM view_Выручка", connect);
+            _adapter = new SqlDataAdapter("Select * FROM Выручка WHERE DEL = 0", connect);
+            new SqlCommandBuilder(_adapter);
+
             _adapter.Fill(_dataSet);
 
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
-            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("Документ_выручка"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
 
-            SqlCommand comDel = new SqlCommand(@"Update Выручка SET DEL = 1 WHERE ID = @ID1; Update Документ SET DEL = 1 WHERE DocumentID = @ID2", connect);
-            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
-            comDel.Parameters.Add("@ID2", SqlDbType.Int, 4, "Документ_выручка");
-            _adapter.DeleteCommand = comDel;
 
-            SqlCommand comUpd = new SqlCommand("upd_Выручка", connect);
-            comUpd.CommandType = CommandType.StoredProcedure;
-            comUpd.Parameters.Add("@ID", SqlDbType.Int, 4, "ID");
-            comUpd.Parameters.Add("@Реализация", SqlDbType.Money, sizeof(Decimal), "Выручка от реализации товаров (работ, услуг), имущественных прав");
-            comUpd.Parameters.Add("@Внереализ", SqlDbType.Money, sizeof(Decimal), "Внереализационные доходы");
-            comUpd.Parameters.Add("@Операция", SqlDbType.VarChar, -1, "Содержание операции");
-            comUpd.Parameters.Add("@Дата_записи", SqlDbType.DateTime, 8, "Дата записи");
-            comUpd.Parameters.Add("@Номер_док", SqlDbType.VarChar, -1, "Номер документа");
-            comUpd.Parameters.Add("@Наим_док", SqlDbType.VarChar, -1, "Название документа");
-            comUpd.Parameters.Add("@Дата_док", SqlDbType.DateTime, 8, "Дата документа");
-            comUpd.Parameters.Add("@Док_выручка", SqlDbType.Int, 4, "Документ_выручка");
-            _adapter.UpdateCommand = comUpd;
+            ColumnPositions = new string[] { "Дата_записи", "Док_выручка_Наим", "Док_выручка_Номер", "Док_выручка_Дата", "Содержание_операции", "Выручка_от_реализации", "Внереализационные_доходы" };
+            ColumnNames = new string[] { "Дата записи", "Наим докумета выручки", "Номер документа выручки", "Дата документа выручки", "Содержание операции", "Выручка от реализации", "Внереализационные доходы" };
+            
 
-            SqlCommand comIns = new SqlCommand("add_Выручка", connect);
-            comIns.CommandType = CommandType.StoredProcedure;
-            comIns.Parameters.Add("@Реализация", SqlDbType.Money, sizeof(Decimal), "Выручка от реализации товаров (работ, услуг), имущественных прав");
-            comIns.Parameters.Add("@Внереализ", SqlDbType.Money, sizeof(Decimal), "Внереализационные доходы");
-            comIns.Parameters.Add("@Операция", SqlDbType.VarChar, -1, "Содержание операции");
-            comIns.Parameters.Add("@Номер_док", SqlDbType.VarChar, -1, "Номер документа");
-            comIns.Parameters.Add("@Наим_док", SqlDbType.VarChar, -1, "Название документа");
-            comIns.Parameters.Add("@Дата_док", SqlDbType.DateTime, 8, "Дата документа");
+            //SqlCommand comDel = new SqlCommand(@"Update Выручка SET DEL = 1 WHERE ID = @ID1; Update Документ SET DEL = 1 WHERE DocumentID = @ID2", connect);
+            //comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            //comDel.Parameters.Add("@ID2", SqlDbType.Int, 4, "Документ_выручка");
+            //_adapter.DeleteCommand = comDel;
 
-            _adapter.InsertCommand = comIns;
+            //SqlCommand comUpd = new SqlCommand("upd_Выручка", connect);
+            //comUpd.CommandType = CommandType.StoredProcedure;
+            //comUpd.Parameters.Add("@ID", SqlDbType.Int, 4, "ID");
+            //comUpd.Parameters.Add("@Реализация", SqlDbType.Money, sizeof(Decimal), "Выручка от реализации");
+            //comUpd.Parameters.Add("@Внереализ", SqlDbType.Money, sizeof(Decimal), "Внереализационные доходы");
+            //comUpd.Parameters.Add("@Операция", SqlDbType.VarChar, -1, "Содержание операции");
+            //comUpd.Parameters.Add("@Дата_записи", SqlDbType.DateTime, 8, "Дата записи");
+            //comUpd.Parameters.Add("@Номер_док", SqlDbType.VarChar, -1, "Номер документа");
+            //comUpd.Parameters.Add("@Наим_док", SqlDbType.VarChar, -1, "Название документа");
+            //comUpd.Parameters.Add("@Дата_док", SqlDbType.DateTime, 8, "Дата документа");
+            //comUpd.Parameters.Add("@Док_выручка", SqlDbType.Int, 4, "Документ_выручка");
+            //_adapter.UpdateCommand = comUpd;
+
+            //SqlCommand comIns = new SqlCommand("add_Выручка", connect);
+            //comIns.CommandType = CommandType.StoredProcedure;
+            //comIns.Parameters.Add("@Реализация", SqlDbType.Money, sizeof(Decimal), "Выручка от реализации");
+            //comIns.Parameters.Add("@Внереализ", SqlDbType.Money, sizeof(Decimal), "Внереализационные доходы");
+            //comIns.Parameters.Add("@Операция", SqlDbType.VarChar, -1, "Содержание операции");
+            //comIns.Parameters.Add("@Номер_док", SqlDbType.VarChar, -1, "Номер документа");
+            //comIns.Parameters.Add("@Наим_док", SqlDbType.VarChar, -1, "Название документа");
+            //comIns.Parameters.Add("@Дата_док", SqlDbType.DateTime, 8, "Дата документа");
+
+            //_adapter.InsertCommand = comIns;
+
+
+
+
+            //SqlCommand comDel = new SqlCommand(@"Update Выручка SET DEL = 1 WHERE ID = @ID1; Update Документ SET DEL = 1 WHERE DocumentID = @ID2", connect);
+            //comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            //comDel.Parameters.Add("@ID2", SqlDbType.Int, 4, "Документ_выручка");
+            //_adapter.DeleteCommand = comDel;
+
+            //SqlCommand comUpd = new SqlCommand("upd_Выручка", connect);
+            //comUpd.CommandType = CommandType.StoredProcedure;
+            //comUpd.Parameters.Add("@ID", SqlDbType.Int, 4, "ID");
+            //comUpd.Parameters.Add("@Реализация", SqlDbType.Money, sizeof(Decimal), "Выручка от реализации");
+            //comUpd.Parameters.Add("@Внереализ", SqlDbType.Money, sizeof(Decimal), "Внереализационные доходы");
+            //comUpd.Parameters.Add("@Операция", SqlDbType.VarChar, -1, "Содержание операции");
+            //comUpd.Parameters.Add("@Дата_записи", SqlDbType.DateTime, 8, "Дата записи");
+            //comUpd.Parameters.Add("@Номер_док", SqlDbType.VarChar, -1, "Номер документа");
+            //comUpd.Parameters.Add("@Наим_док", SqlDbType.VarChar, -1, "Название документа");
+            //comUpd.Parameters.Add("@Дата_док", SqlDbType.DateTime, 8, "Дата документа");
+            //comUpd.Parameters.Add("@Док_выручка", SqlDbType.Int, 4, "Документ_выручка");
+            //_adapter.UpdateCommand = comUpd;
+
+            //SqlCommand comIns = new SqlCommand("add_Выручка", connect);
+            //comIns.CommandType = CommandType.StoredProcedure;
+            //comIns.Parameters.Add("@Реализация", SqlDbType.Money, sizeof(Decimal), "Выручка от реализации");
+            //comIns.Parameters.Add("@Внереализ", SqlDbType.Money, sizeof(Decimal), "Внереализационные доходы");
+            //comIns.Parameters.Add("@Операция", SqlDbType.VarChar, -1, "Содержание операции");
+            //comIns.Parameters.Add("@Номер_док", SqlDbType.VarChar, -1, "Номер документа");
+            //comIns.Parameters.Add("@Наим_док", SqlDbType.VarChar, -1, "Название документа");
+            //comIns.Parameters.Add("@Дата_док", SqlDbType.DateTime, 8, "Дата документа");
+
+            //_adapter.InsertCommand = comIns;
         }
+
+
 
 
         public enum DataTypes
         {
-            Выручка
         }
 
         public void Update()
         {
             _adapter.Update(_dataSet);
         }
+
+
     }
 }
