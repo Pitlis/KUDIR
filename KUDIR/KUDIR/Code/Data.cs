@@ -51,6 +51,9 @@ namespace KUDIR.Code
                 case DataTypes.Кооператив:
                     Create_Кооператив();
                     break;
+                case DataTypes.НезавершенныеСтроения:
+                    Create_НезавершенныеСтроения();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -188,13 +191,27 @@ namespace KUDIR.Code
             ColumnPositions = new string[] { "ФИО", "Размер_пая", "Размер_паевых_взносов", "Выплачена_стоимость_пая", "Выдано_иное_имущество", "Иные_выплаты_при_выходе_из_кооператива"};
             ColumnNames = new string[] { "ФИО", "Размер пая", "Размер паевых взносов", "Выплачена стоимость пая", "Выдано иное_ имущество", "Иные  выплаты при выходе из кооператива" };
         }
+        void Create_НезавершенныеСтроения()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM Незавершенное_строение WHERE DEL = 0", connect);
+            new SqlCommandBuilder(_adapter);
+            _adapter.Fill(_dataSet);
 
+            SqlCommand comDel = new SqlCommand("UPDATE Незавершенное_строение SET DEL = 1 WHERE ID = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            _adapter.DeleteCommand = comDel;
 
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+
+            ColumnPositions = new string[] { "Наименование", "Адрес", "Нормативный_срок", "Дата_на_которую_истек_нормат_срок", "Сумма_затрат", "Дата_акта_приемки" };
+            ColumnNames = new string[] { "Наименование", "Адрес объекта", "Нормативный срок строительства", "Дата на которую истек нормативный срок", "Сумма затрат", "Дата утверждения акта приемки" };
+        }
 
 
         public enum DataTypes
         {
-            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив
+            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив, НезавершенныеСтроения
         }
 
         public void Update()
@@ -202,13 +219,13 @@ namespace KUDIR.Code
             try
             {
                 _adapter.Update(_dataSet);
+                _dataSet.Clear();
+                _adapter.Fill(_dataSet);
             }
             catch (SqlException ex)
             {
                 System.Windows.MessageBox.Show(ex.Message);
             }
-                _dataSet.Clear();
-                _adapter.Fill(_dataSet);
         }
 
 
