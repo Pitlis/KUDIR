@@ -57,6 +57,12 @@ namespace KUDIR.Code
                 case DataTypes.ТоварыТС:
                     Create_ТоварыТС();
                     break;
+                case DataTypes.НДС_Приобретение:
+                    Create_НДС_Приобретение();
+                    break;
+                case DataTypes.НДС_Реализация:
+                    Create_НДС_Реализация();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -226,11 +232,43 @@ namespace KUDIR.Code
             ColumnPositions = new string[] { "Дата", "Серия_транспортного_документа", "Номер_транспортного_документа", "Дата_транспортного_документа", "Счет_факт_Номер", "Счет_факт_Дата", "Стоимость" };
             ColumnNames = new string[] { "Дата записи", "Серия ТТН", "Номер ТТН", "Дата ТТН", "Номер счета фактуры", "Дата счета фактуры", "Стоимость" };
         }
+        void Create_НДС_Приобретение()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM viev_НДС_Приобретение WHERE DEL = 0", connect);
+            new SqlCommandBuilder(_adapter);
+            _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE НДС SET DEL = 1 WHERE ID = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            _adapter.DeleteCommand = comDel;
+
+            _dataSet.Tables[0].Columns["Уплачено_при_приобретении"].DefaultValue = true;
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("Уплачено_при_приобретении"));
+        }
+        void Create_НДС_Реализация()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM view_НДС_Реализация WHERE DEL = 0", connect);
+            new SqlCommandBuilder(_adapter);
+            _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE НДС SET DEL = 1 WHERE ID = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            _adapter.DeleteCommand = comDel;
+
+            _dataSet.Tables[0].Columns["Уплачено_при_приобретении"].DefaultValue = false;
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("Уплачено_при_приобретении"));
+        }
 
 
         public enum DataTypes
         {
-            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив, НезавершенныеСтроения, ТоварыТС
+            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив, НезавершенныеСтроения, ТоварыТС, НДС_Приобретение, НДС_Реализация
         }
 
         public void Update()
