@@ -207,6 +207,8 @@ namespace KUDIR.Code
             {
                 System.Windows.MessageBox.Show(ex.Message);
             }
+                _dataSet.Clear();
+                _adapter.Fill(_dataSet);
         }
 
 
