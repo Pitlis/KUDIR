@@ -54,6 +54,9 @@ namespace KUDIR.Code
                 case DataTypes.НезавершенныеСтроения:
                     Create_НезавершенныеСтроения();
                     break;
+                case DataTypes.ТоварыТС:
+                    Create_ТоварыТС();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -207,11 +210,27 @@ namespace KUDIR.Code
             ColumnPositions = new string[] { "Наименование", "Адрес", "Нормативный_срок", "Дата_на_которую_истек_нормат_срок", "Сумма_затрат", "Дата_акта_приемки" };
             ColumnNames = new string[] { "Наименование", "Адрес объекта", "Нормативный срок строительства", "Дата на которую истек нормативный срок", "Сумма затрат", "Дата утверждения акта приемки" };
         }
+        void Create_ТоварыТС()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM Товары_из_ТС WHERE DEL = 0", connect);
+            new SqlCommandBuilder(_adapter);
+            _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE Товары_из_ТС SET DEL = 1 WHERE ID = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            _adapter.DeleteCommand = comDel;
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+
+            ColumnPositions = new string[] { "Дата", "Серия_транспортного_документа", "Номер_транспортного_документа", "Дата_транспортного_документа", "Счет_факт_Номер", "Счет_факт_Дата", "Стоимость" };
+            ColumnNames = new string[] { "Дата записи", "Серия ТТН", "Номер ТТН", "Дата ТТН", "Номер счета фактуры", "Дата счета фактуры", "Стоимость" };
+        }
 
 
         public enum DataTypes
         {
-            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив, НезавершенныеСтроения
+            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив, НезавершенныеСтроения, ТоварыТС
         }
 
         public void Update()
