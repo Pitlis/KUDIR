@@ -48,6 +48,9 @@ namespace KUDIR.Code
                 case DataTypes.Дивиденты:
                     Create_Дивиденты();
                     break;
+                case DataTypes.Кооператив:
+                    Create_Кооператив();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -168,13 +171,30 @@ namespace KUDIR.Code
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID_платежный_док"));
 
         }
+        void Create_Кооператив()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM Производственный_кооператив WHERE DEL = 0", connect);
+            new SqlCommandBuilder(_adapter);
+
+            _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE Производственный_кооператив SET DEL = 1 WHERE ID = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            _adapter.DeleteCommand = comDel;
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+
+            ColumnPositions = new string[] { "ФИО", "Размер_пая", "Размер_паевых_взносов", "Выплачена_стоимость_пая", "Выдано_иное_имущество", "Иные_выплаты_при_выходе_из_кооператива"};
+            ColumnNames = new string[] { "ФИО", "Размер пая", "Размер паевых взносов", "Выплачена стоимость пая", "Выдано иное_ имущество", "Иные  выплаты при выходе из кооператива" };
+        }
 
 
 
 
         public enum DataTypes
         {
-            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты
+            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив
         }
 
         public void Update()
