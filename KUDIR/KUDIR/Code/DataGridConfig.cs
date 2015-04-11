@@ -30,11 +30,13 @@ namespace KUDIR.Code
 
         void ConfigColumns(Data data)
         {
+            AddDatePicker(data.Table);
             if (data.ColumnPositions != null)
             {
                 ChangeColumnPosition(data.Table, data.ColumnPositions, data.ColumnNames);
             }
             HideColumns(data.HiddenColumns, DGrid);
+
         }
 
         void HideColumns(List<int> columns, DataGrid grid)
@@ -55,6 +57,26 @@ namespace KUDIR.Code
                 if (newNames != null)
                     DGrid.Columns[t].Header = (string)newNames[i];
                 i++;
+            }
+        }
+
+        void AddDatePicker(DataTable table)
+        {
+            for (int i = 0; i < table.Columns.Count; ++i)
+            {
+                 if (table.Columns[i].DataType.IsEquivalentTo(typeof(DateTime)))
+                 {
+                     DataGridTemplateColumn dgct = new DataGridTemplateColumn();
+                     System.Windows.FrameworkElementFactory factory = new System.Windows.FrameworkElementFactory(typeof(DatePicker));
+                     System.Windows.Data.Binding b = new System.Windows.Data.Binding(table.Columns[i].ColumnName);
+                     b.UpdateSourceTrigger = System.Windows.Data.UpdateSourceTrigger.PropertyChanged;
+                     factory.SetValue(DatePicker.SelectedDateProperty, b);
+                     System.Windows.DataTemplate cellEditingTemplate = new System.Windows.DataTemplate();
+                     cellEditingTemplate.VisualTree = factory;
+                     dgct.CellTemplate = cellEditingTemplate;
+                     dgct.Header = table.Columns[i].ColumnName;
+                     DGrid.Columns[i] = dgct;
+                 }
             }
         }
     }
