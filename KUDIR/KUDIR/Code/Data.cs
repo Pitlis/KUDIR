@@ -69,6 +69,9 @@ namespace KUDIR.Code
                 case DataTypes.Строение:
                     Create_Строение();
                     break;
+                case DataTypes.НалоговыйАгент:
+                    Create_НалоговыйАгент();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -302,11 +305,64 @@ namespace KUDIR.Code
 
 
         }
+        void Create_НалоговыйАгент()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM view_НалоговыйАгент", connect);
+
+            _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE Налоговый_агент SET DEL = 1 WHERE ID = @ID1; UPDATE Платежный_документ SET DEL = 1 WHERE ID_платежный_док = @ID2", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            comDel.Parameters.Add("@ID2", SqlDbType.Int, 4, "ID_платежный_док");
+
+            SqlCommand comUpd = new SqlCommand("upd_НалоговыйАгент", connect);
+            comUpd.CommandType = CommandType.StoredProcedure;
+            comUpd.Parameters.Add("@ID", SqlDbType.Int, 4, "ID");
+            comUpd.Parameters.Add("@Наимен_организации", SqlDbType.VarChar, -1, "Наименование организации");
+            comUpd.Parameters.Add("@Страна", SqlDbType.VarChar, -1, "Страна");
+            comUpd.Parameters.Add("@Вид_дохода", SqlDbType.VarChar, -1, "Вид дохода");
+            comUpd.Parameters.Add("@Дата_платежа", SqlDbType.DateTime, 8, "Дата начисления платежа");
+            comUpd.Parameters.Add("@Сумма_платежа", SqlDbType.Money, sizeof(Decimal), "Сумма платежа");
+            comUpd.Parameters.Add("@Сумма_затрат_для_налога", SqlDbType.Money, sizeof(Decimal), "Сумма затрат для исчисления налога");
+            comUpd.Parameters.Add("@Сумма_освоб_от_налога_РБ", SqlDbType.Money, sizeof(Decimal), "Сумма дохода осв от налога по зак РБ");
+            comUpd.Parameters.Add("@Сумма_освоб_от_налога_международн", SqlDbType.Money, sizeof(Decimal), "по международному договору");
+            comUpd.Parameters.Add("@Ставка_налога_РБ", SqlDbType.SmallInt, 2, "Ставка налога по зак РБ");
+            comUpd.Parameters.Add("@Ставка_налога_международн", SqlDbType.Int, 4, "ставка по международному договору");
+            comUpd.Parameters.Add("@Сумма_ПлатежныйДок", SqlDbType.Money, sizeof(Decimal), "Перечислено");
+            comUpd.Parameters.Add("@Дата_ПлатежныйДок", SqlDbType.DateTime, 8, "Дата плат инстр");
+            comUpd.Parameters.Add("@Номер_ПлатежныйДок", SqlDbType.VarChar, -1, "Номер плат инстр");
+            comUpd.Parameters.Add("@ID_платежный_док", SqlDbType.Int, 4, "ID_платежный_док");
+
+            SqlCommand comIns = new SqlCommand("add_НалоговыйАгент", connect);
+            comIns.CommandType = CommandType.StoredProcedure;
+            comIns.Parameters.Add("@Наимен_организации", SqlDbType.VarChar, -1, "Наименование организации");
+            comIns.Parameters.Add("@Страна", SqlDbType.VarChar, -1, "Страна");
+            comIns.Parameters.Add("@Вид_дохода", SqlDbType.VarChar, -1, "Вид дохода");
+            comIns.Parameters.Add("@Дата_платежа", SqlDbType.DateTime, 8, "Дата начисления платежа");
+            comIns.Parameters.Add("@Сумма_платежа", SqlDbType.Money, sizeof(Decimal), "Сумма платежа");
+            comIns.Parameters.Add("@Сумма_затрат_для_налога", SqlDbType.Money, sizeof(Decimal), "Сумма затрат для исчисления налога");
+            comIns.Parameters.Add("@Сумма_освоб_от_налога_РБ", SqlDbType.Money, sizeof(Decimal), "Сумма дохода осв от налога по зак РБ");
+            comIns.Parameters.Add("@Сумма_освоб_от_налога_международн", SqlDbType.Money, sizeof(Decimal), "по международному договору");
+            comIns.Parameters.Add("@Ставка_налога_РБ", SqlDbType.SmallInt, 2, "Ставка налога по зак РБ");
+            comIns.Parameters.Add("@Ставка_налога_международн", SqlDbType.Int, 4, "ставка по международному договору");
+            comIns.Parameters.Add("@Сумма_ПлатежныйДок", SqlDbType.Money, sizeof(Decimal), "Перечислено");
+            comIns.Parameters.Add("@Дата_ПлатежныйДок", SqlDbType.DateTime, 8, "Дата плат инстр");
+            comIns.Parameters.Add("@Номер_ПлатежныйДок", SqlDbType.VarChar, -1, "Номер плат инстр");
+
+            _adapter.UpdateCommand = comUpd;
+            _adapter.InsertCommand = comIns;
+            _adapter.DeleteCommand = comDel;
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID_платежный_док"));
+
+        }
 
 
         public enum DataTypes
         {
-            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив, НезавершенныеСтроения, ТоварыТС, НДС_Приобретение, НДС_Реализация, СтоимостьСтроения, Строение
+            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив, НезавершенныеСтроения, ТоварыТС, НДС_Приобретение, НДС_Реализация, СтоимостьСтроения, Строение, НалоговыйАгент
         }
 
         public void Update()
