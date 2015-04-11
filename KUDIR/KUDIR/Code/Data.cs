@@ -63,6 +63,12 @@ namespace KUDIR.Code
                 case DataTypes.НДС_Реализация:
                     Create_НДС_Реализация();
                     break;
+                case DataTypes.СтоимостьСтроения:
+                    Create_СтоимостьСтроения();
+                    break;
+                case DataTypes.Строение:
+                    Create_Строение();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -264,11 +270,43 @@ namespace KUDIR.Code
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("Уплачено_при_приобретении"));
         }
+        void Create_СтоимостьСтроения()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM Стоимость_строения WHERE DEL = 0", connect);
+            new SqlCommandBuilder(_adapter);
+            _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE Стоимость_строения SET DEL = 1 WHERE ID = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            _adapter.DeleteCommand = comDel;
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID_строение"));
+
+            _dataSet.Tables[0].Columns.Add("Остаточная стоимость", typeof(Decimal));
+            _dataSet.Tables[0].Columns["Остаточная стоимость"].Expression = "Первоначальная_стоимость - Сумма_армотизации";
+
+            ColumnPositions = new string[] { "Период", "Площадь_всего", "Площадь_аренда", "Первоначальная_стоимость", "Сумма_армотизации" };
+            ColumnNames = new string[] { "Период", "Общая площадь", "Площадь сданная в аренду", "Первоначальная стоимость", "Сумма накопленной армотизации" };
+        }
+        void Create_Строение()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM Строение WHERE DEL = 0", connect);
+            new SqlCommandBuilder(_adapter);
+            _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE Строение SET DEL = 1 WHERE ID = @ID1; UPDATE Стоимость_строения SET DEL = 1 WHERE ID_строение = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            _adapter.DeleteCommand = comDel;
+
+
+        }
 
 
         public enum DataTypes
         {
-            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив, НезавершенныеСтроения, ТоварыТС, НДС_Приобретение, НДС_Реализация
+            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив, НезавершенныеСтроения, ТоварыТС, НДС_Приобретение, НДС_Реализация, СтоимостьСтроения, Строение
         }
 
         public void Update()

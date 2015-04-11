@@ -57,6 +57,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Строения.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,32 +71,12 @@
     </Compile>
     <Compile Include="Code\Data.cs" />
     <Compile Include="Code\DataGridConfig.cs" />
-    <Compile Include="Code\Domain\Выплата_работнику.cs" />
-    <Compile Include="Code\Domain\Выплаты.cs" />
-    <Compile Include="Code\Domain\Выручка.cs" />
-    <Compile Include="Code\Domain\Документ.cs" />
-    <Compile Include="Code\Domain\Кредитор.cs" />
-    <Compile Include="Code\Domain\Налоги_на_дивиденты.cs" />
-    <Compile Include="Code\Domain\Налоговые_вычеты.cs" />
-    <Compile Include="Code\Domain\Налоговый_агент.cs" />
-    <Compile Include="Code\Domain\Налоговый_вычет_работника.cs" />
-    <Compile Include="Code\Domain\НДС.cs" />
-    <Compile Include="Code\Domain\Незавершенное_строение.cs" />
-    <Compile Include="Code\Domain\Отгрузка_товаров.cs" />
-    <Compile Include="Code\Domain\Пенсионный_взнос.cs" />
-    <Compile Include="Code\Domain\Платежный_документ.cs" />
-    <Compile Include="Code\Domain\Подоходный_налог.cs" />
-    <Compile Include="Code\Domain\Пособие_работника.cs" />
-    <Compile Include="Code\Domain\Пособия.cs" />
-    <Compile Include="Code\Domain\Производственный_кооператив.cs" />
-    <Compile Include="Code\Domain\Работник.cs" />
-    <Compile Include="Code\Domain\Стоимость_строения.cs" />
-    <Compile Include="Code\Domain\Страховой_взнос.cs" />
-    <Compile Include="Code\Domain\Строение.cs" />
-    <Compile Include="Code\Domain\Товары_из_ТС.cs" />
-    <Compile Include="Code\Domain\Удержания.cs" />
+    <Compile Include="Code\Data_Строение.cs" />
     <Compile Include="EditTables.xaml.cs">
       <DependentUpon>EditTables.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Строения.xaml.cs">
+      <DependentUpon>Строения.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
