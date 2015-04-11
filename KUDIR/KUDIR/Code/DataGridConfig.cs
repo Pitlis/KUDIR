@@ -17,9 +17,19 @@ namespace KUDIR.Code
             DGrid = grid;
         }
 
+        public void ShowData(Data data, string filter)
+        {
+            DGrid.ItemsSource = new DataView(data.Table, filter, "ID", DataViewRowState.CurrentRows);
+            ConfigColumns(data);
+        }
         public void ShowData(Data data)
         {
             DGrid.ItemsSource = data.Table.DefaultView;
+            ConfigColumns(data);
+        }
+
+        void ConfigColumns(Data data)
+        {
             if (data.ColumnPositions != null)
             {
                 ChangeColumnPosition(data.Table, data.ColumnPositions, data.ColumnNames);
