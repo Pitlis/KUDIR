@@ -105,37 +105,28 @@ namespace KUDIR.Forms
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             dgTable.CanUserAddRows = true;
-            if(currentBuild + 1 < dataBuild.Table.Rows.Count && currentBuild != -1)
+            if(currentBuild + 1 < dataBuild.Table.Rows.Count && currentBuild != -1)//Следующая запись есть
             {
                 currentBuild++;
                 build = new Data_Строение(dataBuild, currentBuild);
                 FillForm(build);
-                dataBuildInfo = new Data(Data.DataTypes.СтоимостьСтроения, strConnect);
-                grid = new DataGridConfig(dgTable);
-                grid.ShowData(dataBuildInfo, "ID_строение = " + build.ID);
-                dataBuildInfo.Table.Columns["ID_строение"].DefaultValue = build.ID;
+                ReloadBuildInfo();
                 return;
             }
-            if (currentBuild + 1 == dataBuild.Table.Rows.Count && currentBuild != -1)
+            if (currentBuild + 1 == dataBuild.Table.Rows.Count && currentBuild != -1)//Это была последняя запись
             {
                 currentBuild = 0;
                 build = new Data_Строение(dataBuild, 0);
                 FillForm(build);
-                dataBuildInfo = new Data(Data.DataTypes.СтоимостьСтроения, strConnect);
-                grid = new DataGridConfig(dgTable);
-                grid.ShowData(dataBuildInfo, "ID_строение = " + build.ID);
-                dataBuildInfo.Table.Columns["ID_строение"].DefaultValue = build.ID;
+                ReloadBuildInfo();
                 return;
             }
-            if(currentBuild == -1 && dataBuild.Table.Rows.Count > 0)
+            if(currentBuild == -1 && dataBuild.Table.Rows.Count > 0)//Переход со страницы новой записи
             {
                 currentBuild = 0;
                 build = new Data_Строение(dataBuild, 0);
                 FillForm(build);
-                dataBuildInfo = new Data(Data.DataTypes.СтоимостьСтроения, strConnect);
-                grid = new DataGridConfig(dgTable);
-                grid.ShowData(dataBuildInfo, "ID_строение = " + build.ID);
-                dataBuildInfo.Table.Columns["ID_строение"].DefaultValue = build.ID;
+                ReloadBuildInfo();
                 return;
             }
         }
@@ -150,16 +141,20 @@ namespace KUDIR.Forms
             LoadFromForm(build);
             build.Update();
             dataBuildInfo.Update();
-            dataBuildInfo = new Data(Data.DataTypes.СтоимостьСтроения, strConnect);
-            grid = new DataGridConfig(dgTable);
-            grid.ShowData(dataBuildInfo, "ID_строение = " + build.ID);
-            dataBuildInfo.Table.Columns["ID_строение"].DefaultValue = build.ID;
+            ReloadBuildInfo();
             if(currentBuild == -1 && dataBuild.Table.Rows.Count > 0)
             {
                 currentBuild = dataBuild.Table.Rows.Count - 1;
             }
         }
 
+        void ReloadBuildInfo()//грид обновляется при каждом переключении между строениями, и при создании новой записи
+        {
+            dataBuildInfo = new Data(Data.DataTypes.СтоимостьСтроения, strConnect);
+            grid = new DataGridConfig(dgTable);
+            grid.ShowData(dataBuildInfo, "ID_строение = " + build.ID);
+            dataBuildInfo.Table.Columns["ID_строение"].DefaultValue = build.ID;
+        }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
@@ -169,13 +164,11 @@ namespace KUDIR.Forms
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            dataBuildInfo = new Data(Data.DataTypes.СтоимостьСтроения, strConnect);
             build = new Data_Строение(dataBuild);
+            ReloadBuildInfo();
             currentBuild = -1;
             FillForm(build);
-            dgTable.CanUserAddRows = false;
-            grid = new DataGridConfig(dgTable);
-            grid.ShowData(dataBuildInfo, "ID_строение = -1");
+            dgTable.CanUserAddRows = false;;
         }
 
         private void dgTable_Loaded(object sender, RoutedEventArgs e)

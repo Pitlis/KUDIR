@@ -27,6 +27,7 @@ namespace KUDIR.Code
             _dataBuild = data;
             _table = data.Table;
             _number = -1;
+            ID = -1;
         }
 
         void LoadFromBase()
