@@ -41,6 +41,7 @@ namespace KUDIR.Forms
             tbxDogovor.Text = empl.Условия_договора;
             dpDateDog.SelectedDate = empl.Дата_договора;
             dpDateVozn.SelectedDate = empl.Дата_выплаты_вознаграждения;
+            tbxDocV.Text = empl.Документы_вычеты;
         }
         void LoadFromForm(Data_Работник empl)
         {
@@ -55,6 +56,7 @@ namespace KUDIR.Forms
             empl.Условия_договора = tbxDogovor.Text;
             empl.Дата_договора = dpDateDog.SelectedDate;
             empl.Дата_выплаты_вознаграждения = dpDateVozn.SelectedDate;
+            empl.Документы_вычеты = tbxDocV.Text;
         }
 
         void InitForm()

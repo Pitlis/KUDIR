@@ -41,6 +41,7 @@ namespace KUDIR.Code
             Инвалидность = _table.Rows[_number]["Инвалидность"].ToString();
             Дата_выплаты_вознаграждения = _table.Rows[_number]["Дата_выплаты_вознаграждения"] == DBNull.Value ? null : (Nullable<System.DateTime>)_table.Rows[_number]["Дата_выплаты_вознаграждения"];
             Тариф_пенс_взносов = _table.Rows[_number]["Тариф_пенс_взносов"] == DBNull.Value ? null : (Nullable<short>)_table.Rows[_number]["Тариф_пенс_взносов"];
+            Документы_вычеты = _table.Rows[_number]["Документы_вычеты"].ToString();
         }
         void LoadToBase(DataRow row)
         {
@@ -51,6 +52,7 @@ namespace KUDIR.Code
             row["Инвалидность"] = Инвалидность == null ? (object)DBNull.Value : Инвалидность;
             row["Дата_выплаты_вознаграждения"] = Дата_выплаты_вознаграждения == null ? (object)DBNull.Value : Дата_выплаты_вознаграждения;
             row["Тариф_пенс_взносов"] = Тариф_пенс_взносов == null ? (object)DBNull.Value : Тариф_пенс_взносов;
+            row["Документы_вычеты"] = Документы_вычеты == null ? (object)DBNull.Value : Документы_вычеты;
         }
 
         public void Update()
@@ -87,6 +89,7 @@ namespace KUDIR.Code
         public string ФИО { get; set; }
         public Nullable<System.DateTime> Дата_договора { get; set; }
         public string Инвалидность { get; set; }
+        public string Документы_вычеты { get; set; }
         public Nullable<System.DateTime> Дата_выплаты_вознаграждения { get; set; }
         public Nullable<short> Тариф_пенс_взносов { get; set; }
 

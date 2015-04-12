@@ -5,14 +5,14 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25" MaxHeight="25"></RowDefinition>
-            <RowDefinition Height="275"></RowDefinition>
+            <RowDefinition Height="326"></RowDefinition>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Menu Grid.ColumnSpan="2">
+        <Menu>
             <MenuItem Header="MenuItem"/>
             <Button Name="btnNext" Content="Следующий работник" VerticalAlignment="Top" Click="btnNext_Click" Height="25" />
             <Button Name="btnNew" Content="Новое" VerticalAlignment="Top" Width="75" Height="25" Click="btnNew_Click"/>
@@ -20,15 +20,15 @@
             <Button Name="btnSave" Content="Сохранить" VerticalAlignment="Top" Width="74" Height="25" Click="btnSave_Click"/>
         </Menu>
         <Label Content="ФИО" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="37"/>
-        <TextBox Name="tbxName" HorizontalAlignment="Left" Height="23" Margin="136,13,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" Grid.ColumnSpan="2"/>
+        <TextBox Name="tbxName" HorizontalAlignment="Left" Height="23" Margin="136,13,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250"/>
         <Label Content="Номер договора" HorizontalAlignment="Left" Margin="10,41,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="102"/>
         <TextBox Name="tbxNumber" HorizontalAlignment="Left" Height="23" Margin="136,44,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Label Content="Дата договора" HorizontalAlignment="Left" Margin="10,72,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="91"/>
         <DatePicker Name="dpDateDog" HorizontalAlignment="Left" Margin="136,74,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="24"/>
         <Label Content="Тариф пенс. взносов" HorizontalAlignment="Left" Margin="10,103,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="124"/>
         <TextBox Name="tbxTarif" HorizontalAlignment="Left" Height="23" Margin="139,106,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="117"/>
-        <Label Content="Условия договора:" HorizontalAlignment="Left" Margin="407,10,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Separator HorizontalAlignment="Left" Height="19" Margin="266,131,0,0" Grid.Row="1" VerticalAlignment="Top" Width="263" RenderTransformOrigin="0.5,0.5">
+        <Label Content="Условия договора:" HorizontalAlignment="Left" Margin="407,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="113"/>
+        <Separator HorizontalAlignment="Left" Height="19" Margin="243,154,0,0" Grid.Row="1" VerticalAlignment="Top" Width="308" RenderTransformOrigin="0.5,0.5">
             <Separator.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -38,17 +38,19 @@
                 </TransformGroup>
             </Separator.RenderTransform>
         </Separator>
-        <TextBox Name="tbxDogovor" Grid.Column="0" Margin="407,41,10,0" Grid.Row="1" TextWrapping="Wrap" Text="" AcceptsReturn="True" Height="224" VerticalAlignment="Top"/>
-        <Label Content="Группа и период инвалидности:" HorizontalAlignment="Left" Margin="10,176,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox Name="tbxInv" HorizontalAlignment="Left" Height="58" Margin="14,207,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372"/>
+        <TextBox Name="tbxDogovor" Grid.Column="0" Margin="407,41,10,0" Grid.Row="1" TextWrapping="Wrap" Text="" AcceptsReturn="True" Height="275" VerticalAlignment="Top"/>
+        <Label Content="Группа и период инвалидности:" HorizontalAlignment="Left" Margin="10,176,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="186"/>
+        <TextBox Name="tbxInv" HorizontalAlignment="Left" Height="44" Margin="14,203,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372"/>
         <TabControl Name="tabControl" Margin="1,0,0,0" Grid.Row="2" Height="24" VerticalAlignment="Top" SelectionChanged="tabControl_SelectionChanged">
             <TabItem Header="Выплаты"/>
             <TabItem  Header="Пособия"/>
             <TabItem  Header="Налоговые вычеты"/>
             <TabItem  Header="Удержания"/>
         </TabControl>
-        <Label Content="Дата выпл. вознагр." HorizontalAlignment="Left" Margin="14,134,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <DatePicker Name="dpDateVozn" HorizontalAlignment="Left" Margin="139,136,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117"/>
+        <Label Content="Дата выпл. вознагр." HorizontalAlignment="Left" Margin="14,134,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="119"/>
+        <DatePicker Name="dpDateVozn" HorizontalAlignment="Left" Margin="139,136,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="24"/>
         <DataGrid Name="dgTable1" Margin="0,24,0,0" Grid.Row="2" Loaded="dgTable1_Loaded"/>
+        <Label Content="Документы подтверждающие право на вычеты:" HorizontalAlignment="Left" Margin="10,248,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="300"/>
+        <TextBox Name="tbxDocV" HorizontalAlignment="Left" Height="44" Margin="14,272,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372"/>
     </Grid>
 </Window>
