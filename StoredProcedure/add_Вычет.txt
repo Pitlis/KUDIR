@@ -1,0 +1,11 @@
+CREATE PROCEDURE add_Вычет
+@Тип_вычета VARCHAR(150),
+@Сумма MONEY,
+@Период_Начало DATETIME,
+@Период_Конец DATETIME,
+@IDRESULT INT OUTPUT
+AS
+
+INSERT INTO Налоговые_вычеты (Тип_вычета, Сумма, Период_Начало,	Период_Конец, DEL)
+VALUES (@Тип_вычета, @Сумма, @Период_Начало, @Период_Конец, 0)
+SET @IDRESULT = SCOPE_IDENTITY()

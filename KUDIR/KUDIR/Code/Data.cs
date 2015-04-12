@@ -81,6 +81,9 @@ namespace KUDIR.Code
                 case DataTypes.Пособия:
                     Create_Пособия();
                     break;
+                case DataTypes.Вычеты:
+                    Create_Вычеты();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -452,10 +455,61 @@ namespace KUDIR.Code
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEl_пособиеРаботника"));
 
         }
+        void Create_Вычеты()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM view_Вычет", connect);
+
+            _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE Налоговые_вычеты SET DEL = 1 WHERE Код_вычета = @ID1; UPDATE Налоговый_вычет_работника SET DEL = 1 WHERE Код_вычета = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "Код_вычета");
+
+            SqlCommand comUpd = new SqlCommand("upd_Вычет", connect);
+            comUpd.CommandType = CommandType.StoredProcedure;
+            comUpd.Parameters.Add("@Код_вычета", SqlDbType.Int, 4, "Код_вычета");
+            comUpd.Parameters.Add("@Тип_вычета", SqlDbType.VarChar, -1, "Тип вычета");
+            comUpd.Parameters.Add("@Сумма", SqlDbType.Money, sizeof(Decimal), "Сумма");
+            comUpd.Parameters.Add("@Период_Начало", SqlDbType.DateTime, 8, "Начало периода");
+            comUpd.Parameters.Add("@Период_Конец", SqlDbType.DateTime, 8, "Конец периода");
+
+            SqlCommand comIns = new SqlCommand("add_ВычетРаботника", connect);
+            comIns.CommandType = CommandType.StoredProcedure;
+            comIns.Parameters.Add("@Тип_вычета", SqlDbType.VarChar, -1, "Тип вычета");
+            comIns.Parameters.Add("@Сумма", SqlDbType.Money, sizeof(Decimal), "Сумма");
+            comIns.Parameters.Add("@Период_Начало", SqlDbType.DateTime, 8, "Начало периода");
+            comIns.Parameters.Add("@Период_Конец", SqlDbType.DateTime, 8, "Конец периода");
+            comIns.Parameters.Add("@работникID", SqlDbType.Int, 4, "работникID");
+
+            _adapter.UpdateCommand = comUpd;
+            _adapter.InsertCommand = comIns;
+            _adapter.DeleteCommand = comDel;
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("Код_вычета"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("работникID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL_вычет"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL_вычетРаботника"));
+
+        }
 
         public enum DataTypes
         {
-            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив, НезавершенныеСтроения, ТоварыТС, НДС_Приобретение, НДС_Реализация, СтоимостьСтроения, Строение, НалоговыйАгент, Работник, Выплаты, Пособия
+            Выручка,
+            Отгрузка,
+            Предоплата,
+            Кредитор,
+            Дивиденты,
+            Кооператив,
+            НезавершенныеСтроения,
+            ТоварыТС,
+            НДС_Приобретение,
+            НДС_Реализация,
+            СтоимостьСтроения,
+            Строение,
+            НалоговыйАгент,
+            Работник,
+            Выплаты,
+            Пособия,
+            Вычеты
         }
 
         public void Update()

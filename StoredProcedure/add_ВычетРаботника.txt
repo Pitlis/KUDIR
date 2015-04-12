@@ -1,0 +1,15 @@
+CREATE PROCEDURE add_ВычетРаботника
+@Тип_вычета VARCHAR(150),
+@Сумма MONEY,
+@Период_Начало DATETIME,
+@Период_Конец DATETIME,
+@работникID INT
+AS
+
+DECLARE @IDdoc INT
+IF (@Сумма IS NOT NULL)
+	BEGIN
+		EXEC add_Вычет @Тип_вычета, @Сумма, @Период_Начало, @Период_Конец, @IDdoc output;
+	END
+
+INSERT INTO Налоговый_вычет_работника (работникID, Код_вычета, DEL) VALUES (@работникID, @IDdoc, 0)

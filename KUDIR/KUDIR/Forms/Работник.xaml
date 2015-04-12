@@ -46,7 +46,7 @@
             </TabItem>
             <TabItem  Header="Пособия">
             </TabItem>
-            <TabItem  Header="Пособи2я">
+            <TabItem  Header="Налоговые вычеты">
             </TabItem>
         </TabControl>
         <Label Content="Дата выпл. вознагр." HorizontalAlignment="Left" Margin="14,134,0,0" Grid.Row="1" VerticalAlignment="Top"/>
