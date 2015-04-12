@@ -96,7 +96,7 @@ namespace KUDIR.Forms
                 build = new Data_Строение(dataBuild, 0);
                 currentBuild = 0;
                 FillForm(build);
-                grid.ShowData(dataBuildInfo, "ID_строение = " + build.ID);
+                grid.ShowData(dataBuildInfo, "ID_строение = " + build.ID, "ID");
                 dataBuildInfo.Table.Columns["ID_строение"].DefaultValue = build.ID;
             }
         }
@@ -152,7 +152,7 @@ namespace KUDIR.Forms
         {
             dataBuildInfo = new Data(Data.DataTypes.СтоимостьСтроения, strConnect);
             grid = new DataGridConfig(dgTable);
-            grid.ShowData(dataBuildInfo, "ID_строение = " + build.ID);
+            grid.ShowData(dataBuildInfo, "ID_строение = " + build.ID, "ID");
             dataBuildInfo.Table.Columns["ID_строение"].DefaultValue = build.ID;
         }
 
@@ -168,7 +168,7 @@ namespace KUDIR.Forms
             ReloadBuildInfo();
             currentBuild = -1;
             FillForm(build);
-            dgTable.CanUserAddRows = false;;
+            dgTable.CanUserAddRows = false;
         }
 
         private void dgTable_Loaded(object sender, RoutedEventArgs e)
