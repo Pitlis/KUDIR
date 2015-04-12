@@ -84,6 +84,9 @@ namespace KUDIR.Code
                 case DataTypes.Вычеты:
                     Create_Вычеты();
                     break;
+                case DataTypes.Удержания:
+                    Create_Удержания();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -490,6 +493,21 @@ namespace KUDIR.Code
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL_вычетРаботника"));
 
         }
+        void Create_Удержания()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM Удержания WHERE DEL = 0", connect);
+            new SqlCommandBuilder(_adapter);
+
+            _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE Удержания SET DEL = 1 WHERE (работникID = @ID1) AND (Дата = @ID2)", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "работникID");
+            comDel.Parameters.Add("@ID2", SqlDbType.DateTime, 8, "Дата");
+            _adapter.DeleteCommand = comDel;
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("работникID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+        }
 
         public enum DataTypes
         {
@@ -509,7 +527,8 @@ namespace KUDIR.Code
             Работник,
             Выплаты,
             Пособия,
-            Вычеты
+            Вычеты,
+            Удержания
         }
 
         public void Update()

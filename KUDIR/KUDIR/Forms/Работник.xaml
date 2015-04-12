@@ -42,12 +42,10 @@
         <Label Content="Группа и период инвалидности:" HorizontalAlignment="Left" Margin="10,176,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <TextBox Name="tbxInv" HorizontalAlignment="Left" Height="58" Margin="14,207,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372"/>
         <TabControl Name="tabControl" Margin="1,0,0,0" Grid.Row="2" Height="24" VerticalAlignment="Top" SelectionChanged="tabControl_SelectionChanged">
-            <TabItem Header="Выплаты">
-            </TabItem>
-            <TabItem  Header="Пособия">
-            </TabItem>
-            <TabItem  Header="Налоговые вычеты">
-            </TabItem>
+            <TabItem Header="Выплаты"/>
+            <TabItem  Header="Пособия"/>
+            <TabItem  Header="Налоговые вычеты"/>
+            <TabItem  Header="Удержания"/>
         </TabControl>
         <Label Content="Дата выпл. вознагр." HorizontalAlignment="Left" Margin="14,134,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <DatePicker Name="dpDateVozn" HorizontalAlignment="Left" Margin="139,136,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117"/>

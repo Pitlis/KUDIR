@@ -181,6 +181,10 @@ namespace KUDIR.Forms
                         currentTypeInfo = Data.DataTypes.Вычеты;
                         ReloadGridsInfo();
                         break;
+                    case 3:
+                        currentTypeInfo = Data.DataTypes.Удержания;
+                        ReloadGridsInfo();
+                        break;
                     default:
                         break;
                 }
