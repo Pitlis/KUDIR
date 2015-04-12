@@ -37,7 +37,6 @@ namespace KUDIR.Code
                 ChangeColumnPosition(data.Table, data.ColumnPositions, data.ColumnNames);
             }
             HideColumns(data.HiddenColumns, DGrid);
-
         }
 
         void HideColumns(List<int> columns, DataGrid grid)

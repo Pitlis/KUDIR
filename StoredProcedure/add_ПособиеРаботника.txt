@@ -1,0 +1,15 @@
+CREATE PROCEDURE add_ПособиеРаботника
+@Причина VARCHAR(150),
+@Сумма MONEY,
+@Период_Начало DATETIME,
+@Период_Конец DATETIME,
+@работникID INT
+AS
+
+DECLARE @IDdoc INT
+IF (@Сумма IS NOT NULL)
+	BEGIN
+		EXEC add_Пособие @Причина, @Сумма, @Период_Начало, @Период_Конец, @IDdoc output;
+	END
+
+INSERT INTO Пособие_работника (работникID, Код_пособия, DEL) VALUES (@работникID, @IDdoc, 0)

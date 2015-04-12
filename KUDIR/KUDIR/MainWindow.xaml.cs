@@ -38,5 +38,12 @@ namespace KUDIR
             wind.Show();
             this.Close();
         }
+
+        private void btnSeller_Copy1_Click(object sender, RoutedEventArgs e)
+        {
+            Forms.Работник wind = new Forms.Работник();
+            wind.Show();
+            this.Close();
+        }
     }
 }

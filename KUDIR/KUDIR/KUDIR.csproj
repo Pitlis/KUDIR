@@ -57,6 +57,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Работник.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Строения.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -71,9 +75,13 @@
     </Compile>
     <Compile Include="Code\Data.cs" />
     <Compile Include="Code\DataGridConfig.cs" />
+    <Compile Include="Code\Data_Работник.cs" />
     <Compile Include="Code\Data_Строение.cs" />
     <Compile Include="EditTables.xaml.cs">
       <DependentUpon>EditTables.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Работник.xaml.cs">
+      <DependentUpon>Работник.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Строения.xaml.cs">
       <DependentUpon>Строения.xaml</DependentUpon>
