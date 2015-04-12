@@ -381,7 +381,7 @@ namespace KUDIR.Code
 
             _adapter.Fill(_dataSet);
 
-            SqlCommand comDel = new SqlCommand("UPDATE view_Выплаты SET DEL = 1 WHERE ID = @ID1; UPDATE Выплата_работнику SET DEL = 1 WHERE Код_выплаты = @ID1", connect);
+            SqlCommand comDel = new SqlCommand("UPDATE Выплаты SET DEL = 1 WHERE Код_выплаты = @ID1; UPDATE Выплата_работнику SET DEL = 1 WHERE Код_выплаты = @ID1", connect);
             comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "Код_выплаты");
 
             SqlCommand comUpd = new SqlCommand("upd_Выплата", connect);
@@ -402,6 +402,7 @@ namespace KUDIR.Code
             comIns.Parameters.Add("@Период_Конец", SqlDbType.DateTime, 8, "Конец периода");
             comIns.Parameters.Add("@Начисляются_страх_взносы", SqlDbType.Bit, 1, "Начисляются страх взносы");
             comIns.Parameters.Add("@Начисляются_пенс_взносы", SqlDbType.Bit, 1, "Начисляются пенс взносы");
+            comIns.Parameters.Add("@работникID", SqlDbType.Int, 4, "работникID");
 
             _adapter.UpdateCommand = comUpd;
             _adapter.InsertCommand = comIns;
