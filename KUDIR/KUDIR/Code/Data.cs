@@ -72,6 +72,12 @@ namespace KUDIR.Code
                 case DataTypes.НалоговыйАгент:
                     Create_НалоговыйАгент();
                     break;
+                case DataTypes.Работник:
+                    Create_Работник();
+                    break;
+                case DataTypes.Выплаты:
+                    Create_Выплаты();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -358,11 +364,59 @@ namespace KUDIR.Code
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID_платежный_док"));
 
         }
+        void Create_Работник()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM Работник WHERE DEL = 0", connect);
+            new SqlCommandBuilder(_adapter);
+            _adapter.Fill(_dataSet);
 
+            SqlCommand comDel = new SqlCommand("UPDATE Работник SET DEL = 1 WHERE работникID = @ID1; UPDATE Выплата_работнику SET DEL = 1 WHERE работникID = @ID1; UPDATE Налоговый_вычет_работника SET DEL = 1 WHERE работникID = @ID1; UPDATE Пособие_работника SET DEL = 1 WHERE работникID = @ID1; UPDATE Удержания SET DEL = 1 WHERE работникID = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "ID");
+            _adapter.DeleteCommand = comDel;
+
+        }
+        void Create_Выплаты()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM view_Выплаты", connect);
+
+            _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE view_Выплаты SET DEL = 1 WHERE ID = @ID1; UPDATE Выплата_работнику SET DEL = 1 WHERE Код_выплаты = @ID1", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "Код_выплаты");
+
+            SqlCommand comUpd = new SqlCommand("upd_Выплата", connect);
+            comUpd.CommandType = CommandType.StoredProcedure;
+            comUpd.Parameters.Add("@Код_выплаты", SqlDbType.Int, 4, "Код_выплаты");
+            comUpd.Parameters.Add("@Причина", SqlDbType.VarChar, -1, "Причина");
+            comUpd.Parameters.Add("@Сумма", SqlDbType.Money, sizeof(Decimal), "Сумма");
+            comUpd.Parameters.Add("@Период_Начало", SqlDbType.DateTime, 8, "Начало периода");
+            comUpd.Parameters.Add("@Период_Конец", SqlDbType.DateTime, 8, "Конец периода");
+            comUpd.Parameters.Add("@Начисляются_страх_взносы", SqlDbType.Bit, 1, "Начисляются страх взносы");
+            comUpd.Parameters.Add("@Начисляются_пенс_взносы", SqlDbType.Bit, 1, "Начисляются пенс взносы");
+
+            SqlCommand comIns = new SqlCommand("add_ВыплатаРаботнику", connect);
+            comIns.CommandType = CommandType.StoredProcedure;
+            comIns.Parameters.Add("@Причина", SqlDbType.VarChar, -1, "Причина");
+            comIns.Parameters.Add("@Сумма", SqlDbType.Money, sizeof(Decimal), "Сумма");
+            comIns.Parameters.Add("@Период_Начало", SqlDbType.DateTime, 8, "Начало периода");
+            comIns.Parameters.Add("@Период_Конец", SqlDbType.DateTime, 8, "Конец периода");
+            comIns.Parameters.Add("@Начисляются_страх_взносы", SqlDbType.Bit, 1, "Начисляются страх взносы");
+            comIns.Parameters.Add("@Начисляются_пенс_взносы", SqlDbType.Bit, 1, "Начисляются пенс взносы");
+
+            _adapter.UpdateCommand = comUpd;
+            _adapter.InsertCommand = comIns;
+            _adapter.DeleteCommand = comDel;
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("Код_выплаты"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("работникID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL_Выплаты"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL_ВыплатыРаботнику"));
+
+        }
 
         public enum DataTypes
         {
-            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив, НезавершенныеСтроения, ТоварыТС, НДС_Приобретение, НДС_Реализация, СтоимостьСтроения, Строение, НалоговыйАгент
+            Выручка, Отгрузка, Предоплата, Кредитор, Дивиденты, Кооператив, НезавершенныеСтроения, ТоварыТС, НДС_Приобретение, НДС_Реализация, СтоимостьСтроения, Строение, НалоговыйАгент, Работник, Выплаты
         }
 
         public void Update()
