@@ -14,12 +14,13 @@ namespace KUDIR.Code
 
         public DataGridConfig(DataGrid grid)
         {
+            grid.Columns.Clear();
             DGrid = grid;
         }
 
-        public void ShowData(Data data, string filter)
+        public void ShowData(Data data, string filter, string IdName)
         {
-            DGrid.ItemsSource = new DataView(data.Table, filter, "ID", DataViewRowState.CurrentRows);
+            DGrid.ItemsSource = new DataView(data.Table, filter, IdName, DataViewRowState.CurrentRows);
             ConfigColumns(data);
         }
         public void ShowData(Data data)
