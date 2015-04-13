@@ -1,0 +1,32 @@
+CREATE PROCEDURE upd_ПодоходныйНалогПеречислено
+@работникID INT,
+@Дата DATETIME,
+@Начислено MONEY,
+@Номер_ПД VARCHAR(20),
+@ID_ПД INT,
+@Дата_ПД DATETIME,
+@Сумма_ПД MONEY
+AS
+
+DECLARE @docID INT, @docIDold INT
+IF (@ID_ПД IS NULL) AND (@Номер_ПД <> '') AND (@Сумма_ПД IS NOT NULL)
+	BEGIN
+		EXECUTE add_ПлатежныйДокумент @Номер_ПД, @Дата_ПД, @Сумма_ПД, @docID output
+	END
+
+IF (@ID_ПД IS NOT NULL) AND (@Номер_ПД <> '') AND (@Сумма_ПД IS NOT NULL)
+	BEGIN
+		EXECUTE upd_Платежный_Док @Номер_ПД, @Дата_ПД, @Сумма_ПД, @ID_ПД
+		SET @docID = @ID_ПД
+	END
+	
+SET @docIDold = (SELECT Подоходный_налог.ID_платежный_док FROM Подоходный_налог WHERE (Подоходный_налог.работникID = @работникID) AND (Подоходный_налог.Дата = @Дата)) 
+
+IF (@Номер_ПД = '') AND (@docIDold IS NOT NULL)
+	BEGIN
+		UPDATE Платежный_документ SET DEL = 1 WHERE ID_платежный_док = @docIDold
+		SET @docID = NULL
+	END
+
+UPDATE Подоходный_налог SET ID_платежный_док = @docID, Начислено = @Начислено
+WHERE (Дата = @Дата) AND (работникID = @работникID)

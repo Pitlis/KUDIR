@@ -1,0 +1,34 @@
+CREATE PROCEDURE АвтозаполнениеВыручка
+@Месяц DATETIME
+AS
+
+DECLARE @Sum1 MONEY
+DECLARE @Sum2 MONEY
+
+SET @Sum1 = (SELECT distinct SUM(Сумма_оплаты_отгр) FROM Отгрузка_товаров WHERE 
+	(DEL = 0) AND 
+	(Предоплачено = 0) AND 
+	(Month(Док_опл_отгр_Дата) = MONTH(@Месяц)) AND
+	(YEAR(Док_опл_отгр_Дата) = YEAR(@Месяц))
+	)
+	
+SET @Sum2 = (SELECT distinct SUM(Сумма_оплаты_отгр) FROM Отгрузка_товаров WHERE 
+	(DEL = 0) AND 
+	(Предоплачено = 1) AND 
+	(Month(Док_опл_отгр_Дата) = MONTH(@Месяц)) AND
+	(YEAR(Док_опл_отгр_Дата) = YEAR(@Месяц))
+	)
+	
+SET LANGUAGE русский;
+
+if (@Sum1 > 0)
+BEGIN
+INSERT INTO Выручка (Выручка_от_реализации, Дата_записи, Док_выручка_Дата, Док_выручка_Наим, Док_выручка_Номер, Содержание_операции)
+VALUES (@Sum1, GETDATE(), NULL, 'Пункт 1 части II книги учета доходов и расходов', NULL, 'Выручка за ' + datename(mm, @Месяц))
+END
+
+if (@Sum2 > 0)
+BEGIN
+INSERT INTO Выручка (Выручка_от_реализации, Дата_записи, Док_выручка_Дата, Док_выручка_Наим, Док_выручка_Номер, Содержание_операции)
+VALUES (@Sum2, GETDATE(), NULL, 'Пункт 2 части II книги учета доходов и расходов', NULL, 'Выручка за ' + datename(mm, @Месяц))
+END

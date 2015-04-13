@@ -1,0 +1,26 @@
+CREATE PROCEDURE Create_ПодоходНалогПеречислено
+@работникID INT,
+@Дата DATETIME,
+@ПодоходныйНалогПроцент INT,
+@Номер_ПлатежныйДок VARCHAR(20),
+@Дата_ПлатежныйДок DATETIME,
+@Сумма_ПлатежныйДок MONEY
+AS
+
+DECLARE @IDdoc INT
+IF (@Номер_ПлатежныйДок IS NOT NULL)
+	BEGIN
+		EXEC add_ПлатежныйДокумент @Номер_ПлатежныйДок, @Дата_ПлатежныйДок, @Сумма_ПлатежныйДок, @IDdoc output;
+	END
+	
+DECLARE @Выплаты MONEY
+DECLARE @Вычеты MONEY
+DECLARE @НалогБаза MONEY
+
+SET @Выплаты = (SELECT SUM(ISNULL(Сумма, 0)) FROM view_Выплаты WHERE (@работникID = работникID) AND ([Начало периода] < @Дата) AND ([Конец периода] > @Дата))
+SET @Вычеты = (SELECT SUM(ISNULL(Сумма, 0)) FROM view_Вычет WHERE (@работникID = работникID) AND ([Начало периода] < @Дата) AND ([Конец периода] > @Дата))
+	
+SET @НалогБаза = @Выплаты - @Вычеты;
+
+INSERT INTO Подоходный_налог (ID_платежный_док, Начислено, DEL, работникID, Дата)
+VALUES (@IDdoc, @НалогБаза * ((CAST(@ПодоходныйНалогПроцент AS REAL)/100)), 0, @работникID, @Дата)
