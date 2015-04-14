@@ -1,0 +1,14 @@
+CREATE FUNCTION Get_СуммаВыплатНачисляютсяПенсВзносы
+ (@работникID INT, @Дата DATETIME)
+RETURNS MONEY
+
+BEGIN
+	DECLARE @Summ MONEY
+	
+	SET @Summ = (SELECT SUM(ISNULL(Сумма,0)) 
+	FROM view_Выплаты
+	WHERE (@работникID = работникID) AND ([Начало периода] < @Дата) AND ([Конец периода] > @Дата) AND ([Начисляются пенс взносы] = 1)
+	)
+
+	RETURN @Summ
+END

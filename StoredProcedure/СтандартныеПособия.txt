@@ -1,0 +1,35 @@
+CREATE PROCEDURE СтандартныеПособия
+@РаботникID INT,
+@Дата DATETIME,
+@ПоВремНетрудосп MONEY output,
+@ПоБеремИРодам MONEY output,
+@Единовременное MONEY output,
+@ПоУходуЗаРебенком MONEY output,
+@Опекуну MONEY output,
+@НаДетей MONEY output,
+@РождениеРебенка MONEY output,
+@ЖенщинамУчетБеременность MONEY output,
+@Погребение MONEY output
+AS
+
+DECLARE @ПособияРаботника table(
+    Причина VARCHAR(150),
+    Сумма MONEY);
+    
+INSERT INTO @ПособияРаботника SELECT DISTINCT Пособия.Причина, Пособия.Сумма 
+FROM Пособие_работника, Пособия
+WHERE (Пособие_работника.работникID = @РаботникID) AND (Пособие_работника.DEL = 0)
+AND (Пособия.DEL = 0) AND(Пособия.Период_Начало < @Дата) AND (Пособия.Период_Конец > @Дата)
+AND (Пособие_работника.Код_пособия = Пособия.Код_пособия);
+
+SET @ПоВремНетрудосп = (SELECT SUM(Сумма) FROM @ПособияРаботника WHERE UPPER(Причина) like UPPER('%нетрудоспособности%'));
+SET @ПоБеремИРодам = (SELECT SUM(Сумма) FROM @ПособияРаботника WHERE UPPER(Причина) like UPPER('%беременности%'));
+SET @Единовременное = (SELECT SUM(Сумма) FROM @ПособияРаботника WHERE UPPER(Причина) like UPPER('%единовременное%'));
+SET @ПоУходуЗаРебенком = (SELECT SUM(Сумма) FROM @ПособияРаботника WHERE UPPER(Причина) like UPPER('%уходу за ребенком%'));
+SET @НаДетей = (SELECT SUM(Сумма) FROM @ПособияРаботника WHERE UPPER(Причина) like UPPER('%отдельных категорий семей%'));
+SET @Опекуну = (SELECT SUM(Сумма) FROM @ПособияРаботника WHERE UPPER(Причина) like UPPER('%ребенка-инвалида%'));
+SET @РождениеРебенка = (SELECT SUM(Сумма) FROM @ПособияРаботника WHERE UPPER(Причина) like UPPER('%рождением ребенка%'));
+SET @ЖенщинамУчетБеременность = (SELECT SUM(Сумма) FROM @ПособияРаботника WHERE UPPER(Причина) like UPPER('%срока беременности%'));
+SET @Погребение = (SELECT SUM(Сумма) FROM @ПособияРаботника WHERE UPPER(Причина) like UPPER('%погребение%'));
+
+SET @Единовременное = ISNULL(@Единовременное,0) + ISNULL(@РождениеРебенка,0) + ISNULL(@ЖенщинамУчетБеременность,0) + ISNULL(@Погребение,0);
