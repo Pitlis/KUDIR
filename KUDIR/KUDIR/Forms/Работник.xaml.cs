@@ -38,6 +38,7 @@ namespace KUDIR.Forms
             tbxNumber.Text = empl.Номер_договора;
             tbxInv.Text = empl.Инвалидность;
             tbxTarif.Text = empl.Тариф_пенс_взносов.ToString();
+            tbxTarifStrah.Text = empl.Тариф_страх_взносов.ToString();
             tbxDogovor.Text = empl.Условия_договора;
             dpDateDog.SelectedDate = empl.Дата_договора;
             dpDateVozn.SelectedDate = empl.Дата_выплаты_вознаграждения;
@@ -50,6 +51,13 @@ namespace KUDIR.Forms
             {
                 empl.Тариф_пенс_взносов = null;
             }
+            int tarif1 = 0;
+            if (tbxTarifStrah.Text != null && !Int32.TryParse(tbxTarifStrah.Text, out tarif1))
+            {
+                empl.Тариф_страх_взносов = null;
+            }
+            empl.Тариф_пенс_взносов = (short)tarif;
+            empl.Тариф_пенс_взносов = (short)tarif1;
             empl.ФИО = tbxName.Text;
             empl.Номер_договора = tbxNumber.Text;
             empl.Инвалидность = tbxInv.Text;

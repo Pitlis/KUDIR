@@ -47,10 +47,12 @@
             <TabItem  Header="Налоговые вычеты"/>
             <TabItem  Header="Удержания"/>
         </TabControl>
-        <Label Content="Дата выпл. вознагр." HorizontalAlignment="Left" Margin="14,134,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="119"/>
-        <DatePicker Name="dpDateVozn" HorizontalAlignment="Left" Margin="139,136,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="24"/>
+        <Label Content="Дата выпл. вознагр." HorizontalAlignment="Left" Margin="10,158,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="119"/>
+        <DatePicker Name="dpDateVozn" HorizontalAlignment="Left" Margin="139,160,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="24"/>
         <DataGrid Name="dgTable1" Margin="0,24,0,0" Grid.Row="2" Loaded="dgTable1_Loaded"/>
         <Label Content="Документы подтверждающие право на вычеты:" HorizontalAlignment="Left" Margin="10,248,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="300"/>
         <TextBox Name="tbxDocV" HorizontalAlignment="Left" Height="44" Margin="14,272,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372"/>
+        <Label Content="Тариф страх. взносов" HorizontalAlignment="Left" Margin="10,129,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="129"/>
+        <TextBox Name="tbxTarifStrah" HorizontalAlignment="Left" Height="23" Margin="139,132,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="117"/>
     </Grid>
 </Window>
