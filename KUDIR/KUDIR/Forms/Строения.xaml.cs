@@ -171,7 +171,8 @@ namespace KUDIR.Forms
             dgTable.CanUserAddRows = false;
         }
 
-        private void dgTable_Loaded(object sender, RoutedEventArgs e)
+
+        private void lo_ContentRendered(object sender, EventArgs e)
         {
             InitForm();
         }

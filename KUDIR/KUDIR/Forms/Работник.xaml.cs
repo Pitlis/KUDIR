@@ -201,9 +201,11 @@ namespace KUDIR.Forms
             }
         }
 
-        private void dgTable1_Loaded(object sender, RoutedEventArgs e)
+
+        private void Window_ContentRendered(object sender, EventArgs e)
         {
             InitForm();
         }
+
     }
 }
