@@ -21,6 +21,7 @@ namespace KUDIR.Code
         public List<int> HiddenColumns { get; private set; }
         public string[] ColumnPositions { get; private set; }
         public string[] ColumnNames { get; private set; } // новые имена упорядочены согласно их позиции в ColumnPosition
+        public bool CanEdit { get; private set; } // по умолчанию редактирование разрешено
 
         DataSet _dataSet;
         SqlConnection connect;
@@ -31,6 +32,7 @@ namespace KUDIR.Code
             HiddenColumns = new List<int>();
             _dataSet = new DataSet(type.ToString());
             connect = new SqlConnection(cnStr);
+            CanEdit = true;
             switch (type)
             {
                 case DataTypes.Выручка:
