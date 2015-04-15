@@ -30,7 +30,7 @@ namespace KUDIR
         Data data;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            data = new Data(Data.DataTypes.Дивиденты, strConnect);
+            data = new Data(Data.DataTypes.RO_Зарплаты, strConnect);
             DataGridConfig grid = new DataGridConfig(dgTable);
             grid.ShowData(data);
         }

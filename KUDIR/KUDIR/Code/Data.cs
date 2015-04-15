@@ -89,6 +89,14 @@ namespace KUDIR.Code
                 case DataTypes.Удержания:
                     Create_Удержания();
                     break;
+                case DataTypes.RO_Зарплаты:
+                    Create_Зарплаты();
+                    CanEdit = false;
+                    break;
+                case DataTypes.RO_Премии:
+                    Create_Премии();
+                    CanEdit = false;
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -510,6 +518,16 @@ namespace KUDIR.Code
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("работникID"));
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
         }
+        void Create_Зарплаты()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM view_Зарплаты", connect);
+            _adapter.Fill(_dataSet);
+        }
+        void Create_Премии()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM Выручка", connect);
+            _adapter.Fill(_dataSet);
+        }
 
         public enum DataTypes
         {
@@ -530,7 +548,9 @@ namespace KUDIR.Code
             Выплаты,
             Пособия,
             Вычеты,
-            Удержания
+            Удержания,
+            RO_Зарплаты,
+            RO_Премии
         }
 
         public void Update()

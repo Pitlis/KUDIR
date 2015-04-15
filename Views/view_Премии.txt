@@ -1,0 +1,5 @@
+SELECT     dbo.Работник.ФИО, dbo.view_Выплаты.Сумма AS [Премия сумма], dbo.view_Выплаты.[Начало периода], 
+                      dbo.view_Выплаты.[Конец периода]
+FROM         dbo.view_Выплаты INNER JOIN
+                      dbo.Работник ON dbo.view_Выплаты.работникID = dbo.Работник.работникID
+WHERE     (UPPER(dbo.view_Выплаты.Причина) LIKE UPPER('%Преми%'))
