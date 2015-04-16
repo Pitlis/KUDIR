@@ -15,7 +15,7 @@
         <Menu>
             <MenuItem Header="MenuItem"/>
             <Button Name="btnNext" Content="Следующий работник" VerticalAlignment="Top" Click="btnNext_Click" Height="25" />
-            <Button Name="btnNew" Content="Новое" VerticalAlignment="Top" Width="75" Height="25" Click="btnNew_Click"/>
+            <Button Name="btnNew" Content="Создать" VerticalAlignment="Top" Width="75" Height="25" Click="btnNew_Click"/>
             <Button x:Name="btnDelete" Content="Удалить" VerticalAlignment="Top" Width="74" Height="25" Click="btnDelete_Click"/>
             <Button Name="btnSave" Content="Сохранить" VerticalAlignment="Top" Width="74" Height="25" Click="btnSave_Click"/>
         </Menu>
@@ -41,15 +41,18 @@
         <TextBox Name="tbxDogovor" Grid.Column="0" Margin="407,41,10,0" Grid.Row="1" TextWrapping="Wrap" Text="" AcceptsReturn="True" Height="275" VerticalAlignment="Top"/>
         <Label Content="Группа и период инвалидности:" HorizontalAlignment="Left" Margin="10,176,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="186"/>
         <TextBox Name="tbxInv" HorizontalAlignment="Left" Height="44" Margin="14,203,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372"/>
-        <TabControl Name="tabControl" Margin="1,0,0,0" Grid.Row="2" Height="24" VerticalAlignment="Top" SelectionChanged="tabControl_SelectionChanged">
+        <TabControl Name="tabControl" Margin="1,0,0,0" Grid.Row="2" Height="54" VerticalAlignment="Top" SelectionChanged="tabControl_SelectionChanged">
             <TabItem Header="Выплаты"/>
             <TabItem  Header="Пособия"/>
             <TabItem  Header="Налоговые вычеты"/>
             <TabItem  Header="Удержания"/>
+            <TabItem  Header="Подоходный налог" >
+                <Button Margin="0,0,0,-2" Content="Новая запись" HorizontalAlignment="Left" Width="113" />
+            </TabItem>
         </TabControl>
         <Label Content="Дата выпл. вознагр." HorizontalAlignment="Left" Margin="10,158,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="119"/>
         <DatePicker Name="dpDateVozn" HorizontalAlignment="Left" Margin="139,160,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="24"/>
-        <DataGrid Name="dgTable1" Margin="0,24,0,0" Grid.Row="2"/>
+        <DataGrid Name="dgTable1" Margin="0,54,0,0" Grid.Row="2"/>
         <Label Content="Документы подтверждающие право на вычеты:" HorizontalAlignment="Left" Margin="10,248,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="300"/>
         <TextBox Name="tbxDocV" HorizontalAlignment="Left" Height="44" Margin="14,272,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372"/>
         <Label Content="Тариф страх. взносов" HorizontalAlignment="Left" Margin="10,129,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="129"/>

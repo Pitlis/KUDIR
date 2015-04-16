@@ -161,7 +161,14 @@ namespace KUDIR.Forms
         Data.DataTypes currentTypeInfo;
         void ReloadGridsInfo()//грид обновляется при каждом переключении между работниками, и при создании новой записи
         {
-            dataEmplInfo = new Data(currentTypeInfo, strConnect);
+            if (currentTypeInfo == Data.DataTypes.ПодоходныйНалогПеречислено)
+            {
+                dataEmplInfo = new DataPartialTables(currentTypeInfo, strConnect);
+            }
+            else
+            {
+                dataEmplInfo = new Data(currentTypeInfo, strConnect);
+            }
             grid = new DataGridConfig(dgTable1);
             grid.ShowData(dataEmplInfo, "работникID = " + employee.работникID, "работникID");
             dataEmplInfo.Table.Columns["работникID"].DefaultValue = employee.работникID;
@@ -170,6 +177,8 @@ namespace KUDIR.Forms
         bool FormLoaded = false;
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            dgTable1.CanUserAddRows = true;
+            dgTable1.Margin = new Thickness(0, 23, 0, 0);
             if (FormLoaded)
             {
                 switch (tabControl.SelectedIndex)
@@ -189,6 +198,12 @@ namespace KUDIR.Forms
                     case 3:
                         currentTypeInfo = Data.DataTypes.Удержания;
                         ReloadGridsInfo();
+                        break;
+                    case 4:
+                        currentTypeInfo = Data.DataTypes.ПодоходныйНалогПеречислено;
+                        ReloadGridsInfo();
+                        dgTable1.CanUserAddRows = false;
+                        dgTable1.Margin = new Thickness(0, 54, 0, 0);
                         break;
                     default:
                         break;

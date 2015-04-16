@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="Code\Data.cs" />
     <Compile Include="Code\DataGridConfig.cs" />
+    <Compile Include="Code\DataPartialTables.cs" />
     <Compile Include="Code\Data_Работник.cs" />
     <Compile Include="Code\Data_Строение.cs" />
     <Compile Include="EditTables.xaml.cs">
