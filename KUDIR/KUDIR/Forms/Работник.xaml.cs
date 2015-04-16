@@ -167,11 +167,6 @@ namespace KUDIR.Forms
             dataEmplInfo.Table.Columns["работникID"].DefaultValue = employee.работникID;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            InitForm();
-            FormLoaded = true;
-        }
         bool FormLoaded = false;
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -205,6 +200,7 @@ namespace KUDIR.Forms
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             InitForm();
+            FormLoaded = true;
         }
 
     }
