@@ -218,5 +218,16 @@ namespace KUDIR.Forms
             FormLoaded = true;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Add_ПодоходныйНалог wind = new Add_ПодоходныйНалог();
+            wind.EmplName = employee.ФИО;
+            if(wind.ShowDialog() == true)
+            {
+                ((DataPartialTables)dataEmplInfo).AddNewRecord(employee.работникID, wind.date, wind.nalog, wind.docNumber, wind.docDate, wind.docMoney);
+                ReloadGridsInfo();
+            }
+        }
+
     }
 }

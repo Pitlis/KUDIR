@@ -57,6 +57,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Add_ПодоходныйНалог.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Работник.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -80,6 +84,9 @@
     <Compile Include="Code\Data_Строение.cs" />
     <Compile Include="EditTables.xaml.cs">
       <DependentUpon>EditTables.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Add_ПодоходныйНалог.xaml.cs">
+      <DependentUpon>Add_ПодоходныйНалог.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Работник.xaml.cs">
       <DependentUpon>Работник.xaml</DependentUpon>

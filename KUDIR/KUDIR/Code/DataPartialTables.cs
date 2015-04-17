@@ -21,21 +21,26 @@ namespace KUDIR.Code
 
         }
 
-        public void AddNewRecord(int работникID, DateTime Дата, int ПодоходныйНалогПроцент, string Номер_ПлатежныйДок, DateTime Дата_ПлатежныйДок, Decimal Сумма_ПлатежныйДок)
+        public void AddNewRecord(int работникID, DateTime Дата, int ПодоходныйНалогПроцент, string Номер_ПлатежныйДок, DateTime? Дата_ПлатежныйДок, Decimal? Сумма_ПлатежныйДок)
         {
             SqlConnection connection = new SqlConnection(connect.ConnectionString);
             SqlCommand comIns = new SqlCommand("Create_ПодоходНалогПеречислено", connection);
             comIns.CommandType = CommandType.StoredProcedure;
             comIns.Parameters.Add(new SqlParameter("@работникID", работникID));
-            comIns.Parameters.Add(new SqlParameter("@ДатаID", Дата));
-            comIns.Parameters.Add(new SqlParameter("@ПодоходныйНалогПроцентID", ПодоходныйНалогПроцент));
-            comIns.Parameters.Add(new SqlParameter("@Номер_ПлатежныйДокID", Номер_ПлатежныйДок));
-            comIns.Parameters.Add(new SqlParameter("@Дата_ПлатежныйДокID", Дата_ПлатежныйДок));
-            comIns.Parameters.Add(new SqlParameter("@Сумма_ПлатежныйДокID", Сумма_ПлатежныйДок));
+            comIns.Parameters.Add(new SqlParameter("@Дата", Дата));
+            comIns.Parameters.Add(new SqlParameter("@ПодоходныйНалогПроцент", ПодоходныйНалогПроцент));
+            comIns.Parameters.Add(new SqlParameter("@Номер_ПлатежныйДок", Номер_ПлатежныйДок == null ? DBNull.Value : (object)Номер_ПлатежныйДок));
+            comIns.Parameters.Add(new SqlParameter("@Дата_ПлатежныйДок", Дата_ПлатежныйДок == null ? DBNull.Value : (object)Дата_ПлатежныйДок));
+            comIns.Parameters.Add(new SqlParameter("@Сумма_ПлатежныйДок", Сумма_ПлатежныйДок == null ? DBNull.Value : (object)Сумма_ПлатежныйДок));
 
+            connection.Open();
             using(connection)
             {
-                comIns.ExecuteNonQuery();
+                try
+                {
+                    comIns.ExecuteNonQuery();
+                }
+                catch { }
             }
         }
     }
