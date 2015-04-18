@@ -1,0 +1,33 @@
+CREATE PROCEDURE upd_ПенсионныйВзнос
+@работникID INT,
+@Дата DATETIME,
+@ИныеПлатежи MONEY,
+@ЗадолжЗаПредПериод MONEY,
+@Номер_ПД VARCHAR(20),
+@ID_ПД INT,
+@Дата_ПД DATETIME,
+@Сумма_ПД MONEY
+AS
+
+DECLARE @docID INT, @docIDold INT
+IF (@ID_ПД IS NULL) AND (@Номер_ПД <> '') AND (@Сумма_ПД IS NOT NULL)
+	BEGIN
+		EXECUTE add_ПлатежныйДокумент @Номер_ПД, @Дата_ПД, @Сумма_ПД, @docID output
+	END
+
+IF (@ID_ПД IS NOT NULL) AND (@Номер_ПД <> '') AND (@Сумма_ПД IS NOT NULL)
+	BEGIN
+		EXECUTE upd_Платежный_Док @Номер_ПД, @Дата_ПД, @Сумма_ПД, @ID_ПД
+		SET @docID = @ID_ПД
+	END
+	
+SET @docIDold = (SELECT Пенсионный_взнос.ID_платежный_док FROM Пенсионный_взнос WHERE (Пенсионный_взнос.работникID = @работникID) AND (Пенсионный_взнос.Дата = @Дата)) 
+
+IF (@Номер_ПД = '') AND (@docIDold IS NOT NULL)
+	BEGIN
+		UPDATE Платежный_документ SET DEL = 1 WHERE ID_платежный_док = @docIDold
+		SET @docID = NULL
+	END
+
+UPDATE Пенсионный_взнос SET Иные_платежи = @ИныеПлатежи, Задолж_за_пред_период = @ЗадолжЗаПредПериод, ID_платежный_док = @docID
+WHERE (Дата = @Дата) AND (работникID = @работникID)

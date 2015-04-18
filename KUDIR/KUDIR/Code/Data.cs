@@ -103,6 +103,9 @@ namespace KUDIR.Code
                 case DataTypes.СтраховойВзнос:
                     Create_СтраховойВзнос();
                     break;
+                case DataTypes.ПенсионныйВзнос:
+                    Create_ПенсионныйВзнос();
+                    break;
                 default:
                     throw new Exception("Некорректный тип данных!");
             }
@@ -598,6 +601,37 @@ namespace KUDIR.Code
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID_платежный_док"));
 
         }
+        void Create_ПенсионныйВзнос()
+        {
+            _adapter = new SqlDataAdapter("Select * FROM view_ПенсВзносы", connect);
+
+            _adapter.Fill(_dataSet);
+
+            SqlCommand comDel = new SqlCommand("UPDATE Пенсионный_взнос SET DEL = 1 WHERE (работникID = @ID1) AND (Дата = @ID3); UPDATE Платежный_документ SET DEL = 1 WHERE ID_платежный_док = @ID2", connect);
+            comDel.Parameters.Add("@ID1", SqlDbType.Int, 4, "работникID");
+            comDel.Parameters.Add("@ID2", SqlDbType.Int, 4, "ID_платежный_док");
+            comDel.Parameters.Add("@ID3", SqlDbType.DateTime, 8, "Дата");
+
+            SqlCommand comUpd = new SqlCommand("upd_ПенсионныйВзнос", connect);
+            comUpd.CommandType = CommandType.StoredProcedure;
+            comUpd.Parameters.Add("@работникID", SqlDbType.Int, 4, "работникID");
+            comUpd.Parameters.Add("@Дата", SqlDbType.DateTime, 8, "Дата");
+            comUpd.Parameters.Add("@Номер_ПД", SqlDbType.VarChar, -1, "Номер плат инстр");
+            comUpd.Parameters.Add("@ID_ПД", SqlDbType.Int, 4, "ID_платежный_док");
+            comUpd.Parameters.Add("@Дата_ПД", SqlDbType.DateTime, 8, "Дата плат инстр");
+            comUpd.Parameters.Add("@Сумма_ПД", SqlDbType.Money, sizeof(Decimal), "Перечислено в Фонд");
+            comUpd.Parameters.Add("@ЗадолжЗаПредПериод", SqlDbType.Money, sizeof(Decimal), "Остаток задолженности за пред период");
+            comUpd.Parameters.Add("@ИныеПлатежи", SqlDbType.Money, sizeof(Decimal), "Иные платежи");
+            
+
+            _adapter.UpdateCommand = comUpd;
+            _adapter.DeleteCommand = comDel;
+
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("DEL"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("работникID"));
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID_платежный_док"));
+
+        }
 
         public enum DataTypes
         {
@@ -622,7 +656,8 @@ namespace KUDIR.Code
             RO_Зарплаты,
             RO_Премии,
             ПодоходныйНалогПеречислено,
-            СтраховойВзнос
+            СтраховойВзнос,
+            ПенсионныйВзнос
         }
 
         public void Update()

@@ -57,15 +57,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\Add_ПодоходныйНалог.xaml">
+    <Page Include="Forms\Работник\Add_ПенсионныйВзнос.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\Add_СтраховойВзнос.xaml">
+    <Page Include="Forms\Работник\Add_ПодоходныйНалог.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\Работник.xaml">
+    <Page Include="Forms\Работник\Add_СтраховойВзнос.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Работник\Работник.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,13 +93,16 @@
     <Compile Include="EditTables.xaml.cs">
       <DependentUpon>EditTables.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Add_ПодоходныйНалог.xaml.cs">
+    <Compile Include="Forms\Работник\Add_ПенсионныйВзнос.xaml.cs">
+      <DependentUpon>Add_ПенсионныйВзнос.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Работник\Add_ПодоходныйНалог.xaml.cs">
       <DependentUpon>Add_ПодоходныйНалог.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Add_СтраховойВзнос.xaml.cs">
+    <Compile Include="Forms\Работник\Add_СтраховойВзнос.xaml.cs">
       <DependentUpon>Add_СтраховойВзнос.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Работник.xaml.cs">
+    <Compile Include="Forms\Работник\Работник.xaml.cs">
       <DependentUpon>Работник.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Строения.xaml.cs">
