@@ -47,7 +47,10 @@
             <TabItem  Header="Налоговые вычеты"/>
             <TabItem  Header="Удержания"/>
             <TabItem  Header="Подоходный налог" >
-                <Button Margin="0,0,0,-2" Content="Новая запись" HorizontalAlignment="Left" Width="113" Click="Button_Click" />
+                <Button Margin="0,0,0,-2" Content="Новая запись" HorizontalAlignment="Left" Width="113" Click="btnAddRecord_Nalog" />
+            </TabItem>
+            <TabItem  Header="Страховой взнос" >
+                <Button Margin="0,0,0,-2" Content="Новая запись" HorizontalAlignment="Left" Width="113" Click="btnAddRecord_Insurance" />
             </TabItem>
         </TabControl>
         <Label Content="Дата выпл. вознагр." HorizontalAlignment="Left" Margin="10,158,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="119"/>

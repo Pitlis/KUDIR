@@ -161,7 +161,7 @@ namespace KUDIR.Forms
         Data.DataTypes currentTypeInfo;
         void ReloadGridsInfo()//грид обновляется при каждом переключении между работниками, и при создании новой записи
         {
-            if (currentTypeInfo == Data.DataTypes.ПодоходныйНалогПеречислено)
+            if (currentTypeInfo == Data.DataTypes.ПодоходныйНалогПеречислено || currentTypeInfo == Data.DataTypes.СтраховойВзнос)
             {
                 dataEmplInfo = new DataPartialTables(currentTypeInfo, strConnect);
             }
@@ -205,6 +205,12 @@ namespace KUDIR.Forms
                         dgTable1.CanUserAddRows = false;
                         dgTable1.Margin = new Thickness(0, 54, 0, 0);
                         break;
+                    case 5:
+                        currentTypeInfo = Data.DataTypes.СтраховойВзнос;
+                        ReloadGridsInfo();
+                        dgTable1.CanUserAddRows = false;
+                        dgTable1.Margin = new Thickness(0, 54, 0, 0);
+                        break;
                     default:
                         break;
                 }
@@ -218,13 +224,24 @@ namespace KUDIR.Forms
             FormLoaded = true;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnAddRecord_Nalog(object sender, RoutedEventArgs e)
         {
             Add_ПодоходныйНалог wind = new Add_ПодоходныйНалог();
             wind.EmplName = employee.ФИО;
             if(wind.ShowDialog() == true)
             {
                 ((DataPartialTables)dataEmplInfo).AddNewRecord(employee.работникID, wind.date, wind.nalog, wind.docNumber, wind.docDate, wind.docMoney);
+                ReloadGridsInfo();
+            }
+        }
+
+        private void btnAddRecord_Insurance(object sender, RoutedEventArgs e)
+        {
+            Add_СтраховойВзнос wind = new Add_СтраховойВзнос();
+            wind.EmplName = employee.ФИО;
+            if(wind.ShowDialog() == true)
+            {
+                ((DataPartialTables)dataEmplInfo).AddNewRecord(employee.работникID, wind.date, (short)wind.Days, wind.Others, wind.Fond, wind.Dolg, wind.Month, wind.docNumber, wind.docDate, wind.docMoney);
                 ReloadGridsInfo();
             }
         }

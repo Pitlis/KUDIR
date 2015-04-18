@@ -1,0 +1,36 @@
+CREATE PROCEDURE upd_СтраховойВзнос
+@работникID INT,
+@Дата DATETIME,
+@Дней SMALLINT,
+@ИныеПлатежи MONEY,
+@ПеречисленоФондом MONEY,
+@ЗадолжЗаПредПериод MONEY,
+@ЗаМесяц TINYINT,
+@Номер_ПД VARCHAR(20),
+@ID_ПД INT,
+@Дата_ПД DATETIME,
+@Сумма_ПД MONEY
+AS
+
+DECLARE @docID INT, @docIDold INT
+IF (@ID_ПД IS NULL) AND (@Номер_ПД <> '') AND (@Сумма_ПД IS NOT NULL)
+	BEGIN
+		EXECUTE add_ПлатежныйДокумент @Номер_ПД, @Дата_ПД, @Сумма_ПД, @docID output
+	END
+
+IF (@ID_ПД IS NOT NULL) AND (@Номер_ПД <> '') AND (@Сумма_ПД IS NOT NULL)
+	BEGIN
+		EXECUTE upd_Платежный_Док @Номер_ПД, @Дата_ПД, @Сумма_ПД, @ID_ПД
+		SET @docID = @ID_ПД
+	END
+	
+SET @docIDold = (SELECT Страховой_взнос.ID_платежный_док FROM Страховой_взнос WHERE (Страховой_взнос.работникID = @работникID) AND (Страховой_взнос.Дата = @Дата)) 
+
+IF (@Номер_ПД = '') AND (@docIDold IS NOT NULL)
+	BEGIN
+		UPDATE Платежный_документ SET DEL = 1 WHERE ID_платежный_док = @docIDold
+		SET @docID = NULL
+	END
+	
+UPDATE Страховой_взнос SET ID_платежный_док = @docID, Рабочих_дней = @Дней, Иные_платежи = @ИныеПлатежи, Перечислено_Фондом_плательщику = @ПеречисленоФондом, За_месяц = @ЗаМесяц, Задолж_за_пред_период = @ЗадолжЗаПредПериод
+WHERE (Дата = @Дата) AND (работникID = @работникID)
