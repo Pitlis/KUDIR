@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 15.75, 9" name="DataClasses">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 15.75, 9.625" name="DataClasses">
   <DataContextMoniker Name="/DataClassesDataContext" />
   <nestedChildShapes>
     <classShape Id="54645809-ce55-4277-a2c5-2bda68924b3f" absoluteBounds="11.75, 1.375, 2, 2.5401025390625">
@@ -50,7 +50,7 @@
         <elementListCompartment Id="daac2b8a-3495-49cd-b658-9b5dacf010cc" absoluteBounds="0.51500000000000057, 4.085, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.5 : 6.35500325520833); (6.875 : 6.35500325520833); (6.875 : 6.07859537760417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.5 : 6.35500325520833); (6.875 : 6.35500325520833); (6.875 : 6.07859537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DataClassesDataContext/Работник/Работник_Удержания" />
       <nodes>
         <classShapeMoniker Id="c84ed7a5-5ca6-490d-b450-d4e0b140d7f8" />
@@ -79,6 +79,12 @@
       <DataClassMoniker Name="/DataClassesDataContext/view_НалоговыйАгент" />
       <nestedChildShapes>
         <elementListCompartment Id="019bc2b8-3c7b-47b2-8a61-cd029d41d146" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="815b6bc7-13dd-4225-9e6f-aa4a66d3944f" absoluteBounds="5.5, 7, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/DataClassesDataContext/Производственный_кооператив" />
+      <nestedChildShapes>
+        <elementListCompartment Id="679ab2ac-e535-416d-9f7e-7269ceaebf42" absoluteBounds="5.5150000000000006, 7.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

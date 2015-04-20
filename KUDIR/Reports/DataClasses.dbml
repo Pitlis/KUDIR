@@ -180,6 +180,18 @@
       <Column Name="[Номер плат инстр]" Member="Номер_плат_инстр" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Производственный_кооператив" Member="Производственный_кооперативs">
+    <Type Name="Производственный_кооператив">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ФИО" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Размер_пая" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Размер_паевых_взносов" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Выплачена_стоимость_пая" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Выдано_иное_имущество" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Иные_выплаты_при_выходе_из_кооператива" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.СуммыВычетов" Method="СуммыВычетов">
     <Parameter Name="РаботникID" Parameter="работникID" Type="System.Int32" DbType="Int" />
     <Parameter Name="Дата" Parameter="дата" Type="System.DateTime" DbType="DateTime" />

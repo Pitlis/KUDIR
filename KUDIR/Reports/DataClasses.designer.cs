@@ -42,6 +42,9 @@ namespace Reports
     partial void InsertРаботник(Работник instance);
     partial void UpdateРаботник(Работник instance);
     partial void DeleteРаботник(Работник instance);
+    partial void InsertПроизводственный_кооператив(Производственный_кооператив instance);
+    partial void UpdateПроизводственный_кооператив(Производственный_кооператив instance);
+    partial void DeleteПроизводственный_кооператив(Производственный_кооператив instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -167,6 +170,14 @@ namespace Reports
 			get
 			{
 				return this.GetTable<view_НалоговыйАгент>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Производственный_кооператив> Производственный_кооперативs
+		{
+			get
+			{
+				return this.GetTable<Производственный_кооператив>();
 			}
 		}
 		
@@ -3028,6 +3039,236 @@ namespace Reports
 				{
 					this._Номер_плат_инстр = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Производственный_кооператив")]
+	public partial class Производственный_кооператив : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _ФИО;
+		
+		private System.Nullable<decimal> _Размер_пая;
+		
+		private System.Nullable<decimal> _Размер_паевых_взносов;
+		
+		private System.Nullable<decimal> _Выплачена_стоимость_пая;
+		
+		private System.Nullable<decimal> _Выдано_иное_имущество;
+		
+		private System.Nullable<decimal> _Иные_выплаты_при_выходе_из_кооператива;
+		
+		private bool _DEL;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnФИОChanging(string value);
+    partial void OnФИОChanged();
+    partial void OnРазмер_паяChanging(System.Nullable<decimal> value);
+    partial void OnРазмер_паяChanged();
+    partial void OnРазмер_паевых_взносовChanging(System.Nullable<decimal> value);
+    partial void OnРазмер_паевых_взносовChanged();
+    partial void OnВыплачена_стоимость_паяChanging(System.Nullable<decimal> value);
+    partial void OnВыплачена_стоимость_паяChanged();
+    partial void OnВыдано_иное_имуществоChanging(System.Nullable<decimal> value);
+    partial void OnВыдано_иное_имуществоChanged();
+    partial void OnИные_выплаты_при_выходе_из_кооперативаChanging(System.Nullable<decimal> value);
+    partial void OnИные_выплаты_при_выходе_из_кооперативаChanged();
+    partial void OnDELChanging(bool value);
+    partial void OnDELChanged();
+    #endregion
+		
+		public Производственный_кооператив()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ФИО", DbType="VarChar(150)")]
+		public string ФИО
+		{
+			get
+			{
+				return this._ФИО;
+			}
+			set
+			{
+				if ((this._ФИО != value))
+				{
+					this.OnФИОChanging(value);
+					this.SendPropertyChanging();
+					this._ФИО = value;
+					this.SendPropertyChanged("ФИО");
+					this.OnФИОChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Размер_пая", DbType="Money")]
+		public System.Nullable<decimal> Размер_пая
+		{
+			get
+			{
+				return this._Размер_пая;
+			}
+			set
+			{
+				if ((this._Размер_пая != value))
+				{
+					this.OnРазмер_паяChanging(value);
+					this.SendPropertyChanging();
+					this._Размер_пая = value;
+					this.SendPropertyChanged("Размер_пая");
+					this.OnРазмер_паяChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Размер_паевых_взносов", DbType="Money")]
+		public System.Nullable<decimal> Размер_паевых_взносов
+		{
+			get
+			{
+				return this._Размер_паевых_взносов;
+			}
+			set
+			{
+				if ((this._Размер_паевых_взносов != value))
+				{
+					this.OnРазмер_паевых_взносовChanging(value);
+					this.SendPropertyChanging();
+					this._Размер_паевых_взносов = value;
+					this.SendPropertyChanged("Размер_паевых_взносов");
+					this.OnРазмер_паевых_взносовChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Выплачена_стоимость_пая", DbType="Money")]
+		public System.Nullable<decimal> Выплачена_стоимость_пая
+		{
+			get
+			{
+				return this._Выплачена_стоимость_пая;
+			}
+			set
+			{
+				if ((this._Выплачена_стоимость_пая != value))
+				{
+					this.OnВыплачена_стоимость_паяChanging(value);
+					this.SendPropertyChanging();
+					this._Выплачена_стоимость_пая = value;
+					this.SendPropertyChanged("Выплачена_стоимость_пая");
+					this.OnВыплачена_стоимость_паяChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Выдано_иное_имущество", DbType="Money")]
+		public System.Nullable<decimal> Выдано_иное_имущество
+		{
+			get
+			{
+				return this._Выдано_иное_имущество;
+			}
+			set
+			{
+				if ((this._Выдано_иное_имущество != value))
+				{
+					this.OnВыдано_иное_имуществоChanging(value);
+					this.SendPropertyChanging();
+					this._Выдано_иное_имущество = value;
+					this.SendPropertyChanged("Выдано_иное_имущество");
+					this.OnВыдано_иное_имуществоChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Иные_выплаты_при_выходе_из_кооператива", DbType="Money")]
+		public System.Nullable<decimal> Иные_выплаты_при_выходе_из_кооператива
+		{
+			get
+			{
+				return this._Иные_выплаты_при_выходе_из_кооператива;
+			}
+			set
+			{
+				if ((this._Иные_выплаты_при_выходе_из_кооператива != value))
+				{
+					this.OnИные_выплаты_при_выходе_из_кооперативаChanging(value);
+					this.SendPropertyChanging();
+					this._Иные_выплаты_при_выходе_из_кооператива = value;
+					this.SendPropertyChanged("Иные_выплаты_при_выходе_из_кооператива");
+					this.OnИные_выплаты_при_выходе_из_кооперативаChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit NOT NULL")]
+		public bool DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this.OnDELChanging(value);
+					this.SendPropertyChanging();
+					this._DEL = value;
+					this.SendPropertyChanged("DEL");
+					this.OnDELChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

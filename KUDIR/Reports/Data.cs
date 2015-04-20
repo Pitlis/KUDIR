@@ -189,7 +189,12 @@ namespace Reports
                     orderby v.Наименование_организации
                     select v).ToList<view_НалоговыйАгент>();
         }
-
+        public List<Производственный_кооператив> Get_Кооператив()
+        {
+            return (from v in context.Производственный_кооперативs
+                        where v.ФИО != null
+                        select v).ToList<Производственный_кооператив>();
+        }
 
         #region Дополнительные типы
 

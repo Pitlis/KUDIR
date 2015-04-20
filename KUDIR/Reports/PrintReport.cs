@@ -301,6 +301,28 @@ namespace Reports
             }
             wb.Save();
         }
+        public void Кооператив()
+        {
+            XLWorkbook wb = GetCopyTemplate("Кооператив.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(3);
+            List<Производственный_кооператив> list = new Data().Get_Кооператив();
+
+            int i = 1;
+            foreach (var record in list)
+            {
+                newRow = InsertRow(newRow, 1, 7, 10);
+                newRow.Cell(1).Value = i;
+                newRow.Cell(2).Value = record.ФИО;
+                newRow.Cell(3).Value = record.Размер_пая;
+                newRow.Cell(4).Value = record.Размер_паевых_взносов;
+                newRow.Cell(5).Value = record.Выплачена_стоимость_пая;
+                newRow.Cell(6).Value = record.Выдано_иное_имущество;
+                newRow.Cell(7).Value = record.Иные_выплаты_при_выходе_из_кооператива;
+                i++;
+            }
+            wb.Save();
+        }
 
         #endregion
     }

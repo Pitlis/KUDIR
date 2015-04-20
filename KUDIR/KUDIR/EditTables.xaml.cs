@@ -31,20 +31,14 @@ namespace KUDIR
         Data data;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            data = new Data(Data.DataTypes.НалоговыйАгент, strConnect);
+            data = new Data(Data.DataTypes.Кооператив, strConnect);
             DataGridConfig grid = new DataGridConfig(dgTable);
             grid.ShowData(data);
 
 
             PrintReport pr = new PrintReport("D:\\Отчет.xlsx");
-            pr.НалоговыйАгент(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10));
-            //DateTime date1 = new DateTime(2015, 4, 1);
-            //DateTime date2 = new DateTime(2015, 4, 17);
-            //IEnumerable<DataRow> query =
-            //    from row in data.Table.AsEnumerable()
-            //    where row["Дата_записи"] != DBNull.Value && row.Field<DateTime>("Дата_записи") >= date1 && row.Field<DateTime>("Дата_записи") <= date2
-            //    select row;
-            //PrintRepotrs.Выручка("D:\\Отчет.xlsx", query.CopyToDataTable<DataRow>(), 300, 500);
+            //pr.НалоговыйАгент(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10));
+            pr.Кооператив();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
