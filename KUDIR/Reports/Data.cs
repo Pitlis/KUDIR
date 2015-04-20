@@ -9,11 +9,14 @@ namespace Reports
     internal class Data
     {
         static string connStr = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\VirtualBox\BBD\SHARE\KUDIR.mdf;Integrated Security=True;Connect Timeout=30";
-        public Data(){}
+        DataClassesDataContext context;
+        public Data()
+        {
+            context = new DataClassesDataContext(connStr);
+        }
 
         public ВыручкаForPrint Get_Выручка(DateTime start, DateTime end)
         {
-            DataClassesDataContext context = new DataClassesDataContext(connStr);
             ВыручкаForPrint records = new ВыручкаForPrint();
             records.SumOthersYear = (from v in context.Выручкаs where v.Дата_записи.Value.Year == start.Year select v.Внереализационные_доходы.GetValueOrDefault()).Sum();
             records.SumRealizYear = (from v in context.Выручкаs where v.Дата_записи.Value.Year == start.Year select v.Выручка_от_реализации.GetValueOrDefault()).Sum();
@@ -25,7 +28,6 @@ namespace Reports
         }
         public Dictionary<Отгрузка_Key, Отгрузка_info> Get_Отгрузка(DateTime start, DateTime end)
         {
-            DataClassesDataContext context = new DataClassesDataContext(connStr);
             view_Отгрузка records = new view_Отгрузка();
             Dictionary<Отгрузка_Key, Отгрузка_info> dict = new Dictionary<Отгрузка_Key, Отгрузка_info>();
 
@@ -57,7 +59,6 @@ namespace Reports
         }
         public Dictionary<Предоплата_Key, Предоплата_info> Get_Предоплата(DateTime start, DateTime end)
         {
-            DataClassesDataContext context = new DataClassesDataContext(connStr);
             view_Предоплата records = new view_Предоплата();
             Dictionary<Предоплата_Key, Предоплата_info> dict = new Dictionary<Предоплата_Key, Предоплата_info>();
 
