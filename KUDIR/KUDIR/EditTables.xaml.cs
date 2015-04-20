@@ -31,13 +31,13 @@ namespace KUDIR
         Data data;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            data = new Data(Data.DataTypes.Кредитор, strConnect);
+            data = new Data(Data.DataTypes.Дивиденты, strConnect);
             DataGridConfig grid = new DataGridConfig(dgTable);
             grid.ShowData(data);
 
 
             PrintReport pr = new PrintReport("D:\\Отчет.xlsx");
-            pr.ПодоходныйНалогПеречислено(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10), 1);
+            pr.Дивиденты(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10));
             //DateTime date1 = new DateTime(2015, 4, 1);
             //DateTime date2 = new DateTime(2015, 4, 17);
             //IEnumerable<DataRow> query =

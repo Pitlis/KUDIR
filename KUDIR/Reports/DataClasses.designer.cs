@@ -154,6 +154,14 @@ namespace Reports
 			}
 		}
 		
+		public System.Data.Linq.Table<view_Дивиденты> view_Дивидентыs
+		{
+			get
+			{
+				return this.GetTable<view_Дивиденты>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.СуммыВычетов")]
 		public int СуммыВычетов([global::System.Data.Linq.Mapping.ParameterAttribute(Name="РаботникID", DbType="Int")] System.Nullable<int> работникID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Дата", DbType="DateTime")] System.Nullable<System.DateTime> дата, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Стандартные", DbType="Money")] ref System.Nullable<decimal> стандартные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Социальные", DbType="Money")] ref System.Nullable<decimal> социальные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Имущественные", DbType="Money")] ref System.Nullable<decimal> имущественные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Профессиональные", DbType="Money")] ref System.Nullable<decimal> профессиональные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ОсвобождаемыеДоходы", DbType="Money")] ref System.Nullable<decimal> освобождаемыеДоходы)
 		{
@@ -2453,6 +2461,231 @@ namespace Reports
 				if ((this._ID_платежный_док != value))
 				{
 					this._ID_платежный_док = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.view_Дивиденты")]
+	public partial class view_Дивиденты
+	{
+		
+		private int _ID;
+		
+		private System.Nullable<int> _ID_платежный_док;
+		
+		private string _Наименование_организации;
+		
+		private System.Nullable<System.DateTime> _Дата_начисления;
+		
+		private System.Nullable<decimal> _Сумма;
+		
+		private System.Nullable<decimal> _Налоговая_база;
+		
+		private System.Nullable<int> _Ставка_налога;
+		
+		private System.Nullable<float> _Сумма_налога;
+		
+		private System.Nullable<System.DateTime> _Дата_плат_инстр;
+		
+		private string _Номер_плат_инстр;
+		
+		private System.Nullable<decimal> _Перечислено_налога;
+		
+		private bool _DEL;
+		
+		public view_Дивиденты()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int NOT NULL")]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_платежный_док", DbType="Int")]
+		public System.Nullable<int> ID_платежный_док
+		{
+			get
+			{
+				return this._ID_платежный_док;
+			}
+			set
+			{
+				if ((this._ID_платежный_док != value))
+				{
+					this._ID_платежный_док = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Наименование организации]", Storage="_Наименование_организации", DbType="VarChar(150)")]
+		public string Наименование_организации
+		{
+			get
+			{
+				return this._Наименование_организации;
+			}
+			set
+			{
+				if ((this._Наименование_организации != value))
+				{
+					this._Наименование_организации = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Дата начисления]", Storage="_Дата_начисления", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_начисления
+		{
+			get
+			{
+				return this._Дата_начисления;
+			}
+			set
+			{
+				if ((this._Дата_начисления != value))
+				{
+					this._Дата_начисления = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Сумма", DbType="Money")]
+		public System.Nullable<decimal> Сумма
+		{
+			get
+			{
+				return this._Сумма;
+			}
+			set
+			{
+				if ((this._Сумма != value))
+				{
+					this._Сумма = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Налоговая база]", Storage="_Налоговая_база", DbType="Money")]
+		public System.Nullable<decimal> Налоговая_база
+		{
+			get
+			{
+				return this._Налоговая_база;
+			}
+			set
+			{
+				if ((this._Налоговая_база != value))
+				{
+					this._Налоговая_база = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Ставка налога]", Storage="_Ставка_налога", DbType="Int")]
+		public System.Nullable<int> Ставка_налога
+		{
+			get
+			{
+				return this._Ставка_налога;
+			}
+			set
+			{
+				if ((this._Ставка_налога != value))
+				{
+					this._Ставка_налога = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Сумма налога]", Storage="_Сумма_налога", DbType="Real")]
+		public System.Nullable<float> Сумма_налога
+		{
+			get
+			{
+				return this._Сумма_налога;
+			}
+			set
+			{
+				if ((this._Сумма_налога != value))
+				{
+					this._Сумма_налога = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Дата плат инстр]", Storage="_Дата_плат_инстр", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_плат_инстр
+		{
+			get
+			{
+				return this._Дата_плат_инстр;
+			}
+			set
+			{
+				if ((this._Дата_плат_инстр != value))
+				{
+					this._Дата_плат_инстр = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Номер плат инстр]", Storage="_Номер_плат_инстр", DbType="VarChar(20)")]
+		public string Номер_плат_инстр
+		{
+			get
+			{
+				return this._Номер_плат_инстр;
+			}
+			set
+			{
+				if ((this._Номер_плат_инстр != value))
+				{
+					this._Номер_плат_инстр = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Перечислено налога]", Storage="_Перечислено_налога", DbType="Money")]
+		public System.Nullable<decimal> Перечислено_налога
+		{
+			get
+			{
+				return this._Перечислено_налога;
+			}
+			set
+			{
+				if ((this._Перечислено_налога != value))
+				{
+					this._Перечислено_налога = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit NOT NULL")]
+		public bool DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this._DEL = value;
 				}
 			}
 		}

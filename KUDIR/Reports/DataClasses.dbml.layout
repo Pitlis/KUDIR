@@ -69,5 +69,11 @@
         <elementListCompartment Id="abe64d46-61da-4b27-b8ba-4d59faf507be" absoluteBounds="4.765, 1.335, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="59d5fdb4-5e80-4e1c-a5ca-c551c4b1df21" absoluteBounds="8.75, 3.75, 2, 3.1170068359375">
+      <DataClassMoniker Name="/DataClassesDataContext/view_Дивиденты" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dccf839d-a3db-4fcc-bdc2-2e8d2a0d1275" absoluteBounds="8.765, 4.21, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

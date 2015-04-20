@@ -46,12 +46,12 @@ namespace Reports
 
         #region Отчеты
 
-        public void Выручка(DateTime startPerion, DateTime endPeriod)
+        public void Выручка(DateTime startPeriod, DateTime endPeriod)
         {
             XLWorkbook wb = GetCopyTemplate("Выручка.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(4);
-            Data.ВыручкаForPrint records = new Data().Get_Выручка(startPerion, endPeriod);
+            Data.ВыручкаForPrint records = new Data().Get_Выручка(startPeriod, endPeriod);
 
             foreach(Reports.Выручка record in records.list)
             {
@@ -74,12 +74,12 @@ namespace Reports
             wb.Save();
         }
 
-        public void Отгрузка(DateTime startPerion, DateTime endPeriod)
+        public void Отгрузка(DateTime startPeriod, DateTime endPeriod)
         {
             XLWorkbook wb = GetCopyTemplate("Отгрузка.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(5);
-            Dictionary<Reports.Data.Отгрузка_Key, Reports.Data.Отгрузка_info> records = new Data().Get_Отгрузка(startPerion, endPeriod);
+            Dictionary<Reports.Data.Отгрузка_Key, Reports.Data.Отгрузка_info> records = new Data().Get_Отгрузка(startPeriod, endPeriod);
 
             Decimal[] results = new Decimal[12];
             foreach(var record in records)
@@ -119,12 +119,12 @@ namespace Reports
             }
             wb.Save();
         }
-        public void Предоплата(DateTime startPerion, DateTime endPeriod)
+        public void Предоплата(DateTime startPeriod, DateTime endPeriod)
         {
             XLWorkbook wb = GetCopyTemplate("Предоплата.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(5);
-            Dictionary<Reports.Data.Предоплата_Key, Reports.Data.Предоплата_info> records = new Data().Get_Предоплата(startPerion, endPeriod);
+            Dictionary<Reports.Data.Предоплата_Key, Reports.Data.Предоплата_info> records = new Data().Get_Предоплата(startPeriod, endPeriod);
 
             Decimal[] results = new Decimal[12];
             foreach (var record in records)
@@ -165,12 +165,12 @@ namespace Reports
             wb.Save();
         }
 
-        public void Кредитор(DateTime startPerion, DateTime endPeriod)
+        public void Кредитор(DateTime startPeriod, DateTime endPeriod)
         {
             XLWorkbook wb = GetCopyTemplate("Кредитор.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(5);
-            List<Кредитор> records = new Data().Get_Кредитор(startPerion, endPeriod);
+            List<Кредитор> records = new Data().Get_Кредитор(startPeriod, endPeriod);
             Decimal result = 0;
             foreach (Reports.Кредитор record in records)
             {
@@ -192,12 +192,12 @@ namespace Reports
 
             wb.Save();
         }
-        public void ПодоходныйНалог(DateTime start, DateTime end, int emplID)
+        public void ПодоходныйНалог(DateTime startPeriod, DateTime endPeriod, int emplID)
         {
             XLWorkbook wb = GetCopyTemplate("ПодоходныйНалог.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(12);
-            Reports.Data.РаботникForPrint empl = new Data().Get_ПодоходныйНалог(start, end, emplID);
+            Reports.Data.РаботникForPrint empl = new Data().Get_ПодоходныйНалог(startPeriod, endPeriod, emplID);
 
             foreach(var record in empl.payments)
             {
@@ -220,18 +220,18 @@ namespace Reports
             }
 
             ws.Cell(2, 3).Value = empl.employee.ФИО;
-            ws.Cell(2, 6).Value = "за " + start.Year + " год";
+            ws.Cell(2, 6).Value = "за " + startPeriod.Year + " год";
             ws.Cell(4, 3).Value = empl.employee.Документы_вычеты;
             ws.Cell(6, 3).Value = DateToString(empl.employee.Дата_договора) + ", " + empl.employee.Номер_договора;
 
             wb.Save();
         }
-        public void ПодоходныйНалогПеречислено(DateTime start, DateTime end, int emplID)
+        public void ПодоходныйНалогПеречислено(DateTime startPeriod, DateTime endPeriod, int emplID)
         {
             XLWorkbook wb = GetCopyTemplate("ПодоходныйНалогПеречислено.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(4);
-            List<view_ПодоходныйНалогПеречисл> list = new Data().Get_ПодоходныйНалогПеречисл(start, end, emplID);
+            List<view_ПодоходныйНалогПеречисл> list = new Data().Get_ПодоходныйНалогПеречисл(startPeriod, endPeriod, emplID);
 
             int i = 1;
             foreach (var record in list)
@@ -247,7 +247,31 @@ namespace Reports
             }
             wb.Save();
         }
+        public void Дивиденты(DateTime startPeriod, DateTime endPeriod)
+        {
+            XLWorkbook wb = GetCopyTemplate("Дивиденты.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(5);
+            List<view_Дивиденты> list = new Data().Get_Дивиденты(startPeriod, endPeriod);
 
+            int i = 1;
+            foreach (var record in list)
+            {
+                newRow = InsertRow(newRow, 1, 9, 8);
+                newRow.Cell(1).Value = i;
+                newRow.Cell(2).Value = record.Наименование_организации;
+                newRow.Cell(3).Value = DateToString(record.Дата_начисления);
+                newRow.Cell(4).Value = record.Сумма;
+                newRow.Cell(5).Value = record.Налоговая_база;
+                newRow.Cell(6).Value = record.Ставка_налога;
+                newRow.Cell(7).Value = record.Сумма_налога;
+                newRow.Cell(8).Value = DateToString(record.Дата_плат_инстр) + ", " +
+                    record.Номер_плат_инстр;
+                newRow.Cell(9).Value = record.Перечислено_налога;
+                i++;
+            }
+            wb.Save();
+        }
 
         #endregion
     }

@@ -173,6 +173,14 @@ namespace Reports
                     orderby v.Месяц
                     select v).ToList<view_ПодоходныйНалогПеречисл>();
         }
+        public List<view_Дивиденты> Get_Дивиденты(DateTime start, DateTime end)
+        {
+            return (from v in context.view_Дивидентыs
+                   where v.Дата_начисления >= start && v.Дата_начисления <= end &&
+                       v.Сумма.HasValue && v.Налоговая_база.HasValue && v.Ставка_налога.HasValue
+                   orderby v.Дата_начисления
+                   select v).ToList<view_Дивиденты>();
+        }
 
 
         #region Дополнительные типы
