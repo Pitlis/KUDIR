@@ -226,6 +226,27 @@ namespace Reports
 
             wb.Save();
         }
+        public void ПодоходныйНалогПеречислено(DateTime start, DateTime end, int emplID)
+        {
+            XLWorkbook wb = GetCopyTemplate("ПодоходныйНалогПеречислено.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(4);
+            List<view_ПодоходныйНалогПеречисл> list = new Data().Get_ПодоходныйНалогПеречисл(start, end, emplID);
+
+            int i = 1;
+            foreach (var record in list)
+            {
+                newRow = InsertRow(newRow, 1, 4, 10);
+                newRow.Cell(1).Value = i;
+                newRow.Cell(2).Value = record.Месяц.ToString("MMMM");
+                newRow.Cell(3).Value = record.Начислено;
+                newRow.Cell(4).Value = record.Перечислено + ", " +
+                    DateToString(record.Дата) + ", " +
+                    record.Номер_платежной_инструкции;
+                i++;
+            }
+            wb.Save();
+        }
 
 
         #endregion

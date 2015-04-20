@@ -63,5 +63,11 @@
         <elementListCompartment Id="5bbb38bd-bf97-4f97-aaed-be978e9165ba" absoluteBounds="7.015, 1.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="60e0dac6-1103-4af7-a1b1-79a5ff9d6178" absoluteBounds="4.75, 0.875, 2, 2.5401025390625">
+      <DataClassMoniker Name="/DataClassesDataContext/view_ПодоходныйНалогПеречисл" />
+      <nestedChildShapes>
+        <elementListCompartment Id="abe64d46-61da-4b27-b8ba-4d59faf507be" absoluteBounds="4.765, 1.335, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

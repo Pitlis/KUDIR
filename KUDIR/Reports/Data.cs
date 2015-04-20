@@ -166,6 +166,12 @@ namespace Reports
 
             return emplInfo;
         }
+        public List<view_ПодоходныйНалогПеречисл> Get_ПодоходныйНалогПеречисл(DateTime start, DateTime end, int emplID)
+        {
+            return (from v in context.view_ПодоходныйНалогПеречислs 
+                   where v.работникID == emplID && v.Месяц >= start && v.Месяц <= end && v.Начислено.HasValue
+                    select v).ToList<view_ПодоходныйНалогПеречисл>();
+        }
 
 
         #region Дополнительные типы

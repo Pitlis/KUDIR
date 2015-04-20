@@ -146,6 +146,14 @@ namespace Reports
 			}
 		}
 		
+		public System.Data.Linq.Table<view_ПодоходныйНалогПеречисл> view_ПодоходныйНалогПеречислs
+		{
+			get
+			{
+				return this.GetTable<view_ПодоходныйНалогПеречисл>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.СуммыВычетов")]
 		public int СуммыВычетов([global::System.Data.Linq.Mapping.ParameterAttribute(Name="РаботникID", DbType="Int")] System.Nullable<int> работникID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Дата", DbType="DateTime")] System.Nullable<System.DateTime> дата, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Стандартные", DbType="Money")] ref System.Nullable<decimal> стандартные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Социальные", DbType="Money")] ref System.Nullable<decimal> социальные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Имущественные", DbType="Money")] ref System.Nullable<decimal> имущественные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Профессиональные", DbType="Money")] ref System.Nullable<decimal> профессиональные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ОсвобождаемыеДоходы", DbType="Money")] ref System.Nullable<decimal> освобождаемыеДоходы)
 		{
@@ -2274,6 +2282,177 @@ namespace Reports
 				if ((this._работникID != value))
 				{
 					this._работникID = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.view_ПодоходныйНалогПеречисл")]
+	public partial class view_ПодоходныйНалогПеречисл
+	{
+		
+		private int _работникID;
+		
+		private System.Nullable<bool> _DEL;
+		
+		private System.Nullable<bool> _Expr1;
+		
+		private System.DateTime _Месяц;
+		
+		private System.Nullable<decimal> _Начислено;
+		
+		private System.Nullable<decimal> _Перечислено;
+		
+		private System.Nullable<System.DateTime> _Дата;
+		
+		private string _Номер_платежной_инструкции;
+		
+		private System.Nullable<int> _ID_платежный_док;
+		
+		public view_ПодоходныйНалогПеречисл()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_работникID", DbType="Int NOT NULL")]
+		public int работникID
+		{
+			get
+			{
+				return this._работникID;
+			}
+			set
+			{
+				if ((this._работникID != value))
+				{
+					this._работникID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit")]
+		public System.Nullable<bool> DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this._DEL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Expr1", DbType="Bit")]
+		public System.Nullable<bool> Expr1
+		{
+			get
+			{
+				return this._Expr1;
+			}
+			set
+			{
+				if ((this._Expr1 != value))
+				{
+					this._Expr1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Месяц", DbType="DateTime NOT NULL")]
+		public System.DateTime Месяц
+		{
+			get
+			{
+				return this._Месяц;
+			}
+			set
+			{
+				if ((this._Месяц != value))
+				{
+					this._Месяц = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Начислено", DbType="Money")]
+		public System.Nullable<decimal> Начислено
+		{
+			get
+			{
+				return this._Начислено;
+			}
+			set
+			{
+				if ((this._Начислено != value))
+				{
+					this._Начислено = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Перечислено", DbType="Money")]
+		public System.Nullable<decimal> Перечислено
+		{
+			get
+			{
+				return this._Перечислено;
+			}
+			set
+			{
+				if ((this._Перечислено != value))
+				{
+					this._Перечислено = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Дата", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата
+		{
+			get
+			{
+				return this._Дата;
+			}
+			set
+			{
+				if ((this._Дата != value))
+				{
+					this._Дата = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Номер платежной инструкции]", Storage="_Номер_платежной_инструкции", DbType="VarChar(20)")]
+		public string Номер_платежной_инструкции
+		{
+			get
+			{
+				return this._Номер_платежной_инструкции;
+			}
+			set
+			{
+				if ((this._Номер_платежной_инструкции != value))
+				{
+					this._Номер_платежной_инструкции = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_платежный_док", DbType="Int")]
+		public System.Nullable<int> ID_платежный_док
+		{
+			get
+			{
+				return this._ID_платежный_док;
+			}
+			set
+			{
+				if ((this._ID_платежный_док != value))
+				{
+					this._ID_платежный_док = value;
 				}
 			}
 		}
