@@ -33,6 +33,9 @@ namespace Reports
     partial void InsertВыручка(Выручка instance);
     partial void UpdateВыручка(Выручка instance);
     partial void DeleteВыручка(Выручка instance);
+    partial void InsertКредитор(Кредитор instance);
+    partial void UpdateКредитор(Кредитор instance);
+    partial void DeleteКредитор(Кредитор instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -86,6 +89,14 @@ namespace Reports
 			get
 			{
 				return this.GetTable<view_Предоплата>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Кредитор> Кредиторs
+		{
+			get
+			{
+				return this.GetTable<Кредитор>();
 			}
 		}
 	}
@@ -934,6 +945,332 @@ namespace Reports
 				{
 					this._Дата_отгрузки = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Кредитор")]
+	public partial class Кредитор : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Название;
+		
+		private System.Nullable<decimal> _Сумма_бр;
+		
+		private string _Номер_договора;
+		
+		private string _Предмет_договора;
+		
+		private System.Nullable<System.DateTime> _Дата_договора;
+		
+		private string _Наим_валюты;
+		
+		private System.Nullable<decimal> _Сумма_в_валюте;
+		
+		private bool _DEL;
+		
+		private string _Док_задолж_Наим;
+		
+		private string _Док_задолж_Номер;
+		
+		private System.Nullable<System.DateTime> _Док_задолж_Дата;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnНазваниеChanging(string value);
+    partial void OnНазваниеChanged();
+    partial void OnСумма_брChanging(System.Nullable<decimal> value);
+    partial void OnСумма_брChanged();
+    partial void OnНомер_договораChanging(string value);
+    partial void OnНомер_договораChanged();
+    partial void OnПредмет_договораChanging(string value);
+    partial void OnПредмет_договораChanged();
+    partial void OnДата_договораChanging(System.Nullable<System.DateTime> value);
+    partial void OnДата_договораChanged();
+    partial void OnНаим_валютыChanging(string value);
+    partial void OnНаим_валютыChanged();
+    partial void OnСумма_в_валютеChanging(System.Nullable<decimal> value);
+    partial void OnСумма_в_валютеChanged();
+    partial void OnDELChanging(bool value);
+    partial void OnDELChanged();
+    partial void OnДок_задолж_НаимChanging(string value);
+    partial void OnДок_задолж_НаимChanged();
+    partial void OnДок_задолж_НомерChanging(string value);
+    partial void OnДок_задолж_НомерChanged();
+    partial void OnДок_задолж_ДатаChanging(System.Nullable<System.DateTime> value);
+    partial void OnДок_задолж_ДатаChanged();
+    #endregion
+		
+		public Кредитор()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Название", DbType="VarChar(80)")]
+		public string Название
+		{
+			get
+			{
+				return this._Название;
+			}
+			set
+			{
+				if ((this._Название != value))
+				{
+					this.OnНазваниеChanging(value);
+					this.SendPropertyChanging();
+					this._Название = value;
+					this.SendPropertyChanged("Название");
+					this.OnНазваниеChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Сумма_бр", DbType="Money")]
+		public System.Nullable<decimal> Сумма_бр
+		{
+			get
+			{
+				return this._Сумма_бр;
+			}
+			set
+			{
+				if ((this._Сумма_бр != value))
+				{
+					this.OnСумма_брChanging(value);
+					this.SendPropertyChanging();
+					this._Сумма_бр = value;
+					this.SendPropertyChanged("Сумма_бр");
+					this.OnСумма_брChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Номер_договора", DbType="VarChar(20)")]
+		public string Номер_договора
+		{
+			get
+			{
+				return this._Номер_договора;
+			}
+			set
+			{
+				if ((this._Номер_договора != value))
+				{
+					this.OnНомер_договораChanging(value);
+					this.SendPropertyChanging();
+					this._Номер_договора = value;
+					this.SendPropertyChanged("Номер_договора");
+					this.OnНомер_договораChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Предмет_договора", DbType="VarChar(200)")]
+		public string Предмет_договора
+		{
+			get
+			{
+				return this._Предмет_договора;
+			}
+			set
+			{
+				if ((this._Предмет_договора != value))
+				{
+					this.OnПредмет_договораChanging(value);
+					this.SendPropertyChanging();
+					this._Предмет_договора = value;
+					this.SendPropertyChanged("Предмет_договора");
+					this.OnПредмет_договораChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Дата_договора", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_договора
+		{
+			get
+			{
+				return this._Дата_договора;
+			}
+			set
+			{
+				if ((this._Дата_договора != value))
+				{
+					this.OnДата_договораChanging(value);
+					this.SendPropertyChanging();
+					this._Дата_договора = value;
+					this.SendPropertyChanged("Дата_договора");
+					this.OnДата_договораChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Наим_валюты", DbType="VarChar(50)")]
+		public string Наим_валюты
+		{
+			get
+			{
+				return this._Наим_валюты;
+			}
+			set
+			{
+				if ((this._Наим_валюты != value))
+				{
+					this.OnНаим_валютыChanging(value);
+					this.SendPropertyChanging();
+					this._Наим_валюты = value;
+					this.SendPropertyChanged("Наим_валюты");
+					this.OnНаим_валютыChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Сумма_в_валюте", DbType="Money")]
+		public System.Nullable<decimal> Сумма_в_валюте
+		{
+			get
+			{
+				return this._Сумма_в_валюте;
+			}
+			set
+			{
+				if ((this._Сумма_в_валюте != value))
+				{
+					this.OnСумма_в_валютеChanging(value);
+					this.SendPropertyChanging();
+					this._Сумма_в_валюте = value;
+					this.SendPropertyChanged("Сумма_в_валюте");
+					this.OnСумма_в_валютеChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit NOT NULL")]
+		public bool DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this.OnDELChanging(value);
+					this.SendPropertyChanging();
+					this._DEL = value;
+					this.SendPropertyChanged("DEL");
+					this.OnDELChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Док_задолж_Наим", DbType="VarChar(100)")]
+		public string Док_задолж_Наим
+		{
+			get
+			{
+				return this._Док_задолж_Наим;
+			}
+			set
+			{
+				if ((this._Док_задолж_Наим != value))
+				{
+					this.OnДок_задолж_НаимChanging(value);
+					this.SendPropertyChanging();
+					this._Док_задолж_Наим = value;
+					this.SendPropertyChanged("Док_задолж_Наим");
+					this.OnДок_задолж_НаимChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Док_задолж_Номер", DbType="VarChar(30)")]
+		public string Док_задолж_Номер
+		{
+			get
+			{
+				return this._Док_задолж_Номер;
+			}
+			set
+			{
+				if ((this._Док_задолж_Номер != value))
+				{
+					this.OnДок_задолж_НомерChanging(value);
+					this.SendPropertyChanging();
+					this._Док_задолж_Номер = value;
+					this.SendPropertyChanged("Док_задолж_Номер");
+					this.OnДок_задолж_НомерChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Док_задолж_Дата", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Док_задолж_Дата
+		{
+			get
+			{
+				return this._Док_задолж_Дата;
+			}
+			set
+			{
+				if ((this._Док_задолж_Дата != value))
+				{
+					this.OnДок_задолж_ДатаChanging(value);
+					this.SendPropertyChanging();
+					this._Док_задолж_Дата = value;
+					this.SendPropertyChanged("Док_задолж_Дата");
+					this.OnДок_задолж_ДатаChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

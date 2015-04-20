@@ -88,6 +88,10 @@ namespace Reports
             }
             return dict;
         }
+        public List<Кредитор> Get_Кредитор(DateTime start, DateTime end)
+        {
+            return (from k in context.Кредиторs where k.Док_задолж_Дата.Value >= start && k.Док_задолж_Дата.Value <= end select k).ToList<Кредитор>();
+        }
 
 
         #region Дополнительные типы

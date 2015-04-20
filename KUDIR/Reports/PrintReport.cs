@@ -165,6 +165,34 @@ namespace Reports
             wb.Save();
         }
 
+        public void Кредитор(DateTime startPerion, DateTime endPeriod)
+        {
+            XLWorkbook wb = GetCopyTemplate("Кредитор.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(5);
+            List<Кредитор> records = new Data().Get_Кредитор(startPerion, endPeriod);
+            Decimal result = 0;
+            foreach (Reports.Кредитор record in records)
+            {
+                newRow = InsertRow(newRow, 1, 6, 10);
+                newRow.Cell(1).Value = record.Название;
+                newRow.Cell(2).Value = record.Номер_договора + ", " + 
+                    DateToString(record.Дата_договора) +  ", " + 
+                    record.Предмет_договора;
+                newRow.Cell(3).Value = record.Док_задолж_Наим + ", " +
+                    record.Док_задолж_Номер + ", " +
+                    DateToString(record.Док_задолж_Дата);
+                newRow.Cell(4).Value = record.Сумма_бр;
+                newRow.Cell(5).Value = record.Наим_валюты;
+                newRow.Cell(6).Value = record.Сумма_в_валюте;
+
+                result += record.Сумма_бр.HasValue ? record.Сумма_бр.Value : 0;
+            }
+            newRow.RowBelow(1).Cell(4).Value = result;
+
+            wb.Save();
+        }
+
         #endregion
     }
 }
