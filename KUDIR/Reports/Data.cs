@@ -181,6 +181,14 @@ namespace Reports
                    orderby v.Дата_начисления
                    select v).ToList<view_Дивиденты>();
         }
+        public List<view_НалоговыйАгент> Get_НалоговыйАгент(DateTime start, DateTime end)
+        {
+            return (from v in context.view_НалоговыйАгентs
+                    where v.Дата_начисления_платежа >= start && v.Дата_начисления_платежа <= end &&
+                    v.Наименование_организации != null && v.Сумма_платежа != null
+                    orderby v.Наименование_организации
+                    select v).ToList<view_НалоговыйАгент>();
+        }
 
 
         #region Дополнительные типы

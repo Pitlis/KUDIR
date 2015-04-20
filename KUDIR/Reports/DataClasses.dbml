@@ -158,6 +158,28 @@
       <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.view_НалоговыйАгент" Member="view_НалоговыйАгентs">
+    <Type Name="view_НалоговыйАгент">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ID_платежный_док" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Наименование организации]" Member="Наименование_организации" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Страна" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="[Вид дохода]" Member="Вид_дохода" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="[Дата начисления платежа]" Member="Дата_начисления_платежа" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Сумма платежа]" Member="Сумма_платежа" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Сумма затрат для исчисления налога]" Member="Сумма_затрат_для_исчисления_налога" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Сумма дохода осв от налога по зак РБ]" Member="Сумма_дохода_осв_от_налога_по_зак_РБ" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[по международному договору]" Member="по_международному_договору" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[облагаемый доход]" Member="облагаемый_доход" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Ставка налога по зак РБ]" Member="Ставка_налога_по_зак_РБ" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="[ставка по международному договору]" Member="ставка_по_международному_договору" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Подлежит уплате]" Member="Подлежит_уплате" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Перечислено" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Дата плат инстр]" Member="Дата_плат_инстр" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Номер плат инстр]" Member="Номер_плат_инстр" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.СуммыВычетов" Method="СуммыВычетов">
     <Parameter Name="РаботникID" Parameter="работникID" Type="System.Int32" DbType="Int" />
     <Parameter Name="Дата" Parameter="дата" Type="System.DateTime" DbType="DateTime" />

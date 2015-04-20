@@ -272,6 +272,35 @@ namespace Reports
             }
             wb.Save();
         }
+        public void НалоговыйАгент(DateTime startPeriod, DateTime endPeriod)
+        {
+            XLWorkbook wb = GetCopyTemplate("НалоговыйАгент.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(5);
+            List<view_НалоговыйАгент> list = new Data().Get_НалоговыйАгент(startPeriod, endPeriod);
+
+            int i = 1;
+            foreach (var record in list)
+            {
+                newRow = InsertRow(newRow, 1, 13, 8);
+                newRow.Cell(1).Value = i;
+                newRow.Cell(2).Value = record.Наименование_организации + ", " + record.Страна;
+                newRow.Cell(3).Value = record.Вид_дохода;
+                newRow.Cell(4).Value = DateToString(record.Дата_начисления_платежа);
+                newRow.Cell(5).Value = record.Сумма_платежа;
+                newRow.Cell(6).Value = record.Сумма_затрат_для_исчисления_налога;
+                newRow.Cell(7).Value = record.Сумма_дохода_осв_от_налога_по_зак_РБ;
+                newRow.Cell(8).Value = record.по_международному_договору;
+                newRow.Cell(9).Value = record.облагаемый_доход;
+                newRow.Cell(10).Value = record.Ставка_налога_по_зак_РБ;
+                newRow.Cell(11).Value = record.ставка_по_международному_договору;
+                newRow.Cell(12).Value = record.Подлежит_уплате;
+                newRow.Cell(13).Value = record.Перечислено + ", " + DateToString(record.Дата_плат_инстр) + ", " +
+                    record.Номер_плат_инстр;
+                i++;
+            }
+            wb.Save();
+        }
 
         #endregion
     }
