@@ -23,7 +23,44 @@ namespace Reports
 
             return records;
         }
-        
+        public Dictionary<Отгрузка_Key, Отгрузка_info> Get_Отгрузка(DateTime start, DateTime end)
+        {
+            DataClassesDataContext context = new DataClassesDataContext(connStr);
+            view_Отгрузка records = new view_Отгрузка();
+            Dictionary<Отгрузка_Key, Отгрузка_info> dict = new Dictionary<Отгрузка_Key, Отгрузка_info>();
+
+            var query = from v in context.view_Отгрузкаs where v.Дата_отгрузки >= start && v.Дата_отгрузки <= end select v;
+
+            foreach(view_Отгрузка record in query)
+            {
+                if(record.Дата_отгрузки.HasValue && record.Номер_док_отгрузки != null)
+                {
+                    Отгрузка_Key key = new Отгрузка_Key() { date = record.Дата_отгрузки.Value.Date, docNumber = record.Номер_док_отгрузки };
+                    if(!dict.ContainsKey(key))
+                    {
+                        dict.Add(key, new Отгрузка_info() { commonInfo = record, платежи = new List<view_Отгрузка>() });
+                    }
+                }
+            }
+
+            foreach(view_Отгрузка record in query)
+            {
+                if(!record.Дата_отгрузки.HasValue || record.Номер_док_отгрузки == null)
+                    continue;
+                Отгрузка_Key key = new Отгрузка_Key() { date = record.Дата_отгрузки.Value.Date, docNumber = record.Номер_док_отгрузки };
+                if(dict.ContainsKey(key))
+                {
+                    dict[key].платежи.Add(record);
+                }
+            }
+
+
+            return dict;
+        }
+
+
+        #region Дополнительные типы
+
         public struct ВыручкаForPrint
         {
             public List<Reports.Выручка> list;
@@ -32,5 +69,18 @@ namespace Reports
             public Decimal SumRealizYear;
             public Decimal SumOthersYear;
         }
+
+        public struct Отгрузка_Key
+        {
+            public DateTime date;
+            public string docNumber;
+        }
+        public struct Отгрузка_info
+        {
+            public view_Отгрузка commonInfo;
+            public List<view_Отгрузка> платежи;
+        }
+
+        #endregion
     }
 }
