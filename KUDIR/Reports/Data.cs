@@ -21,7 +21,7 @@ namespace Reports
             ВыручкаForPrint records = new ВыручкаForPrint();
             records.SumOthersYear = (from v in context.Выручкаs where v.Дата_записи.Value.Year == start.Year select v.Внереализационные_доходы.GetValueOrDefault()).Sum();
             records.SumRealizYear = (from v in context.Выручкаs where v.Дата_записи.Value.Year == start.Year select v.Выручка_от_реализации.GetValueOrDefault()).Sum();
-            records.list = (from v in context.Выручкаs where v.Дата_записи.Value >= start && v.Дата_записи.Value <= end select v).ToList();
+            records.list = (from v in context.Выручкаs where v.Дата_записи.Value >= start && v.Дата_записи.Value <= end orderby v.Дата_записи select v).ToList();
             records.SumOthers = (from v in records.list select v.Внереализационные_доходы.GetValueOrDefault()).Sum();
             records.SumRealiz = (from v in records.list select v.Выручка_от_реализации.GetValueOrDefault()).Sum();
 
@@ -32,7 +32,7 @@ namespace Reports
             view_Отгрузка records = new view_Отгрузка();
             Dictionary<Отгрузка_Key, Отгрузка_info> dict = new Dictionary<Отгрузка_Key, Отгрузка_info>();
 
-            var query = from v in context.view_Отгрузкаs where v.Дата_отгрузки >= start && v.Дата_отгрузки <= end select v;
+            var query = from v in context.view_Отгрузкаs where v.Дата_отгрузки >= start && v.Дата_отгрузки <= end orderby v.Дата_отгрузки select v;
 
             foreach (view_Отгрузка record in query)
             {
@@ -63,7 +63,7 @@ namespace Reports
             view_Предоплата records = new view_Предоплата();
             Dictionary<Предоплата_Key, Предоплата_info> dict = new Dictionary<Предоплата_Key, Предоплата_info>();
 
-            var query = from v in context.view_Предоплатаs where v.Дата_предоплаты >= start && v.Дата_предоплаты <= end select v;
+            var query = from v in context.view_Предоплатаs where v.Дата_предоплаты >= start && v.Дата_предоплаты <= end orderby v.Дата_предоплаты select v;
 
             foreach (view_Предоплата record in query)
             {
@@ -91,7 +91,7 @@ namespace Reports
         }
         public List<Кредитор> Get_Кредитор(DateTime start, DateTime end)
         {
-            return (from k in context.Кредиторs where k.Док_задолж_Дата.Value >= start && k.Док_задолж_Дата.Value <= end select k).ToList<Кредитор>();
+            return (from k in context.Кредиторs where k.Док_задолж_Дата.Value >= start && k.Док_задолж_Дата.Value <= end orderby k.Док_задолж_Дата select k).ToList<Кредитор>();
         }
         public РаботникForPrint Get_ПодоходныйНалог(DateTime start, DateTime end, int emplID)
         {
@@ -170,6 +170,7 @@ namespace Reports
         {
             return (from v in context.view_ПодоходныйНалогПеречислs 
                    where v.работникID == emplID && v.Месяц >= start && v.Месяц <= end && v.Начислено.HasValue
+                    orderby v.Месяц
                     select v).ToList<view_ПодоходныйНалогПеречисл>();
         }
 
