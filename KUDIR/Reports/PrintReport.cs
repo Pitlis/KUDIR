@@ -119,6 +119,51 @@ namespace Reports
             }
             wb.Save();
         }
+        public void Предоплата(DateTime startPerion, DateTime endPeriod)
+        {
+            XLWorkbook wb = GetCopyTemplate("Предоплата.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(5);
+            Dictionary<Reports.Data.Предоплата_Key, Reports.Data.Предоплата_info> records = new Data().Get_Предоплата(startPerion, endPeriod);
+
+            Decimal[] results = new Decimal[12];
+            foreach (var record in records)
+            {
+                newRow = InsertRow(newRow, 1, 32, 8);
+                newRow.Cell(1).Value = DateToString(record.Key.date);
+                newRow.Cell(2).Value = record.Value.commonInfo.Лицо_которому_реализ_товар + ", " +
+                    record.Value.commonInfo.Наим_док_оплаты + ", " +
+                    record.Key.docNumber + ", " +
+                    DateToString(record.Value.commonInfo.Дата_док_оплаты);
+                newRow.Cell(3).Value = record.Value.commonInfo.Сумма_предоплаты;
+                newRow.Cell(4).Value = record.Value.commonInfo.Наим_валюты;
+                newRow.Cell(5).Value = record.Value.commonInfo.Сумма_в_валюте;
+
+                foreach (var payment in record.Value.платежи)
+                {
+                    if (!payment.Дата_отгрузки.HasValue && !payment.Дата_док_отгрузки.HasValue)
+                        continue;
+
+                    int month = 0;
+                    if (payment.Дата_док_отгрузки.HasValue)
+                        month = payment.Дата_док_отгрузки.Value.Date.Month;
+                    if (payment.Дата_отгрузки.HasValue)
+                        month = payment.Дата_отгрузки.Value.Date.Month;
+
+                    newRow.Cell(4 + month * 2).Value = payment.Наим_док_отгрузки + ", " +
+                        DateToString(payment.Дата_док_отгрузки) + ", " +
+                        payment.Номер_док_отгрузки + ", " +
+                        DateToString(payment.Дата_отгрузки);
+                    newRow.Cell(5 + month * 2).Value = payment.Сумма;
+                    results[month - 1] += payment.Сумма.HasValue ? payment.Сумма.Value : 0;
+                }
+            }
+            for (int i = 0; i < 12; ++i)
+            {
+                newRow.RowBelow(1).Cell(7 + 2 * i).Value = results[i];
+            }
+            wb.Save();
+        }
 
         #endregion
     }

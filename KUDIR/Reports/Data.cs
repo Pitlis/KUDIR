@@ -53,8 +53,38 @@ namespace Reports
                     dict[key].платежи.Add(record);
                 }
             }
+            return dict;
+        }
+        public Dictionary<Предоплата_Key, Предоплата_info> Get_Предоплата(DateTime start, DateTime end)
+        {
+            DataClassesDataContext context = new DataClassesDataContext(connStr);
+            view_Предоплата records = new view_Предоплата();
+            Dictionary<Предоплата_Key, Предоплата_info> dict = new Dictionary<Предоплата_Key, Предоплата_info>();
 
+            var query = from v in context.view_Предоплатаs where v.Дата_предоплаты >= start && v.Дата_предоплаты <= end select v;
 
+            foreach (view_Предоплата record in query)
+            {
+                if (record.Дата_предоплаты.HasValue && record.Номер_док_оплаты != null)
+                {
+                    Предоплата_Key key = new Предоплата_Key() { date = record.Дата_предоплаты.Value.Date, docNumber = record.Номер_док_оплаты };
+                    if (!dict.ContainsKey(key))
+                    {
+                        dict.Add(key, new Предоплата_info() { commonInfo = record, платежи = new List<view_Предоплата>() });
+                    }
+                }
+            }
+
+            foreach (view_Предоплата record in query)
+            {
+                if (!record.Дата_предоплаты.HasValue || record.Номер_док_оплаты == null)
+                    continue;
+                Предоплата_Key key = new Предоплата_Key() { date = record.Дата_предоплаты.Value.Date, docNumber = record.Номер_док_оплаты };
+                if (dict.ContainsKey(key))
+                {
+                    dict[key].платежи.Add(record);
+                }
+            }
             return dict;
         }
 
@@ -79,6 +109,17 @@ namespace Reports
         {
             public view_Отгрузка commonInfo;
             public List<view_Отгрузка> платежи;
+        }
+
+        public struct Предоплата_Key
+        {
+            public DateTime date;
+            public string docNumber;
+        }
+        public struct Предоплата_info
+        {
+            public view_Предоплата commonInfo;
+            public List<view_Предоплата> платежи;
         }
 
         #endregion

@@ -80,6 +80,14 @@ namespace Reports
 				return this.GetTable<view_Отгрузка>();
 			}
 		}
+		
+		public System.Data.Linq.Table<view_Предоплата> view_Предоплатаs
+		{
+			get
+			{
+				return this.GetTable<view_Предоплата>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Выручка")]
@@ -628,6 +636,303 @@ namespace Reports
 				if ((this._Дата_оплаты != value))
 				{
 					this._Дата_оплаты = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.view_Предоплата")]
+	public partial class view_Предоплата
+	{
+		
+		private int _ID;
+		
+		private System.Nullable<System.DateTime> _Дата_предоплаты;
+		
+		private string _Лицо_которому_реализ_товар;
+		
+		private string _Наим_док_оплаты;
+		
+		private string _Номер_док_оплаты;
+		
+		private System.Nullable<System.DateTime> _Дата_док_оплаты;
+		
+		private System.Nullable<decimal> _Сумма_предоплаты;
+		
+		private string _Наим_валюты;
+		
+		private System.Nullable<decimal> _Сумма_в_валюте;
+		
+		private string _Наим_док_отгрузки;
+		
+		private string _Номер_док_отгрузки;
+		
+		private System.Nullable<System.DateTime> _Дата_док_отгрузки;
+		
+		private System.Nullable<bool> _Предоплачено;
+		
+		private bool _DEL;
+		
+		private System.Nullable<decimal> _Сумма;
+		
+		private System.Nullable<System.DateTime> _Дата_отгрузки;
+		
+		public view_Предоплата()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Дата предоплаты]", Storage="_Дата_предоплаты", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_предоплаты
+		{
+			get
+			{
+				return this._Дата_предоплаты;
+			}
+			set
+			{
+				if ((this._Дата_предоплаты != value))
+				{
+					this._Дата_предоплаты = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Лицо которому реализ товар]", Storage="_Лицо_которому_реализ_товар", DbType="VarChar(50)")]
+		public string Лицо_которому_реализ_товар
+		{
+			get
+			{
+				return this._Лицо_которому_реализ_товар;
+			}
+			set
+			{
+				if ((this._Лицо_которому_реализ_товар != value))
+				{
+					this._Лицо_которому_реализ_товар = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Наим док оплаты]", Storage="_Наим_док_оплаты", DbType="VarChar(100)")]
+		public string Наим_док_оплаты
+		{
+			get
+			{
+				return this._Наим_док_оплаты;
+			}
+			set
+			{
+				if ((this._Наим_док_оплаты != value))
+				{
+					this._Наим_док_оплаты = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Номер док оплаты]", Storage="_Номер_док_оплаты", DbType="VarChar(30)")]
+		public string Номер_док_оплаты
+		{
+			get
+			{
+				return this._Номер_док_оплаты;
+			}
+			set
+			{
+				if ((this._Номер_док_оплаты != value))
+				{
+					this._Номер_док_оплаты = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Дата док оплаты]", Storage="_Дата_док_оплаты", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_док_оплаты
+		{
+			get
+			{
+				return this._Дата_док_оплаты;
+			}
+			set
+			{
+				if ((this._Дата_док_оплаты != value))
+				{
+					this._Дата_док_оплаты = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Сумма предоплаты]", Storage="_Сумма_предоплаты", DbType="Money")]
+		public System.Nullable<decimal> Сумма_предоплаты
+		{
+			get
+			{
+				return this._Сумма_предоплаты;
+			}
+			set
+			{
+				if ((this._Сумма_предоплаты != value))
+				{
+					this._Сумма_предоплаты = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Наим валюты]", Storage="_Наим_валюты", DbType="VarChar(50)")]
+		public string Наим_валюты
+		{
+			get
+			{
+				return this._Наим_валюты;
+			}
+			set
+			{
+				if ((this._Наим_валюты != value))
+				{
+					this._Наим_валюты = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Сумма в валюте]", Storage="_Сумма_в_валюте", DbType="Money")]
+		public System.Nullable<decimal> Сумма_в_валюте
+		{
+			get
+			{
+				return this._Сумма_в_валюте;
+			}
+			set
+			{
+				if ((this._Сумма_в_валюте != value))
+				{
+					this._Сумма_в_валюте = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Наим док отгрузки]", Storage="_Наим_док_отгрузки", DbType="VarChar(100)")]
+		public string Наим_док_отгрузки
+		{
+			get
+			{
+				return this._Наим_док_отгрузки;
+			}
+			set
+			{
+				if ((this._Наим_док_отгрузки != value))
+				{
+					this._Наим_док_отгрузки = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Номер док отгрузки]", Storage="_Номер_док_отгрузки", DbType="VarChar(30)")]
+		public string Номер_док_отгрузки
+		{
+			get
+			{
+				return this._Номер_док_отгрузки;
+			}
+			set
+			{
+				if ((this._Номер_док_отгрузки != value))
+				{
+					this._Номер_док_отгрузки = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Дата док отгрузки]", Storage="_Дата_док_отгрузки", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_док_отгрузки
+		{
+			get
+			{
+				return this._Дата_док_отгрузки;
+			}
+			set
+			{
+				if ((this._Дата_док_отгрузки != value))
+				{
+					this._Дата_док_отгрузки = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Предоплачено", DbType="Bit")]
+		public System.Nullable<bool> Предоплачено
+		{
+			get
+			{
+				return this._Предоплачено;
+			}
+			set
+			{
+				if ((this._Предоплачено != value))
+				{
+					this._Предоплачено = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit NOT NULL")]
+		public bool DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this._DEL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Сумма", DbType="Money")]
+		public System.Nullable<decimal> Сумма
+		{
+			get
+			{
+				return this._Сумма;
+			}
+			set
+			{
+				if ((this._Сумма != value))
+				{
+					this._Сумма = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Дата отгрузки]", Storage="_Дата_отгрузки", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_отгрузки
+		{
+			get
+			{
+				return this._Дата_отгрузки;
+			}
+			set
+			{
+				if ((this._Дата_отгрузки != value))
+				{
+					this._Дата_отгрузки = value;
 				}
 			}
 		}
