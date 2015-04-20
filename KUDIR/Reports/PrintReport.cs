@@ -196,7 +196,7 @@ namespace Reports
         {
             XLWorkbook wb = GetCopyTemplate("ПодоходныйНалог.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
-            IXLRow newRow = ws.Row(7);
+            IXLRow newRow = ws.Row(12);
             Reports.Data.РаботникForPrint empl = new Data().Get_ПодоходныйНалог(start, end, emplID);
 
             foreach(var record in empl.payments)
@@ -218,6 +218,12 @@ namespace Reports
                 newRow.Cell(14).Value = record.Value.итогоУдержано;
                 newRow.Cell(15).Value = record.Value.кВыплате;
             }
+
+            ws.Cell(2, 3).Value = empl.employee.ФИО;
+            ws.Cell(2, 6).Value = "за " + start.Year + " год";
+            ws.Cell(4, 3).Value = empl.employee.Документы_вычеты;
+            ws.Cell(6, 3).Value = DateToString(empl.employee.Дата_договора) + ", " + empl.employee.Номер_договора;
+
             wb.Save();
         }
 
