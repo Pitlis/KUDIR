@@ -4,7 +4,8 @@ CREATE PROCEDURE СуммыВычетов
 @Стандартные MONEY output,
 @Социальные MONEY output,
 @Имущественные MONEY output,
-@Профессиональные MONEY output
+@Профессиональные MONEY output,
+@ОсвобождаемыеДоходы MONEY output
 AS
 
 DECLARE @ВычетыРаботника table(
@@ -21,3 +22,4 @@ SET @Стандартные = (SELECT SUM(Сумма) FROM @ВычетыРаботника WHERE UPPER(Тип_выче
 SET @Социальные = (SELECT SUM(Сумма) FROM @ВычетыРаботника WHERE UPPER(Тип_вычета) like UPPER('%Социальн%'));
 SET @Имущественные = (SELECT SUM(Сумма) FROM @ВычетыРаботника WHERE UPPER(Тип_вычета) like UPPER('%Имуществ%'));
 SET @Профессиональные = (SELECT SUM(Сумма) FROM @ВычетыРаботника WHERE UPPER(Тип_вычета) like UPPER('%Профессион%'));
+SET @ОсвобождаемыеДоходы = (SELECT SUM(Сумма) FROM @ВычетыРаботника WHERE UPPER(Тип_вычета) like UPPER('%освобожд%'));

@@ -192,6 +192,35 @@ namespace Reports
 
             wb.Save();
         }
+        public void ПодоходныйНалог(DateTime start, DateTime end, int emplID)
+        {
+            XLWorkbook wb = GetCopyTemplate("ПодоходныйНалог.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(7);
+            Reports.Data.РаботникForPrint empl = new Data().Get_ПодоходныйНалог(start, end, emplID);
+
+            foreach(var record in empl.payments)
+            {
+                newRow = InsertRow(newRow, 1, 15, 8);
+                newRow.Cell(1).Value = record.Key.ToString("MMMM");
+                newRow.Cell(2).Value = record.Value.Зарплата;
+                newRow.Cell(3).Value = record.Value.иныеВыплаты[0].summ;
+                newRow.Cell(4).Value = record.Value.иныеВыплаты[1].summ;
+                newRow.Cell(5).Value = record.Value.итогоМесяц;
+                newRow.Cell(6).Value = record.Value.освобождаемыеДоходы;
+                newRow.Cell(7).Value = record.Value.стандВычеты;
+                newRow.Cell(8).Value = record.Value.соцВычеты;
+                newRow.Cell(9).Value = record.Value.имущВычеты;
+                newRow.Cell(10).Value = record.Value.профВычеты;
+                newRow.Cell(11).Value = record.Value.налоговаяБаза;
+                newRow.Cell(12).Value = record.Value.подоходНалог;
+                newRow.Cell(13).Value = record.Value.иныеУдержания;
+                newRow.Cell(14).Value = record.Value.итогоУдержано;
+                newRow.Cell(15).Value = record.Value.кВыплате;
+            }
+            wb.Save();
+        }
+
 
         #endregion
     }

@@ -531,6 +531,7 @@ namespace KUDIR.Code
         {
             _adapter = new SqlDataAdapter("Select * FROM view_Зарплаты", connect);
             _adapter.Fill(_dataSet);
+            HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("работникID"));
         }
         void Create_Премии()
         {

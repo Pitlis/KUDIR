@@ -69,4 +69,74 @@
       <Column Name="Док_задолж_Дата" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.view_Выплаты" Member="view_Выплатыs">
+    <Type Name="view_Выплаты">
+      <Column Name="Код_выплаты" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DEL_Выплаты" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Сумма" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Причина" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="[Начало периода]" Member="Начало_периода" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Конец периода]" Member="Конец_периода" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Начисляются страх взносы]" Member="Начисляются_страх_взносы" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[Начисляются пенс взносы]" Member="Начисляются_пенс_взносы" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DEL_ВыплатыРаботнику" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.view_Вычет" Member="view_Вычетs">
+    <Type Name="view_Вычет">
+      <Column Name="Код_вычета" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DEL_вычет" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Сумма" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Тип вычета]" Member="Тип_вычета" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="[Начало периода]" Member="Начало_периода" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Конец периода]" Member="Конец_периода" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DEL_вычетРаботника" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Удержания" Member="Удержанияs">
+    <Type Name="Удержания">
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Дата" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Сумма" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Работник_Удержания" Member="Работник" ThisKey="работникID" OtherKey="работникID" Type="Работник" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Работник" Member="Работникs">
+    <Type Name="Работник">
+      <Column Name="Номер_договора" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="ФИО" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Дата_договора" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Условия_договора" Type="System.String" DbType="VarChar(600)" CanBeNull="true" />
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Инвалидность" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Дата_выплаты_вознаграждения" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Тариф_пенс_взносов" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Документы_вычеты" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Тариф_страх_взносов" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Association Name="Работник_Удержания" Member="Удержанияs" ThisKey="работникID" OtherKey="работникID" Type="Удержания" />
+    </Type>
+  </Table>
+  <Table Name="dbo.view_Зарплаты" Member="view_Зарплатыs">
+    <Type Name="view_Зарплаты">
+      <Column Name="ФИО" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="[Зарплата сумма]" Member="Зарплата_сумма" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Начало периода]" Member="Начало_периода" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Конец периода]" Member="Конец_периода" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.СуммыВычетов" Method="СуммыВычетов">
+    <Parameter Name="РаботникID" Parameter="работникID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Дата" Parameter="дата" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Стандартные" Parameter="стандартные" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Parameter Name="Социальные" Parameter="социальные" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Parameter Name="Имущественные" Parameter="имущественные" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Parameter Name="Профессиональные" Parameter="профессиональные" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Parameter Name="ОсвобождаемыеДоходы" Parameter="освобождаемыеДоходы" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

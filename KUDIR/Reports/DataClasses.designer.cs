@@ -36,6 +36,12 @@ namespace Reports
     partial void InsertКредитор(Кредитор instance);
     partial void UpdateКредитор(Кредитор instance);
     partial void DeleteКредитор(Кредитор instance);
+    partial void InsertУдержания(Удержания instance);
+    partial void UpdateУдержания(Удержания instance);
+    partial void DeleteУдержания(Удержания instance);
+    partial void InsertРаботник(Работник instance);
+    partial void UpdateРаботник(Работник instance);
+    partial void DeleteРаботник(Работник instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -98,6 +104,58 @@ namespace Reports
 			{
 				return this.GetTable<Кредитор>();
 			}
+		}
+		
+		public System.Data.Linq.Table<view_Выплаты> view_Выплатыs
+		{
+			get
+			{
+				return this.GetTable<view_Выплаты>();
+			}
+		}
+		
+		public System.Data.Linq.Table<view_Вычет> view_Вычетs
+		{
+			get
+			{
+				return this.GetTable<view_Вычет>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Удержания> Удержанияs
+		{
+			get
+			{
+				return this.GetTable<Удержания>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Работник> Работникs
+		{
+			get
+			{
+				return this.GetTable<Работник>();
+			}
+		}
+		
+		public System.Data.Linq.Table<view_Зарплаты> view_Зарплатыs
+		{
+			get
+			{
+				return this.GetTable<view_Зарплаты>();
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.СуммыВычетов")]
+		public int СуммыВычетов([global::System.Data.Linq.Mapping.ParameterAttribute(Name="РаботникID", DbType="Int")] System.Nullable<int> работникID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Дата", DbType="DateTime")] System.Nullable<System.DateTime> дата, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Стандартные", DbType="Money")] ref System.Nullable<decimal> стандартные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Социальные", DbType="Money")] ref System.Nullable<decimal> социальные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Имущественные", DbType="Money")] ref System.Nullable<decimal> имущественные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Профессиональные", DbType="Money")] ref System.Nullable<decimal> профессиональные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ОсвобождаемыеДоходы", DbType="Money")] ref System.Nullable<decimal> освобождаемыеДоходы)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), работникID, дата, стандартные, социальные, имущественные, профессиональные, освобождаемыеДоходы);
+			стандартные = ((System.Nullable<decimal>)(result.GetParameterValue(2)));
+			социальные = ((System.Nullable<decimal>)(result.GetParameterValue(3)));
+			имущественные = ((System.Nullable<decimal>)(result.GetParameterValue(4)));
+			профессиональные = ((System.Nullable<decimal>)(result.GetParameterValue(5)));
+			освобождаемыеДоходы = ((System.Nullable<decimal>)(result.GetParameterValue(6)));
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -1271,6 +1329,952 @@ namespace Reports
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.view_Выплаты")]
+	public partial class view_Выплаты
+	{
+		
+		private int _Код_выплаты;
+		
+		private int _работникID;
+		
+		private bool _DEL_Выплаты;
+		
+		private System.Nullable<decimal> _Сумма;
+		
+		private string _Причина;
+		
+		private System.Nullable<System.DateTime> _Начало_периода;
+		
+		private System.Nullable<System.DateTime> _Конец_периода;
+		
+		private System.Nullable<bool> _Начисляются_страх_взносы;
+		
+		private System.Nullable<bool> _Начисляются_пенс_взносы;
+		
+		private bool _DEL_ВыплатыРаботнику;
+		
+		public view_Выплаты()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Код_выплаты", DbType="Int NOT NULL")]
+		public int Код_выплаты
+		{
+			get
+			{
+				return this._Код_выплаты;
+			}
+			set
+			{
+				if ((this._Код_выплаты != value))
+				{
+					this._Код_выплаты = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_работникID", DbType="Int NOT NULL")]
+		public int работникID
+		{
+			get
+			{
+				return this._работникID;
+			}
+			set
+			{
+				if ((this._работникID != value))
+				{
+					this._работникID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL_Выплаты", DbType="Bit NOT NULL")]
+		public bool DEL_Выплаты
+		{
+			get
+			{
+				return this._DEL_Выплаты;
+			}
+			set
+			{
+				if ((this._DEL_Выплаты != value))
+				{
+					this._DEL_Выплаты = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Сумма", DbType="Money")]
+		public System.Nullable<decimal> Сумма
+		{
+			get
+			{
+				return this._Сумма;
+			}
+			set
+			{
+				if ((this._Сумма != value))
+				{
+					this._Сумма = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Причина", DbType="VarChar(150)")]
+		public string Причина
+		{
+			get
+			{
+				return this._Причина;
+			}
+			set
+			{
+				if ((this._Причина != value))
+				{
+					this._Причина = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Начало периода]", Storage="_Начало_периода", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Начало_периода
+		{
+			get
+			{
+				return this._Начало_периода;
+			}
+			set
+			{
+				if ((this._Начало_периода != value))
+				{
+					this._Начало_периода = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Конец периода]", Storage="_Конец_периода", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Конец_периода
+		{
+			get
+			{
+				return this._Конец_периода;
+			}
+			set
+			{
+				if ((this._Конец_периода != value))
+				{
+					this._Конец_периода = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Начисляются страх взносы]", Storage="_Начисляются_страх_взносы", DbType="Bit")]
+		public System.Nullable<bool> Начисляются_страх_взносы
+		{
+			get
+			{
+				return this._Начисляются_страх_взносы;
+			}
+			set
+			{
+				if ((this._Начисляются_страх_взносы != value))
+				{
+					this._Начисляются_страх_взносы = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Начисляются пенс взносы]", Storage="_Начисляются_пенс_взносы", DbType="Bit")]
+		public System.Nullable<bool> Начисляются_пенс_взносы
+		{
+			get
+			{
+				return this._Начисляются_пенс_взносы;
+			}
+			set
+			{
+				if ((this._Начисляются_пенс_взносы != value))
+				{
+					this._Начисляются_пенс_взносы = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL_ВыплатыРаботнику", DbType="Bit NOT NULL")]
+		public bool DEL_ВыплатыРаботнику
+		{
+			get
+			{
+				return this._DEL_ВыплатыРаботнику;
+			}
+			set
+			{
+				if ((this._DEL_ВыплатыРаботнику != value))
+				{
+					this._DEL_ВыплатыРаботнику = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.view_Вычет")]
+	public partial class view_Вычет
+	{
+		
+		private int _Код_вычета;
+		
+		private int _работникID;
+		
+		private bool _DEL_вычет;
+		
+		private System.Nullable<decimal> _Сумма;
+		
+		private string _Тип_вычета;
+		
+		private System.Nullable<System.DateTime> _Начало_периода;
+		
+		private System.Nullable<System.DateTime> _Конец_периода;
+		
+		private bool _DEL_вычетРаботника;
+		
+		public view_Вычет()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Код_вычета", DbType="Int NOT NULL")]
+		public int Код_вычета
+		{
+			get
+			{
+				return this._Код_вычета;
+			}
+			set
+			{
+				if ((this._Код_вычета != value))
+				{
+					this._Код_вычета = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_работникID", DbType="Int NOT NULL")]
+		public int работникID
+		{
+			get
+			{
+				return this._работникID;
+			}
+			set
+			{
+				if ((this._работникID != value))
+				{
+					this._работникID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL_вычет", DbType="Bit NOT NULL")]
+		public bool DEL_вычет
+		{
+			get
+			{
+				return this._DEL_вычет;
+			}
+			set
+			{
+				if ((this._DEL_вычет != value))
+				{
+					this._DEL_вычет = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Сумма", DbType="Money")]
+		public System.Nullable<decimal> Сумма
+		{
+			get
+			{
+				return this._Сумма;
+			}
+			set
+			{
+				if ((this._Сумма != value))
+				{
+					this._Сумма = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Тип вычета]", Storage="_Тип_вычета", DbType="VarChar(150)")]
+		public string Тип_вычета
+		{
+			get
+			{
+				return this._Тип_вычета;
+			}
+			set
+			{
+				if ((this._Тип_вычета != value))
+				{
+					this._Тип_вычета = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Начало периода]", Storage="_Начало_периода", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Начало_периода
+		{
+			get
+			{
+				return this._Начало_периода;
+			}
+			set
+			{
+				if ((this._Начало_периода != value))
+				{
+					this._Начало_периода = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Конец периода]", Storage="_Конец_периода", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Конец_периода
+		{
+			get
+			{
+				return this._Конец_периода;
+			}
+			set
+			{
+				if ((this._Конец_периода != value))
+				{
+					this._Конец_периода = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL_вычетРаботника", DbType="Bit NOT NULL")]
+		public bool DEL_вычетРаботника
+		{
+			get
+			{
+				return this._DEL_вычетРаботника;
+			}
+			set
+			{
+				if ((this._DEL_вычетРаботника != value))
+				{
+					this._DEL_вычетРаботника = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Удержания")]
+	public partial class Удержания : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _работникID;
+		
+		private System.DateTime _Дата;
+		
+		private System.Nullable<decimal> _Сумма;
+		
+		private bool _DEL;
+		
+		private EntityRef<Работник> _Работник;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnработникIDChanging(int value);
+    partial void OnработникIDChanged();
+    partial void OnДатаChanging(System.DateTime value);
+    partial void OnДатаChanged();
+    partial void OnСуммаChanging(System.Nullable<decimal> value);
+    partial void OnСуммаChanged();
+    partial void OnDELChanging(bool value);
+    partial void OnDELChanged();
+    #endregion
+		
+		public Удержания()
+		{
+			this._Работник = default(EntityRef<Работник>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_работникID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int работникID
+		{
+			get
+			{
+				return this._работникID;
+			}
+			set
+			{
+				if ((this._работникID != value))
+				{
+					if (this._Работник.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnработникIDChanging(value);
+					this.SendPropertyChanging();
+					this._работникID = value;
+					this.SendPropertyChanged("работникID");
+					this.OnработникIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Дата", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
+		public System.DateTime Дата
+		{
+			get
+			{
+				return this._Дата;
+			}
+			set
+			{
+				if ((this._Дата != value))
+				{
+					this.OnДатаChanging(value);
+					this.SendPropertyChanging();
+					this._Дата = value;
+					this.SendPropertyChanged("Дата");
+					this.OnДатаChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Сумма", DbType="Money")]
+		public System.Nullable<decimal> Сумма
+		{
+			get
+			{
+				return this._Сумма;
+			}
+			set
+			{
+				if ((this._Сумма != value))
+				{
+					this.OnСуммаChanging(value);
+					this.SendPropertyChanging();
+					this._Сумма = value;
+					this.SendPropertyChanged("Сумма");
+					this.OnСуммаChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit NOT NULL")]
+		public bool DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this.OnDELChanging(value);
+					this.SendPropertyChanging();
+					this._DEL = value;
+					this.SendPropertyChanged("DEL");
+					this.OnDELChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Работник_Удержания", Storage="_Работник", ThisKey="работникID", OtherKey="работникID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Работник Работник
+		{
+			get
+			{
+				return this._Работник.Entity;
+			}
+			set
+			{
+				Работник previousValue = this._Работник.Entity;
+				if (((previousValue != value) 
+							|| (this._Работник.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Работник.Entity = null;
+						previousValue.Удержанияs.Remove(this);
+					}
+					this._Работник.Entity = value;
+					if ((value != null))
+					{
+						value.Удержанияs.Add(this);
+						this._работникID = value.работникID;
+					}
+					else
+					{
+						this._работникID = default(int);
+					}
+					this.SendPropertyChanged("Работник");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Работник")]
+	public partial class Работник : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Номер_договора;
+		
+		private string _ФИО;
+		
+		private System.Nullable<System.DateTime> _Дата_договора;
+		
+		private string _Условия_договора;
+		
+		private int _работникID;
+		
+		private string _Инвалидность;
+		
+		private System.Nullable<System.DateTime> _Дата_выплаты_вознаграждения;
+		
+		private System.Nullable<short> _Тариф_пенс_взносов;
+		
+		private bool _DEL;
+		
+		private string _Документы_вычеты;
+		
+		private System.Nullable<short> _Тариф_страх_взносов;
+		
+		private EntitySet<Удержания> _Удержанияs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnНомер_договораChanging(string value);
+    partial void OnНомер_договораChanged();
+    partial void OnФИОChanging(string value);
+    partial void OnФИОChanged();
+    partial void OnДата_договораChanging(System.Nullable<System.DateTime> value);
+    partial void OnДата_договораChanged();
+    partial void OnУсловия_договораChanging(string value);
+    partial void OnУсловия_договораChanged();
+    partial void OnработникIDChanging(int value);
+    partial void OnработникIDChanged();
+    partial void OnИнвалидностьChanging(string value);
+    partial void OnИнвалидностьChanged();
+    partial void OnДата_выплаты_вознагражденияChanging(System.Nullable<System.DateTime> value);
+    partial void OnДата_выплаты_вознагражденияChanged();
+    partial void OnТариф_пенс_взносовChanging(System.Nullable<short> value);
+    partial void OnТариф_пенс_взносовChanged();
+    partial void OnDELChanging(bool value);
+    partial void OnDELChanged();
+    partial void OnДокументы_вычетыChanging(string value);
+    partial void OnДокументы_вычетыChanged();
+    partial void OnТариф_страх_взносовChanging(System.Nullable<short> value);
+    partial void OnТариф_страх_взносовChanged();
+    #endregion
+		
+		public Работник()
+		{
+			this._Удержанияs = new EntitySet<Удержания>(new Action<Удержания>(this.attach_Удержанияs), new Action<Удержания>(this.detach_Удержанияs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Номер_договора", DbType="VarChar(30)")]
+		public string Номер_договора
+		{
+			get
+			{
+				return this._Номер_договора;
+			}
+			set
+			{
+				if ((this._Номер_договора != value))
+				{
+					this.OnНомер_договораChanging(value);
+					this.SendPropertyChanging();
+					this._Номер_договора = value;
+					this.SendPropertyChanged("Номер_договора");
+					this.OnНомер_договораChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ФИО", DbType="VarChar(150)")]
+		public string ФИО
+		{
+			get
+			{
+				return this._ФИО;
+			}
+			set
+			{
+				if ((this._ФИО != value))
+				{
+					this.OnФИОChanging(value);
+					this.SendPropertyChanging();
+					this._ФИО = value;
+					this.SendPropertyChanged("ФИО");
+					this.OnФИОChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Дата_договора", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_договора
+		{
+			get
+			{
+				return this._Дата_договора;
+			}
+			set
+			{
+				if ((this._Дата_договора != value))
+				{
+					this.OnДата_договораChanging(value);
+					this.SendPropertyChanging();
+					this._Дата_договора = value;
+					this.SendPropertyChanged("Дата_договора");
+					this.OnДата_договораChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Условия_договора", DbType="VarChar(600)")]
+		public string Условия_договора
+		{
+			get
+			{
+				return this._Условия_договора;
+			}
+			set
+			{
+				if ((this._Условия_договора != value))
+				{
+					this.OnУсловия_договораChanging(value);
+					this.SendPropertyChanging();
+					this._Условия_договора = value;
+					this.SendPropertyChanged("Условия_договора");
+					this.OnУсловия_договораChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_работникID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int работникID
+		{
+			get
+			{
+				return this._работникID;
+			}
+			set
+			{
+				if ((this._работникID != value))
+				{
+					this.OnработникIDChanging(value);
+					this.SendPropertyChanging();
+					this._работникID = value;
+					this.SendPropertyChanged("работникID");
+					this.OnработникIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Инвалидность", DbType="VarChar(200)")]
+		public string Инвалидность
+		{
+			get
+			{
+				return this._Инвалидность;
+			}
+			set
+			{
+				if ((this._Инвалидность != value))
+				{
+					this.OnИнвалидностьChanging(value);
+					this.SendPropertyChanging();
+					this._Инвалидность = value;
+					this.SendPropertyChanged("Инвалидность");
+					this.OnИнвалидностьChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Дата_выплаты_вознаграждения", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_выплаты_вознаграждения
+		{
+			get
+			{
+				return this._Дата_выплаты_вознаграждения;
+			}
+			set
+			{
+				if ((this._Дата_выплаты_вознаграждения != value))
+				{
+					this.OnДата_выплаты_вознагражденияChanging(value);
+					this.SendPropertyChanging();
+					this._Дата_выплаты_вознаграждения = value;
+					this.SendPropertyChanged("Дата_выплаты_вознаграждения");
+					this.OnДата_выплаты_вознагражденияChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Тариф_пенс_взносов", DbType="SmallInt")]
+		public System.Nullable<short> Тариф_пенс_взносов
+		{
+			get
+			{
+				return this._Тариф_пенс_взносов;
+			}
+			set
+			{
+				if ((this._Тариф_пенс_взносов != value))
+				{
+					this.OnТариф_пенс_взносовChanging(value);
+					this.SendPropertyChanging();
+					this._Тариф_пенс_взносов = value;
+					this.SendPropertyChanged("Тариф_пенс_взносов");
+					this.OnТариф_пенс_взносовChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit NOT NULL")]
+		public bool DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this.OnDELChanging(value);
+					this.SendPropertyChanging();
+					this._DEL = value;
+					this.SendPropertyChanged("DEL");
+					this.OnDELChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Документы_вычеты", DbType="VarChar(200)")]
+		public string Документы_вычеты
+		{
+			get
+			{
+				return this._Документы_вычеты;
+			}
+			set
+			{
+				if ((this._Документы_вычеты != value))
+				{
+					this.OnДокументы_вычетыChanging(value);
+					this.SendPropertyChanging();
+					this._Документы_вычеты = value;
+					this.SendPropertyChanged("Документы_вычеты");
+					this.OnДокументы_вычетыChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Тариф_страх_взносов", DbType="SmallInt")]
+		public System.Nullable<short> Тариф_страх_взносов
+		{
+			get
+			{
+				return this._Тариф_страх_взносов;
+			}
+			set
+			{
+				if ((this._Тариф_страх_взносов != value))
+				{
+					this.OnТариф_страх_взносовChanging(value);
+					this.SendPropertyChanging();
+					this._Тариф_страх_взносов = value;
+					this.SendPropertyChanged("Тариф_страх_взносов");
+					this.OnТариф_страх_взносовChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Работник_Удержания", Storage="_Удержанияs", ThisKey="работникID", OtherKey="работникID")]
+		public EntitySet<Удержания> Удержанияs
+		{
+			get
+			{
+				return this._Удержанияs;
+			}
+			set
+			{
+				this._Удержанияs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Удержанияs(Удержания entity)
+		{
+			this.SendPropertyChanging();
+			entity.Работник = this;
+		}
+		
+		private void detach_Удержанияs(Удержания entity)
+		{
+			this.SendPropertyChanging();
+			entity.Работник = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.view_Зарплаты")]
+	public partial class view_Зарплаты
+	{
+		
+		private string _ФИО;
+		
+		private System.Nullable<decimal> _Зарплата_сумма;
+		
+		private System.Nullable<System.DateTime> _Начало_периода;
+		
+		private System.Nullable<System.DateTime> _Конец_периода;
+		
+		private int _работникID;
+		
+		public view_Зарплаты()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ФИО", DbType="VarChar(150)")]
+		public string ФИО
+		{
+			get
+			{
+				return this._ФИО;
+			}
+			set
+			{
+				if ((this._ФИО != value))
+				{
+					this._ФИО = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Зарплата сумма]", Storage="_Зарплата_сумма", DbType="Money")]
+		public System.Nullable<decimal> Зарплата_сумма
+		{
+			get
+			{
+				return this._Зарплата_сумма;
+			}
+			set
+			{
+				if ((this._Зарплата_сумма != value))
+				{
+					this._Зарплата_сумма = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Начало периода]", Storage="_Начало_периода", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Начало_периода
+		{
+			get
+			{
+				return this._Начало_периода;
+			}
+			set
+			{
+				if ((this._Начало_периода != value))
+				{
+					this._Начало_периода = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Конец периода]", Storage="_Конец_периода", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Конец_периода
+		{
+			get
+			{
+				return this._Конец_периода;
+			}
+			set
+			{
+				if ((this._Конец_периода != value))
+				{
+					this._Конец_периода = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_работникID", DbType="Int NOT NULL")]
+		public int работникID
+		{
+			get
+			{
+				return this._работникID;
+			}
+			set
+			{
+				if ((this._работникID != value))
+				{
+					this._работникID = value;
+				}
 			}
 		}
 	}
