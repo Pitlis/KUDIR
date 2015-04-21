@@ -238,23 +238,29 @@ namespace Reports
 
             wb.Save();
         }
-        public void ПодоходныйНалогПеречислено(DateTime startPeriod, DateTime endPeriod, int emplID)
+        public void ПодоходныйНалогПеречислено(DateTime startPeriod, DateTime endPeriod)
         {
             XLWorkbook wb = GetCopyTemplate("ПодоходныйНалогПеречислено.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(4);
-            List<view_ПодоходныйНалогПеречисл> list = new Data().Get_ПодоходныйНалогПеречисл(startPeriod, endPeriod, emplID);
+            List<Reports.Data.ПодоходныйНалогПеречислForPrint> list = new Data().Get_ПодоходныйНалогПеречисл(startPeriod, endPeriod);
 
             int i = 1;
             foreach (var record in list)
             {
                 newRow = InsertRow(newRow, 1, 4, 10);
                 newRow.Cell(1).Value = i;
-                newRow.Cell(2).Value = record.Месяц.ToString("MMMM");
+                newRow.Cell(2).Value = record.date.ToString("MMMM");
                 newRow.Cell(3).Value = record.Начислено;
-                newRow.Cell(4).Value = record.Перечислено + ", " +
-                    DateToString(record.Дата) + ", " +
-                    record.Номер_платежной_инструкции;
+
+                string платежныеИнстр = "";
+                foreach(var plat in record.платежки)
+                {
+                    платежныеИнстр += plat.Перечислено;
+                    платежныеИнстр += ", " + DateToString(plat.дата);
+                    платежныеИнстр += ", " + plat.номер + ";   ";
+                }
+                newRow.Cell(4).Value = платежныеИнстр;
                 i++;
             }
             wb.Save();

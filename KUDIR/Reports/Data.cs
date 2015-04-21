@@ -166,12 +166,31 @@ namespace Reports
 
             return emplInfo;
         }
-        public List<view_ПодоходныйНалогПеречисл> Get_ПодоходныйНалогПеречисл(DateTime start, DateTime end, int emplID)
+        public List<ПодоходныйНалогПеречислForPrint> Get_ПодоходныйНалогПеречисл(DateTime start, DateTime end)
         {
-            return (from v in context.view_ПодоходныйНалогПеречислs 
-                   where v.работникID == emplID && v.Месяц >= start && v.Месяц <= end && v.Начислено.HasValue
+            List<ПодоходныйНалогПеречислForPrint> list = new List<ПодоходныйНалогПеречислForPrint>();
+            var query = from v in context.view_ПодоходныйНалогПеречислs 
+                   where v.Месяц >= start && v.Месяц <= end && v.Начислено.HasValue
                     orderby v.Месяц
-                    select v).ToList<view_ПодоходныйНалогПеречисл>();
+                    select v;
+
+            foreach(var record in query)
+            {
+                ПодоходныйНалогПеречислForPrint p = new ПодоходныйНалогПеречислForPrint();
+                p.date = record.Месяц;
+                p.Начислено = record.Начислено.Value;
+                p.платежки = new List<ПлатежнаяИнструкция>();
+                if(record.Номер_платежной_инструкции != null && record.Перечислено.HasValue)
+                {
+                    ПлатежнаяИнструкция pInstr = new ПлатежнаяИнструкция();
+                    pInstr.Перечислено = record.Перечислено.Value;
+                    pInstr.дата = record.Дата;
+                    pInstr.номер = record.Номер_платежной_инструкции;
+                    p.платежки.Add(pInstr);
+                }
+                list.Add(p);
+            }
+            return list;
         }
         public List<view_Дивиденты> Get_Дивиденты(DateTime start, DateTime end)
         {
@@ -308,6 +327,19 @@ namespace Reports
             public Decimal?[] выплаты;
             public int количествоПособий;
             public Работник employee;
+        }
+
+        public struct ПодоходныйНалогПеречислForPrint
+        {
+            public DateTime date;
+            public Decimal Начислено;
+            public List<ПлатежнаяИнструкция> платежки;
+        }
+        public struct ПлатежнаяИнструкция
+        {
+            public Decimal? Перечислено;
+            public DateTime? дата;
+            public string номер;
         }
 
         #endregion
