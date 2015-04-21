@@ -177,19 +177,34 @@ namespace Reports
 
             foreach(var record in query)
             {
-                ПодоходныйНалогПеречислForPrint p = new ПодоходныйНалогПеречислForPrint();
-                p.date = record.Месяц;
-                p.Начислено = record.Начислено.Value;
-                p.платежки = new List<ПлатежнаяИнструкция>();
-                if(record.Номер_платежной_инструкции != null && record.Перечислено.HasValue)
+                List<ПодоходныйНалогПеречислForPrint> result = list.FindAll(p => p.date.Month == record.Месяц.Month && p.date.Year == record.Месяц.Year);
+                if (result.Count > 0)
                 {
-                    ПлатежнаяИнструкция pInstr = new ПлатежнаяИнструкция();
-                    pInstr.Перечислено = record.Перечислено.Value;
-                    pInstr.дата = record.Дата;
-                    pInstr.номер = record.Номер_платежной_инструкции;
-                    p.платежки.Add(pInstr);
+                    result[0].Начислено += record.Начислено.Value;
+                    if(record.Номер_платежной_инструкции != null && record.Перечислено.HasValue)
+                    {
+                        ПлатежнаяИнструкция pInstr = new ПлатежнаяИнструкция();
+                        pInstr.Перечислено = record.Перечислено.Value;
+                        pInstr.дата = record.Дата;
+                        pInstr.номер = record.Номер_платежной_инструкции;
+                        result[0].платежки.Add(pInstr);
+                    }
                 }
-                list.Add(p);
+                else
+                {
+                    ПодоходныйНалогПеречислForPrint p = new ПодоходныйНалогПеречислForPrint();
+                    p.date = record.Месяц;
+                    p.Начислено = record.Начислено.Value;
+                    if (record.Номер_платежной_инструкции != null && record.Перечислено.HasValue)
+                    {
+                        ПлатежнаяИнструкция pInstr = new ПлатежнаяИнструкция();
+                        pInstr.Перечислено = record.Перечислено.Value;
+                        pInstr.дата = record.Дата;
+                        pInstr.номер = record.Номер_платежной_инструкции;
+                        p.платежки.Add(pInstr);
+                    }
+                    list.Add(p);
+                }
             }
             return list;
         }
