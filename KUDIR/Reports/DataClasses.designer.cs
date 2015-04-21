@@ -3319,7 +3319,7 @@ namespace Reports
 		
 		private System.Nullable<decimal> _Сумма_на_которую_начисл_страх_взносы;
 		
-		private System.Nullable<float> _Сумма_начисл_страх_взносов_всего;
+		private System.Nullable<decimal> _Сумма_начисл_страх_взносов_всего;
 		
 		private System.Nullable<decimal> _в_том_числе_1_процент;
 		
@@ -3331,7 +3331,7 @@ namespace Reports
 		
 		private System.Nullable<decimal> _Остаток_задолженности_за_пред_период;
 		
-		private System.Nullable<float> _Подлежит_уплате;
+		private System.Nullable<decimal> _Подлежит_уплате;
 		
 		private System.Nullable<decimal> _Перечислено_в_Фонд;
 		
@@ -3433,8 +3433,8 @@ namespace Reports
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Сумма начисл страх взносов всего]", Storage="_Сумма_начисл_страх_взносов_всего", DbType="Real")]
-		public System.Nullable<float> Сумма_начисл_страх_взносов_всего
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Сумма начисл страх взносов всего]", Storage="_Сумма_начисл_страх_взносов_всего", DbType="Money")]
+		public System.Nullable<decimal> Сумма_начисл_страх_взносов_всего
 		{
 			get
 			{
@@ -3529,8 +3529,8 @@ namespace Reports
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Подлежит уплате]", Storage="_Подлежит_уплате", DbType="Real")]
-		public System.Nullable<float> Подлежит_уплате
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Подлежит уплате]", Storage="_Подлежит_уплате", DbType="Money")]
+		public System.Nullable<decimal> Подлежит_уплате
 		{
 			get
 			{
@@ -3686,13 +3686,13 @@ namespace Reports
 		
 		private System.Nullable<decimal> _Сумма_на_которую_начисл_пенс_взносы;
 		
-		private System.Nullable<float> _Сумма_начисленных_пенс_взносов;
+		private System.Nullable<decimal> _Сумма_начисленных_пенс_взносов;
 		
 		private System.Nullable<decimal> _Остаток_задолженности_за_пред_период;
 		
 		private System.Nullable<decimal> _Иные_платежи;
 		
-		private System.Nullable<float> _Подлежит_уплате;
+		private System.Nullable<decimal> _Подлежит_уплате;
 		
 		private System.Nullable<decimal> _Перечислено_в_Фонд;
 		
@@ -3772,8 +3772,8 @@ namespace Reports
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Сумма начисленных пенс взносов]", Storage="_Сумма_начисленных_пенс_взносов", DbType="Real")]
-		public System.Nullable<float> Сумма_начисленных_пенс_взносов
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Сумма начисленных пенс взносов]", Storage="_Сумма_начисленных_пенс_взносов", DbType="Money")]
+		public System.Nullable<decimal> Сумма_начисленных_пенс_взносов
 		{
 			get
 			{
@@ -3820,8 +3820,8 @@ namespace Reports
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Подлежит уплате]", Storage="_Подлежит_уплате", DbType="Real")]
-		public System.Nullable<float> Подлежит_уплате
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Подлежит уплате]", Storage="_Подлежит_уплате", DbType="Money")]
+		public System.Nullable<decimal> Подлежит_уплате
 		{
 			get
 			{

@@ -469,6 +469,28 @@ namespace Reports
 
             wb.Save();
         }
+        public void РасходыФонда(int year)
+        {
+            XLWorkbook wb = GetCopyTemplate("УчетРасходовФонда.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(10);
+            List<Reports.Data.РасходыФондаForPrint> list = new Data().Get_РасходыФонда(year);
+
+            foreach (Reports.Data.РасходыФондаForPrint record in list)
+            {
+                newRow = ws.Row(GetRowIndexOn_СтраховойВзнос(record.месяц, 4));
+                newRow.Cell(1).Value = new DateTime(2015, record.месяц, 1).ToString("MMMM");
+                newRow.Cell(2).Value = record.нетрудоспособности;
+                newRow.Cell(3).Value = record.беременности;
+                newRow.Cell(4).Value = record.рождение;
+                newRow.Cell(5).Value = record.учет;
+                newRow.Cell(6).Value = record.погребение;
+                newRow.Cell(7).Value = record.уход;
+                newRow.Cell(8).Value = record.категорииСемей;
+                newRow.Cell(9).Value = record.инвалид;
+            }
+            wb.Save();
+        }
 
         #endregion
     }

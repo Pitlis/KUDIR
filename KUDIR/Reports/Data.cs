@@ -380,6 +380,47 @@ namespace Reports
             }
             return list;
         }
+        public List<РасходыФондаForPrint> Get_РасходыФонда(int year)
+        {
+            List<РасходыФондаForPrint> list = new List<РасходыФондаForPrint>();
+            var работники = from v in context.Работникs where v.DEL == false select v;
+
+            int today = 12;
+            if(DateTime.Now.Year == year)
+                today = DateTime.Now.Month;
+
+            foreach(var empl in работники)
+            {
+                for(int i = 1; i <= today; ++i)
+                {
+                    int index = list.FindIndex(p => p.месяц == i);
+                    if(index != -1)
+                    {
+                        РасходыФондаForPrint fond = new РасходыФондаForPrint();
+                        Decimal? temp = 0;
+                        context.СтандартныеПособия(empl.работникID, new DateTime(year, i, 1), ref fond.нетрудоспособности, ref fond.беременности, ref temp, ref fond.уход, ref fond.инвалид, ref fond.категорииСемей, ref fond.рождение, ref fond.учет, ref fond.погребение);
+                        NullDecimalToZero(list[index].нетрудоспособности, list[index].беременности, list[index].инвалид, list[index].категорииСемей, list[index].рождение, list[index].учет, list[index].погребение);
+                        list[index].нетрудоспособности += fond.нетрудоспособности.HasValue ? fond.нетрудоспособности.Value : 0;
+                        list[index].беременности += fond.беременности.HasValue ? fond.беременности.Value : 0;
+                        list[index].инвалид += fond.инвалид.HasValue ? fond.инвалид.Value : 0;
+                        list[index].категорииСемей += fond.категорииСемей.HasValue ? fond.категорииСемей.Value : 0;
+                        list[index].рождение += fond.рождение.HasValue ? fond.рождение.Value : 0;
+                        list[index].учет += fond.учет.HasValue ? fond.учет.Value : 0;
+                        list[index].погребение += fond.погребение.HasValue ? fond.погребение.Value : 0;
+                    }
+                    else
+                    {
+                        РасходыФондаForPrint fond = new РасходыФондаForPrint();
+                        Decimal? temp = 0;
+                        context.СтандартныеПособия(empl.работникID, new DateTime(year, i, 1), ref fond.нетрудоспособности, ref fond.беременности, ref temp, ref fond.уход, ref fond.инвалид, ref fond.категорииСемей, ref fond.рождение, ref fond.учет, ref fond.погребение);
+                        fond.месяц = i;
+                        list.Add(fond);
+                    }
+
+                }
+            }
+            return list;
+        }
 
         #region Дополнительные типы
 
@@ -476,6 +517,19 @@ namespace Reports
         {
             public view_ПенсВзносы info;
             public List<ПлатежнаяИнструкция> платежки;
+        }
+
+        public class РасходыФондаForPrint
+        {
+            public int месяц;
+            public Decimal? нетрудоспособности = 0;
+            public Decimal? беременности = 0;
+            public Decimal? рождение = 0;
+            public Decimal? учет = 0;
+            public Decimal? погребение = 0;
+            public Decimal? уход = 0;
+            public Decimal? категорииСемей = 0;
+            public Decimal? инвалид = 0;
         }
         #endregion
 
