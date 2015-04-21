@@ -49,7 +49,7 @@ namespace KUDIR.Code
             Док_Наименование_Выб = _table.Rows[_number]["Док_выбыт_Наим"].ToString();
             Док_Дата_Выб = _table.Rows[_number]["Док_выбыт_Дата"] == DBNull.Value ? null : (Nullable<System.DateTime>)_table.Rows[_number]["Док_выбыт_Дата"];
             _право = _table.Rows[_number]["Право"] == null ? (byte)0 : (byte)_table.Rows[_number]["Право"];
-            if (_право < 0 || _право > 4)
+            if (_право < 0 || _право > 3)
                 _право = 0;
         }
         void LoadToBase(DataRow row)

@@ -421,6 +421,38 @@ namespace Reports
             }
             return list;
         }
+        public СтроениеForPrint Get_Строение(int year, int ID)
+        {
+            СтроениеForPrint build = new СтроениеForPrint();
+            Строение query = (from v in context.Строениеs where v.DEL == false && v.ID == ID select v).First();
+
+            build.Name = query.Наименование + (query.Адрес != null ? ", " + query.Адрес : null);
+            build.Priobr = (query.Дата_приобретения != null ? query.Дата_приобретения.Value.ToString("dd/MM/yyyy") : null) +
+                (query.Док_приобр_Наим != null ? ", " + query.Док_приобр_Наим : null) +
+                (query.Док_приобр_Номер != null ? ", " + query.Док_приобр_Номер : null) +
+                (query.Док_приобр_Дата != null ? ", " + query.Док_приобр_Дата.Value.ToString("dd/MM/yyyy") : null);
+            build.Reg = (query.Дата_гос_регистрации != null ? query.Дата_гос_регистрации.Value.ToString("dd/MM/yyyy") : null) +
+                (query.Док_рег_Наим != null ? ", " + query.Док_рег_Наим : null) +
+                (query.Док_рег_Номер != null ? ", " + query.Док_рег_Номер : null) +
+                (query.Док_рег_Дата != null ? ", " + query.Док_рег_Дата.Value.ToString("dd/MM/yyyy") : null);
+            build.Vvod = query.Дата_ввода_в_эксплуатацию != null ? ", " + query.Дата_ввода_в_эксплуатацию.Value.ToString("dd/MM/yyyy") : null;
+            build.Exit = (query.Дата_выбытия != null ? query.Дата_выбытия.Value.ToString("dd/MM/yyyy") : null) +
+                (query.Док_выбыт_Наим != null ? ", " + query.Док_выбыт_Наим : null) +
+                (query.Док_выбыт_Номер != null ? ", " + query.Док_выбыт_Номер : null) +
+                (query.Док_выбыт_Дата != null ? ", " + query.Док_выбыт_Дата.Value.ToString("dd/MM/yyyy") : null);
+            build.type = query.Право.HasValue ? query.Право.Value : -1;
+
+            build.info = new List<Стоимость_строения>();
+            var infoСтроение = from v in context.Стоимость_строенияs where v.DEL == false && v.ID_строение == ID && v.Период.Value.Year == year select v;
+            foreach(var record in infoСтроение)
+            {
+                if(build.info.FindIndex(b => b.Период.Value.Month == record.Период.Value.Month) == -1)
+                {
+                    build.info.Add(record);
+                }
+            }
+            return build;
+        }
 
         #region Дополнительные типы
 
@@ -530,6 +562,16 @@ namespace Reports
             public Decimal? уход = 0;
             public Decimal? категорииСемей = 0;
             public Decimal? инвалид = 0;
+        }
+        public struct СтроениеForPrint
+        {
+            public string Name;
+            public string Priobr;
+            public string Reg;
+            public string Vvod;
+            public string Exit;
+            public int type;
+            public List<Стоимость_строения> info;
         }
         #endregion
 

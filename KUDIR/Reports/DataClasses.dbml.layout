@@ -99,5 +99,24 @@
         <elementListCompartment Id="a4ddf978-c7af-41c2-a026-25d8c6639ee5" absoluteBounds="6.89, 11.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="e40718a4-b407-4d2c-888a-e5585900e7e1" absoluteBounds="2.375, 7.25, 2, 4.2708154296875">
+      <DataClassMoniker Name="/DataClassesDataContext/Строение" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ae1888a2-4152-4baf-b81b-77bced6f4763" absoluteBounds="2.3900000000000006, 7.71, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0c68220a-c44b-44ff-9390-40fc9563e3f4" absoluteBounds="4.375, 11.75, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/DataClassesDataContext/Стоимость_строения" />
+      <nestedChildShapes>
+        <elementListCompartment Id="34f08d87-e6f5-4449-af2d-1e9bb0408b26" absoluteBounds="4.39, 12.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.3749995 : 11.5208154296875); (3.3749995 : 12.9239005533854); (4.375 : 12.9239005533854)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/Строение/Строение_Стоимость_строения" />
+      <nodes>
+        <classShapeMoniker Id="e40718a4-b407-4d2c-888a-e5585900e7e1" />
+        <classShapeMoniker Id="0c68220a-c44b-44ff-9390-40fc9563e3f4" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

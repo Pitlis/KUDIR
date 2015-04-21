@@ -492,6 +492,35 @@ namespace Reports
             wb.Save();
         }
 
+        public void Строение(int year, int id)
+        {
+            XLWorkbook wb = GetCopyTemplate("УчетСтроений.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(14);
+            Reports.Data.СтроениеForPrint build = new Data().Get_Строение(year, id);
+
+            foreach (Стоимость_строения record in build.info)
+            {
+                newRow = ws.Row(14 + record.Период.Value.Month);
+                newRow.Cell(2).Value = record.Площадь_всего;
+                newRow.Cell(3).Value = record.Площадь_аренда;
+                newRow.Cell(4).Value = record.Первоначальная_стоимость;
+                newRow.Cell(5).Value = record.Сумма_армотизации;
+            }
+            ws.Cell(2, 1).Value = build.Name;
+            ws.Cell(4, 1).Value = build.Priobr;
+            ws.Cell(6, 1).Value = build.Reg;
+            ws.Cell(8, 1).Value = build.Vvod;
+            ws.Cell(10, 1).Value = build.Exit;
+
+            if(build.type != -1)
+            {
+                ws.Cell(7+build.type, 6).Value = "X";
+            }
+
+            wb.Save();
+        }
+
         #endregion
     }
 }

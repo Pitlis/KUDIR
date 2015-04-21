@@ -45,6 +45,12 @@ namespace Reports
     partial void InsertПроизводственный_кооператив(Производственный_кооператив instance);
     partial void UpdateПроизводственный_кооператив(Производственный_кооператив instance);
     partial void DeleteПроизводственный_кооператив(Производственный_кооператив instance);
+    partial void InsertСтроение(Строение instance);
+    partial void UpdateСтроение(Строение instance);
+    partial void DeleteСтроение(Строение instance);
+    partial void InsertСтоимость_строения(Стоимость_строения instance);
+    partial void UpdateСтоимость_строения(Стоимость_строения instance);
+    partial void DeleteСтоимость_строения(Стоимость_строения instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -194,6 +200,22 @@ namespace Reports
 			get
 			{
 				return this.GetTable<view_ПенсВзносы>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Строение> Строениеs
+		{
+			get
+			{
+				return this.GetTable<Строение>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Стоимость_строения> Стоимость_строенияs
+		{
+			get
+			{
+				return this.GetTable<Стоимость_строения>();
 			}
 		}
 		
@@ -3913,6 +3935,775 @@ namespace Reports
 				{
 					this._DEL = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Строение")]
+	public partial class Строение : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Наименование;
+		
+		private string _Адрес;
+		
+		private System.Nullable<System.DateTime> _Дата_приобретения;
+		
+		private System.Nullable<System.DateTime> _Дата_гос_регистрации;
+		
+		private System.Nullable<System.DateTime> _Дата_ввода_в_эксплуатацию;
+		
+		private System.Nullable<System.DateTime> _Дата_выбытия;
+		
+		private System.Nullable<byte> _Право;
+		
+		private bool _DEL;
+		
+		private string _Док_приобр_Наим;
+		
+		private string _Док_приобр_Номер;
+		
+		private System.Nullable<System.DateTime> _Док_приобр_Дата;
+		
+		private string _Док_рег_Наим;
+		
+		private string _Док_рег_Номер;
+		
+		private System.Nullable<System.DateTime> _Док_рег_Дата;
+		
+		private string _Док_выбыт_Наим;
+		
+		private string _Док_выбыт_Номер;
+		
+		private System.Nullable<System.DateTime> _Док_выбыт_Дата;
+		
+		private EntitySet<Стоимость_строения> _Стоимость_строенияs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnНаименованиеChanging(string value);
+    partial void OnНаименованиеChanged();
+    partial void OnАдресChanging(string value);
+    partial void OnАдресChanged();
+    partial void OnДата_приобретенияChanging(System.Nullable<System.DateTime> value);
+    partial void OnДата_приобретенияChanged();
+    partial void OnДата_гос_регистрацииChanging(System.Nullable<System.DateTime> value);
+    partial void OnДата_гос_регистрацииChanged();
+    partial void OnДата_ввода_в_эксплуатациюChanging(System.Nullable<System.DateTime> value);
+    partial void OnДата_ввода_в_эксплуатациюChanged();
+    partial void OnДата_выбытияChanging(System.Nullable<System.DateTime> value);
+    partial void OnДата_выбытияChanged();
+    partial void OnПравоChanging(System.Nullable<byte> value);
+    partial void OnПравоChanged();
+    partial void OnDELChanging(bool value);
+    partial void OnDELChanged();
+    partial void OnДок_приобр_НаимChanging(string value);
+    partial void OnДок_приобр_НаимChanged();
+    partial void OnДок_приобр_НомерChanging(string value);
+    partial void OnДок_приобр_НомерChanged();
+    partial void OnДок_приобр_ДатаChanging(System.Nullable<System.DateTime> value);
+    partial void OnДок_приобр_ДатаChanged();
+    partial void OnДок_рег_НаимChanging(string value);
+    partial void OnДок_рег_НаимChanged();
+    partial void OnДок_рег_НомерChanging(string value);
+    partial void OnДок_рег_НомерChanged();
+    partial void OnДок_рег_ДатаChanging(System.Nullable<System.DateTime> value);
+    partial void OnДок_рег_ДатаChanged();
+    partial void OnДок_выбыт_НаимChanging(string value);
+    partial void OnДок_выбыт_НаимChanged();
+    partial void OnДок_выбыт_НомерChanging(string value);
+    partial void OnДок_выбыт_НомерChanged();
+    partial void OnДок_выбыт_ДатаChanging(System.Nullable<System.DateTime> value);
+    partial void OnДок_выбыт_ДатаChanged();
+    #endregion
+		
+		public Строение()
+		{
+			this._Стоимость_строенияs = new EntitySet<Стоимость_строения>(new Action<Стоимость_строения>(this.attach_Стоимость_строенияs), new Action<Стоимость_строения>(this.detach_Стоимость_строенияs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Наименование", DbType="VarChar(150)")]
+		public string Наименование
+		{
+			get
+			{
+				return this._Наименование;
+			}
+			set
+			{
+				if ((this._Наименование != value))
+				{
+					this.OnНаименованиеChanging(value);
+					this.SendPropertyChanging();
+					this._Наименование = value;
+					this.SendPropertyChanged("Наименование");
+					this.OnНаименованиеChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Адрес", DbType="VarChar(200)")]
+		public string Адрес
+		{
+			get
+			{
+				return this._Адрес;
+			}
+			set
+			{
+				if ((this._Адрес != value))
+				{
+					this.OnАдресChanging(value);
+					this.SendPropertyChanging();
+					this._Адрес = value;
+					this.SendPropertyChanged("Адрес");
+					this.OnАдресChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Дата_приобретения", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_приобретения
+		{
+			get
+			{
+				return this._Дата_приобретения;
+			}
+			set
+			{
+				if ((this._Дата_приобретения != value))
+				{
+					this.OnДата_приобретенияChanging(value);
+					this.SendPropertyChanging();
+					this._Дата_приобретения = value;
+					this.SendPropertyChanged("Дата_приобретения");
+					this.OnДата_приобретенияChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Дата_гос_регистрации", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_гос_регистрации
+		{
+			get
+			{
+				return this._Дата_гос_регистрации;
+			}
+			set
+			{
+				if ((this._Дата_гос_регистрации != value))
+				{
+					this.OnДата_гос_регистрацииChanging(value);
+					this.SendPropertyChanging();
+					this._Дата_гос_регистрации = value;
+					this.SendPropertyChanged("Дата_гос_регистрации");
+					this.OnДата_гос_регистрацииChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Дата_ввода_в_эксплуатацию", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_ввода_в_эксплуатацию
+		{
+			get
+			{
+				return this._Дата_ввода_в_эксплуатацию;
+			}
+			set
+			{
+				if ((this._Дата_ввода_в_эксплуатацию != value))
+				{
+					this.OnДата_ввода_в_эксплуатациюChanging(value);
+					this.SendPropertyChanging();
+					this._Дата_ввода_в_эксплуатацию = value;
+					this.SendPropertyChanged("Дата_ввода_в_эксплуатацию");
+					this.OnДата_ввода_в_эксплуатациюChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Дата_выбытия", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_выбытия
+		{
+			get
+			{
+				return this._Дата_выбытия;
+			}
+			set
+			{
+				if ((this._Дата_выбытия != value))
+				{
+					this.OnДата_выбытияChanging(value);
+					this.SendPropertyChanging();
+					this._Дата_выбытия = value;
+					this.SendPropertyChanged("Дата_выбытия");
+					this.OnДата_выбытияChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Право", DbType="TinyInt")]
+		public System.Nullable<byte> Право
+		{
+			get
+			{
+				return this._Право;
+			}
+			set
+			{
+				if ((this._Право != value))
+				{
+					this.OnПравоChanging(value);
+					this.SendPropertyChanging();
+					this._Право = value;
+					this.SendPropertyChanged("Право");
+					this.OnПравоChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit NOT NULL")]
+		public bool DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this.OnDELChanging(value);
+					this.SendPropertyChanging();
+					this._DEL = value;
+					this.SendPropertyChanged("DEL");
+					this.OnDELChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Док_приобр_Наим", DbType="VarChar(100)")]
+		public string Док_приобр_Наим
+		{
+			get
+			{
+				return this._Док_приобр_Наим;
+			}
+			set
+			{
+				if ((this._Док_приобр_Наим != value))
+				{
+					this.OnДок_приобр_НаимChanging(value);
+					this.SendPropertyChanging();
+					this._Док_приобр_Наим = value;
+					this.SendPropertyChanged("Док_приобр_Наим");
+					this.OnДок_приобр_НаимChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Док_приобр_Номер", DbType="VarChar(30)")]
+		public string Док_приобр_Номер
+		{
+			get
+			{
+				return this._Док_приобр_Номер;
+			}
+			set
+			{
+				if ((this._Док_приобр_Номер != value))
+				{
+					this.OnДок_приобр_НомерChanging(value);
+					this.SendPropertyChanging();
+					this._Док_приобр_Номер = value;
+					this.SendPropertyChanged("Док_приобр_Номер");
+					this.OnДок_приобр_НомерChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Док_приобр_Дата", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Док_приобр_Дата
+		{
+			get
+			{
+				return this._Док_приобр_Дата;
+			}
+			set
+			{
+				if ((this._Док_приобр_Дата != value))
+				{
+					this.OnДок_приобр_ДатаChanging(value);
+					this.SendPropertyChanging();
+					this._Док_приобр_Дата = value;
+					this.SendPropertyChanged("Док_приобр_Дата");
+					this.OnДок_приобр_ДатаChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Док_рег_Наим", DbType="VarChar(100)")]
+		public string Док_рег_Наим
+		{
+			get
+			{
+				return this._Док_рег_Наим;
+			}
+			set
+			{
+				if ((this._Док_рег_Наим != value))
+				{
+					this.OnДок_рег_НаимChanging(value);
+					this.SendPropertyChanging();
+					this._Док_рег_Наим = value;
+					this.SendPropertyChanged("Док_рег_Наим");
+					this.OnДок_рег_НаимChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Док_рег_Номер", DbType="VarChar(30)")]
+		public string Док_рег_Номер
+		{
+			get
+			{
+				return this._Док_рег_Номер;
+			}
+			set
+			{
+				if ((this._Док_рег_Номер != value))
+				{
+					this.OnДок_рег_НомерChanging(value);
+					this.SendPropertyChanging();
+					this._Док_рег_Номер = value;
+					this.SendPropertyChanged("Док_рег_Номер");
+					this.OnДок_рег_НомерChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Док_рег_Дата", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Док_рег_Дата
+		{
+			get
+			{
+				return this._Док_рег_Дата;
+			}
+			set
+			{
+				if ((this._Док_рег_Дата != value))
+				{
+					this.OnДок_рег_ДатаChanging(value);
+					this.SendPropertyChanging();
+					this._Док_рег_Дата = value;
+					this.SendPropertyChanged("Док_рег_Дата");
+					this.OnДок_рег_ДатаChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Док_выбыт_Наим", DbType="VarChar(100)")]
+		public string Док_выбыт_Наим
+		{
+			get
+			{
+				return this._Док_выбыт_Наим;
+			}
+			set
+			{
+				if ((this._Док_выбыт_Наим != value))
+				{
+					this.OnДок_выбыт_НаимChanging(value);
+					this.SendPropertyChanging();
+					this._Док_выбыт_Наим = value;
+					this.SendPropertyChanged("Док_выбыт_Наим");
+					this.OnДок_выбыт_НаимChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Док_выбыт_Номер", DbType="VarChar(30)")]
+		public string Док_выбыт_Номер
+		{
+			get
+			{
+				return this._Док_выбыт_Номер;
+			}
+			set
+			{
+				if ((this._Док_выбыт_Номер != value))
+				{
+					this.OnДок_выбыт_НомерChanging(value);
+					this.SendPropertyChanging();
+					this._Док_выбыт_Номер = value;
+					this.SendPropertyChanged("Док_выбыт_Номер");
+					this.OnДок_выбыт_НомерChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Док_выбыт_Дата", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Док_выбыт_Дата
+		{
+			get
+			{
+				return this._Док_выбыт_Дата;
+			}
+			set
+			{
+				if ((this._Док_выбыт_Дата != value))
+				{
+					this.OnДок_выбыт_ДатаChanging(value);
+					this.SendPropertyChanging();
+					this._Док_выбыт_Дата = value;
+					this.SendPropertyChanged("Док_выбыт_Дата");
+					this.OnДок_выбыт_ДатаChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Строение_Стоимость_строения", Storage="_Стоимость_строенияs", ThisKey="ID", OtherKey="ID_строение")]
+		public EntitySet<Стоимость_строения> Стоимость_строенияs
+		{
+			get
+			{
+				return this._Стоимость_строенияs;
+			}
+			set
+			{
+				this._Стоимость_строенияs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Стоимость_строенияs(Стоимость_строения entity)
+		{
+			this.SendPropertyChanging();
+			entity.Строение = this;
+		}
+		
+		private void detach_Стоимость_строенияs(Стоимость_строения entity)
+		{
+			this.SendPropertyChanging();
+			entity.Строение = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Стоимость_строения")]
+	public partial class Стоимость_строения : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<System.DateTime> _Период;
+		
+		private System.Nullable<int> _Площадь_всего;
+		
+		private System.Nullable<int> _Площадь_аренда;
+		
+		private System.Nullable<decimal> _Первоначальная_стоимость;
+		
+		private System.Nullable<decimal> _Сумма_армотизации;
+		
+		private int _ID_строение;
+		
+		private bool _DEL;
+		
+		private EntityRef<Строение> _Строение;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnПериодChanging(System.Nullable<System.DateTime> value);
+    partial void OnПериодChanged();
+    partial void OnПлощадь_всегоChanging(System.Nullable<int> value);
+    partial void OnПлощадь_всегоChanged();
+    partial void OnПлощадь_арендаChanging(System.Nullable<int> value);
+    partial void OnПлощадь_арендаChanged();
+    partial void OnПервоначальная_стоимостьChanging(System.Nullable<decimal> value);
+    partial void OnПервоначальная_стоимостьChanged();
+    partial void OnСумма_армотизацииChanging(System.Nullable<decimal> value);
+    partial void OnСумма_армотизацииChanged();
+    partial void OnID_строениеChanging(int value);
+    partial void OnID_строениеChanged();
+    partial void OnDELChanging(bool value);
+    partial void OnDELChanged();
+    #endregion
+		
+		public Стоимость_строения()
+		{
+			this._Строение = default(EntityRef<Строение>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Период", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Период
+		{
+			get
+			{
+				return this._Период;
+			}
+			set
+			{
+				if ((this._Период != value))
+				{
+					this.OnПериодChanging(value);
+					this.SendPropertyChanging();
+					this._Период = value;
+					this.SendPropertyChanged("Период");
+					this.OnПериодChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Площадь_всего", DbType="Int")]
+		public System.Nullable<int> Площадь_всего
+		{
+			get
+			{
+				return this._Площадь_всего;
+			}
+			set
+			{
+				if ((this._Площадь_всего != value))
+				{
+					this.OnПлощадь_всегоChanging(value);
+					this.SendPropertyChanging();
+					this._Площадь_всего = value;
+					this.SendPropertyChanged("Площадь_всего");
+					this.OnПлощадь_всегоChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Площадь_аренда", DbType="Int")]
+		public System.Nullable<int> Площадь_аренда
+		{
+			get
+			{
+				return this._Площадь_аренда;
+			}
+			set
+			{
+				if ((this._Площадь_аренда != value))
+				{
+					this.OnПлощадь_арендаChanging(value);
+					this.SendPropertyChanging();
+					this._Площадь_аренда = value;
+					this.SendPropertyChanged("Площадь_аренда");
+					this.OnПлощадь_арендаChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Первоначальная_стоимость", DbType="Money")]
+		public System.Nullable<decimal> Первоначальная_стоимость
+		{
+			get
+			{
+				return this._Первоначальная_стоимость;
+			}
+			set
+			{
+				if ((this._Первоначальная_стоимость != value))
+				{
+					this.OnПервоначальная_стоимостьChanging(value);
+					this.SendPropertyChanging();
+					this._Первоначальная_стоимость = value;
+					this.SendPropertyChanged("Первоначальная_стоимость");
+					this.OnПервоначальная_стоимостьChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Сумма_армотизации", DbType="Money")]
+		public System.Nullable<decimal> Сумма_армотизации
+		{
+			get
+			{
+				return this._Сумма_армотизации;
+			}
+			set
+			{
+				if ((this._Сумма_армотизации != value))
+				{
+					this.OnСумма_армотизацииChanging(value);
+					this.SendPropertyChanging();
+					this._Сумма_армотизации = value;
+					this.SendPropertyChanged("Сумма_армотизации");
+					this.OnСумма_армотизацииChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_строение", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ID_строение
+		{
+			get
+			{
+				return this._ID_строение;
+			}
+			set
+			{
+				if ((this._ID_строение != value))
+				{
+					if (this._Строение.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnID_строениеChanging(value);
+					this.SendPropertyChanging();
+					this._ID_строение = value;
+					this.SendPropertyChanged("ID_строение");
+					this.OnID_строениеChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit NOT NULL")]
+		public bool DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this.OnDELChanging(value);
+					this.SendPropertyChanging();
+					this._DEL = value;
+					this.SendPropertyChanged("DEL");
+					this.OnDELChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Строение_Стоимость_строения", Storage="_Строение", ThisKey="ID_строение", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Строение Строение
+		{
+			get
+			{
+				return this._Строение.Entity;
+			}
+			set
+			{
+				Строение previousValue = this._Строение.Entity;
+				if (((previousValue != value) 
+							|| (this._Строение.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Строение.Entity = null;
+						previousValue.Стоимость_строенияs.Remove(this);
+					}
+					this._Строение.Entity = value;
+					if ((value != null))
+					{
+						value.Стоимость_строенияs.Add(this);
+						this._ID_строение = value.ID;
+					}
+					else
+					{
+						this._ID_строение = default(int);
+					}
+					this.SendPropertyChanged("Строение");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

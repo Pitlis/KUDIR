@@ -233,6 +233,42 @@
       <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.Строение" Member="Строениеs">
+    <Type Name="Строение">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Наименование" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Адрес" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Дата_приобретения" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Дата_гос_регистрации" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Дата_ввода_в_эксплуатацию" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Дата_выбытия" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Право" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Док_приобр_Наим" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Док_приобр_Номер" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Док_приобр_Дата" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Док_рег_Наим" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Док_рег_Номер" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Док_рег_Дата" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Док_выбыт_Наим" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Док_выбыт_Номер" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Док_выбыт_Дата" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Строение_Стоимость_строения" Member="Стоимость_строенияs" ThisKey="ID" OtherKey="ID_строение" Type="Стоимость_строения" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Стоимость_строения" Member="Стоимость_строенияs">
+    <Type Name="Стоимость_строения">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Период" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Площадь_всего" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Площадь_аренда" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Первоначальная_стоимость" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Сумма_армотизации" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ID_строение" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Строение_Стоимость_строения" Member="Строение" ThisKey="ID_строение" OtherKey="ID" Type="Строение" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.СуммыВычетов" Method="СуммыВычетов">
     <Parameter Name="РаботникID" Parameter="работникID" Type="System.Int32" DbType="Int" />
     <Parameter Name="Дата" Parameter="дата" Type="System.DateTime" DbType="DateTime" />
