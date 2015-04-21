@@ -76,12 +76,12 @@ namespace Reports
                 newRow.Cell(6).Value = "X";
             }
 
-            newRow.RowBelow(1).Cell(4).Value = records.SumRealiz;
-            newRow.RowBelow(2).Cell(4).Value = records.SumRealizYear;
-            newRow.RowBelow(1).Cell(5).Value = records.SumOthers;
-            newRow.RowBelow(2).Cell(5).Value = records.SumOthersYear;
-            newRow.RowBelow(1).Cell(6).Value = records.SumRealiz + records.SumOthers;
-            newRow.RowBelow(2).Cell(6).Value = records.SumRealizYear + records.SumOthersYear;
+            newRow.RowBelow(1).Cell(4).Value = records.SumRealiz.HasValue ? records.SumRealiz : 0;
+            newRow.RowBelow(2).Cell(4).Value = records.SumRealizYear.HasValue ? records.SumRealizYear : 0;
+            newRow.RowBelow(1).Cell(5).Value = records.SumOthers.HasValue ? records.SumOthers : 0;
+            newRow.RowBelow(2).Cell(5).Value = records.SumOthersYear.HasValue ? records.SumOthersYear : 0;
+            newRow.RowBelow(1).Cell(6).Value = (records.SumRealiz.HasValue ? records.SumRealiz : 0) + (records.SumOthers.HasValue ? records.SumOthers : 0);
+            newRow.RowBelow(2).Cell(6).Value = (records.SumRealizYear.HasValue ? records.SumRealizYear : 0) + (records.SumOthersYear.HasValue ? records.SumOthersYear : 0);
 
             wb.Save();
         }

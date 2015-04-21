@@ -19,11 +19,11 @@ namespace Reports
         public ВыручкаForPrint Get_Выручка(DateTime start, DateTime end)
         {
             ВыручкаForPrint records = new ВыручкаForPrint();
-            records.SumOthersYear = (from v in context.Выручкаs where v.Дата_записи.Value.Year == start.Year select v.Внереализационные_доходы.GetValueOrDefault()).Sum();
-            records.SumRealizYear = (from v in context.Выручкаs where v.Дата_записи.Value.Year == start.Year select v.Выручка_от_реализации.GetValueOrDefault()).Sum();
-            records.list = (from v in context.Выручкаs where v.Дата_записи.Value >= start && v.Дата_записи.Value <= end orderby v.Дата_записи select v).ToList();
-            records.SumOthers = (from v in records.list select v.Внереализационные_доходы.GetValueOrDefault()).Sum();
-            records.SumRealiz = (from v in records.list select v.Выручка_от_реализации.GetValueOrDefault()).Sum();
+            records.SumOthersYear = (from v in context.Выручкаs where v.Дата_записи.Value.Year == end.Year && v.DEL == false select v.Внереализационные_доходы).Sum();
+            records.SumRealizYear = (from v in context.Выручкаs where v.Дата_записи.Value.Year == end.Year && v.DEL == false select v.Выручка_от_реализации).Sum();
+            records.list = (from v in context.Выручкаs where v.Дата_записи.Value >= start && v.Дата_записи.Value <= end && v.DEL == false orderby v.Дата_записи select v).ToList();
+            records.SumOthers = (from v in records.list select v.Внереализационные_доходы).Sum();
+            records.SumRealiz = (from v in records.list select v.Выручка_от_реализации).Sum();
 
             return records;
         }
@@ -91,12 +91,12 @@ namespace Reports
         }
         public List<Кредитор> Get_Кредитор(DateTime start, DateTime end)
         {
-            return (from k in context.Кредиторs where k.Док_задолж_Дата.Value >= start && k.Док_задолж_Дата.Value <= end orderby k.Док_задолж_Дата select k).ToList<Кредитор>();
+            return (from k in context.Кредиторs where k.Док_задолж_Дата.Value >= start && k.Док_задолж_Дата.Value <= end && k.DEL == false orderby k.Док_задолж_Дата select k).ToList<Кредитор>();
         }
         public РаботникForPrint Get_ПодоходныйНалог(DateTime start, DateTime end, int emplID)
         {
             РаботникForPrint emplInfo = new РаботникForPrint();
-            emplInfo.employee = (from e in context.Работникs where e.работникID == emplID select e).First();
+            emplInfo.employee = (from e in context.Работникs where e.работникID == emplID && e.DEL == false select e).First();
             emplInfo.payments = new Dictionary<DateTime, ПодоходныйНалог_Info>();
 
             for (DateTime date = start; date < end; date = date.AddMonths(1))
@@ -158,6 +158,7 @@ namespace Reports
                                       where v.работникID == emplID &&
                                           v.Дата.Year == date.Year && v.Дата.Month == date.Month &&
                                           v.Сумма.HasValue
+                                          && v.DEL == false 
                                       select v.Сумма).Sum();
                 info.итогоУдержано = info.иныеУдержания.HasValue ? info.иныеУдержания.Value : 0 + info.подоходНалог;
                 info.кВыплате = info.итогоМесяц - info.итогоУдержано;
@@ -212,6 +213,7 @@ namespace Reports
         {
             return (from v in context.Производственный_кооперативs
                         where v.ФИО != null
+                        && v.DEL == false 
                         select v).ToList<Производственный_кооператив>();
         }
         public List<СтраховойВзносForPrint> Get_СтраховойВзнос(int year, int emplID)
@@ -257,7 +259,7 @@ namespace Reports
         }
         public Работник Get_Работник(int emplID)
         {
-            return (from v in context.Работникs where v.работникID == emplID select v).First();
+            return (from v in context.Работникs where v.работникID == emplID && v.DEL == false select v).First();
         }
 
         #region Дополнительные типы
@@ -265,10 +267,10 @@ namespace Reports
         public struct ВыручкаForPrint
         {
             public List<Reports.Выручка> list;
-            public Decimal SumRealiz;
-            public Decimal SumOthers;
-            public Decimal SumRealizYear;
-            public Decimal SumOthersYear;
+            public Decimal? SumRealiz;
+            public Decimal? SumOthers;
+            public Decimal? SumRealizYear;
+            public Decimal? SumOthersYear;
         }
 
         public struct Отгрузка_Key
