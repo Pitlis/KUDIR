@@ -237,6 +237,8 @@ namespace Reports
             var query = from v in context.view_СтрахВзносs where v.работникID == emplID && v.Дата.Year == year select v;
             foreach(var record in query)
             {
+                if (list.FindIndex(p => p.info.Дата.Month == record.Дата.Month) != -1)
+                    continue;
                 СтраховойВзносForPrint inclusion = new СтраховойВзносForPrint();
                 inclusion.info = record;
                 Decimal? temp = 0;
