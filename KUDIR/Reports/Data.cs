@@ -273,6 +273,7 @@ namespace Reports
                 int index = list.FindIndex(p => p.info.Дата.Year == record.Дата.Year && p.info.Дата.Month == record.Дата.Month);
                 if(index != -1)
                 {
+                    NullDecimalToZero(list[index].info.Общая_сумма_выплат, list[index].info.Сумма_на_которую_начисл_страх_взносы, list[index].info.Сумма_начисл_страх_взносов_всего, list[index].info.в_том_числе_1_процент, list[index].info.Иные_платежи, list[index].info.Перечислено_фондом_плательщику, list[index].info.Сумма_начисленных_пособий, list[index].info.Остаток_задолженности_за_пред_период, list[index].info.Подлежит_уплате, list[index].info.Перечислено_в_Фонд);
                     list[index].info.Общая_сумма_выплат += record.Общая_сумма_выплат.HasValue ? record.Общая_сумма_выплат.Value : 0;
                     list[index].info.Сумма_на_которую_начисл_страх_взносы += record.Сумма_на_которую_начисл_страх_взносы.HasValue ? record.Сумма_на_которую_начисл_страх_взносы.Value : 0;
                     list[index].info.Сумма_начисл_страх_взносов_всего += record.Сумма_начисл_страх_взносов_всего.HasValue ? record.Сумма_начисл_страх_взносов_всего.Value : 0;
@@ -297,6 +298,7 @@ namespace Reports
                     СтрахВзносПеречислForPrint p = new СтрахВзносПеречислForPrint();
                     p.платежки = new List<ПлатежнаяИнструкция>();
                     p.info = record;
+                    p.info.Общая_сумма_выплат = 0;
                     if (record.Номер_плат_инстр != null && record.Перечислено_в_Фонд.HasValue)
                     {
                         ПлатежнаяИнструкция pInstr = new ПлатежнаяИнструкция();
@@ -344,6 +346,7 @@ namespace Reports
                 int index = list.FindIndex(p => p.info.Дата.Year == record.Дата.Year && p.info.Дата.Month == record.Дата.Month);
                 if (index != -1)
                 {
+                    NullDecimalToZero(list[index].info.Сумма_на_которую_начисл_пенс_взносы, list[index].info.Сумма_начисленных_пенс_взносов, list[index].info.Остаток_задолженности_за_пред_период, list[index].info.Иные_платежи, list[index].info.Подлежит_уплате, list[index].info.Перечислено_в_Фонд);
                     list[index].info.Сумма_на_которую_начисл_пенс_взносы += record.Сумма_на_которую_начисл_пенс_взносы.HasValue ? record.Сумма_на_которую_начисл_пенс_взносы.Value : 0;
                     list[index].info.Сумма_начисленных_пенс_взносов += record.Сумма_начисленных_пенс_взносов.HasValue ? record.Сумма_начисленных_пенс_взносов.Value : 0;
                     list[index].info.Остаток_задолженности_за_пред_период += record.Остаток_задолженности_за_пред_период.HasValue ? record.Остаток_задолженности_за_пред_период.Value : 0;
@@ -495,6 +498,14 @@ namespace Reports
                     выплаты[i] = v.Сумма.Value;
                     i++;
                 }
+            }
+        }
+        void NullDecimalToZero(params Decimal?[] values)
+        {
+            for (int i = 0; i < values.Length; ++i)
+            {
+                if (values[i] == null)
+                    values[i] = 0;
             }
         }
     }
