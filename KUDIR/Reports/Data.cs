@@ -457,6 +457,10 @@ namespace Reports
         {
             return (from b in context.Незавершенное_строениеs where b.DEL == false && b.Наименование != null && b.Адрес != null select b).ToList<Незавершенное_строение>();
         }
+        public List<Товары_из_ТС> Get_ТоварыТС(DateTime start, DateTime end)
+        {
+            return (from t in context.Товары_из_ТСs where t.DEL == false && t.Дата >= start && t.Дата <= end orderby t.Дата select t).ToList<Товары_из_ТС>();
+        }
 
         #region Дополнительные типы
 

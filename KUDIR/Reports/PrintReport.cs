@@ -530,13 +530,35 @@ namespace Reports
             int i = 1;
             foreach (var record in list)
             {
-                newRow = InsertRow(newRow, 1, 7, 8);
+                newRow = InsertRow(newRow, 1, 6, 8);
                 newRow.Cell(1).Value = i;
                 newRow.Cell(2).Value = record.Наименование + ", " + record.Адрес;
                 newRow.Cell(3).Value = record.Нормативный_срок;
                 newRow.Cell(4).Value = DateToString(record.Дата_на_которую_истек_нормат_срок);
                 newRow.Cell(5).Value = record.Сумма_затрат;
                 newRow.Cell(6).Value = DateToString(record.Дата_акта_приемки);
+                i++;
+            }
+            wb.Save();
+        }
+        public void ТоварыТС(DateTime startPeriod, DateTime endPeriod)
+        {
+            XLWorkbook wb = GetCopyTemplate("ТоварыТС.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(4);
+            List<Товары_из_ТС> list = new Data().Get_ТоварыТС(startPeriod, endPeriod);
+
+            int i = 1;
+            foreach (var record in list)
+            {
+                newRow = InsertRow(newRow, 1, 7, 8);
+                newRow.Cell(1).Value = i;
+                newRow.Cell(2).Value = DateToString(record.Дата);
+                newRow.Cell(3).Value = record.Серия_транспортного_документа + ", " + record.Номер_транспортного_документа;
+                newRow.Cell(4).Value = DateToString(record.Дата_транспортного_документа);
+                newRow.Cell(5).Value = record.Счет_факт_Номер;
+                newRow.Cell(6).Value = DateToString(record.Счет_факт_Дата);
+                newRow.Cell(7).Value = record.Стоимость;
                 i++;
             }
             wb.Save();

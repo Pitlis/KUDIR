@@ -54,6 +54,9 @@ namespace Reports
     partial void InsertНезавершенное_строение(Незавершенное_строение instance);
     partial void UpdateНезавершенное_строение(Незавершенное_строение instance);
     partial void DeleteНезавершенное_строение(Незавершенное_строение instance);
+    partial void InsertТовары_из_ТС(Товары_из_ТС instance);
+    partial void UpdateТовары_из_ТС(Товары_из_ТС instance);
+    partial void DeleteТовары_из_ТС(Товары_из_ТС instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -227,6 +230,14 @@ namespace Reports
 			get
 			{
 				return this.GetTable<Незавершенное_строение>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Товары_из_ТС> Товары_из_ТСs
+		{
+			get
+			{
+				return this.GetTable<Товары_из_ТС>();
 			}
 		}
 		
@@ -4924,6 +4935,260 @@ namespace Reports
 					this._DEL = value;
 					this.SendPropertyChanged("DEL");
 					this.OnDELChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Товары_из_ТС")]
+	public partial class Товары_из_ТС : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<System.DateTime> _Дата;
+		
+		private string _Серия_транспортного_документа;
+		
+		private string _Номер_транспортного_документа;
+		
+		private System.Nullable<System.DateTime> _Дата_транспортного_документа;
+		
+		private System.Nullable<decimal> _Стоимость;
+		
+		private bool _DEL;
+		
+		private string _Счет_факт_Номер;
+		
+		private System.Nullable<System.DateTime> _Счет_факт_Дата;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnДатаChanging(System.Nullable<System.DateTime> value);
+    partial void OnДатаChanged();
+    partial void OnСерия_транспортного_документаChanging(string value);
+    partial void OnСерия_транспортного_документаChanged();
+    partial void OnНомер_транспортного_документаChanging(string value);
+    partial void OnНомер_транспортного_документаChanged();
+    partial void OnДата_транспортного_документаChanging(System.Nullable<System.DateTime> value);
+    partial void OnДата_транспортного_документаChanged();
+    partial void OnСтоимостьChanging(System.Nullable<decimal> value);
+    partial void OnСтоимостьChanged();
+    partial void OnDELChanging(bool value);
+    partial void OnDELChanged();
+    partial void OnСчет_факт_НомерChanging(string value);
+    partial void OnСчет_факт_НомерChanged();
+    partial void OnСчет_факт_ДатаChanging(System.Nullable<System.DateTime> value);
+    partial void OnСчет_факт_ДатаChanged();
+    #endregion
+		
+		public Товары_из_ТС()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Дата", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата
+		{
+			get
+			{
+				return this._Дата;
+			}
+			set
+			{
+				if ((this._Дата != value))
+				{
+					this.OnДатаChanging(value);
+					this.SendPropertyChanging();
+					this._Дата = value;
+					this.SendPropertyChanged("Дата");
+					this.OnДатаChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Серия_транспортного_документа", DbType="VarChar(10)")]
+		public string Серия_транспортного_документа
+		{
+			get
+			{
+				return this._Серия_транспортного_документа;
+			}
+			set
+			{
+				if ((this._Серия_транспортного_документа != value))
+				{
+					this.OnСерия_транспортного_документаChanging(value);
+					this.SendPropertyChanging();
+					this._Серия_транспортного_документа = value;
+					this.SendPropertyChanged("Серия_транспортного_документа");
+					this.OnСерия_транспортного_документаChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Номер_транспортного_документа", DbType="VarChar(30)")]
+		public string Номер_транспортного_документа
+		{
+			get
+			{
+				return this._Номер_транспортного_документа;
+			}
+			set
+			{
+				if ((this._Номер_транспортного_документа != value))
+				{
+					this.OnНомер_транспортного_документаChanging(value);
+					this.SendPropertyChanging();
+					this._Номер_транспортного_документа = value;
+					this.SendPropertyChanged("Номер_транспортного_документа");
+					this.OnНомер_транспортного_документаChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Дата_транспортного_документа", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_транспортного_документа
+		{
+			get
+			{
+				return this._Дата_транспортного_документа;
+			}
+			set
+			{
+				if ((this._Дата_транспортного_документа != value))
+				{
+					this.OnДата_транспортного_документаChanging(value);
+					this.SendPropertyChanging();
+					this._Дата_транспортного_документа = value;
+					this.SendPropertyChanged("Дата_транспортного_документа");
+					this.OnДата_транспортного_документаChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Стоимость", DbType="Money")]
+		public System.Nullable<decimal> Стоимость
+		{
+			get
+			{
+				return this._Стоимость;
+			}
+			set
+			{
+				if ((this._Стоимость != value))
+				{
+					this.OnСтоимостьChanging(value);
+					this.SendPropertyChanging();
+					this._Стоимость = value;
+					this.SendPropertyChanged("Стоимость");
+					this.OnСтоимостьChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit NOT NULL")]
+		public bool DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this.OnDELChanging(value);
+					this.SendPropertyChanging();
+					this._DEL = value;
+					this.SendPropertyChanged("DEL");
+					this.OnDELChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Счет_факт_Номер", DbType="VarChar(30)")]
+		public string Счет_факт_Номер
+		{
+			get
+			{
+				return this._Счет_факт_Номер;
+			}
+			set
+			{
+				if ((this._Счет_факт_Номер != value))
+				{
+					this.OnСчет_факт_НомерChanging(value);
+					this.SendPropertyChanging();
+					this._Счет_факт_Номер = value;
+					this.SendPropertyChanged("Счет_факт_Номер");
+					this.OnСчет_факт_НомерChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Счет_факт_Дата", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Счет_факт_Дата
+		{
+			get
+			{
+				return this._Счет_факт_Дата;
+			}
+			set
+			{
+				if ((this._Счет_факт_Дата != value))
+				{
+					this.OnСчет_факт_ДатаChanging(value);
+					this.SendPropertyChanging();
+					this._Счет_факт_Дата = value;
+					this.SendPropertyChanged("Счет_факт_Дата");
+					this.OnСчет_факт_ДатаChanged();
 				}
 			}
 		}
