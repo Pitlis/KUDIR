@@ -216,6 +216,23 @@
       <Column Name="[Количество рабочих дней]" Member="Количество_рабочих_дней" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.view_ПенсВзносы" Member="view_ПенсВзносыs">
+    <Type Name="view_ПенсВзносы">
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ФИО" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Дата" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Сумма на которую начисл пенс взносы]" Member="Сумма_на_которую_начисл_пенс_взносы" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Сумма начисленных пенс взносов]" Member="Сумма_начисленных_пенс_взносов" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="[Остаток задолженности за пред период]" Member="Остаток_задолженности_за_пред_период" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Иные платежи]" Member="Иные_платежи" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Подлежит уплате]" Member="Подлежит_уплате" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="[Перечислено в Фонд]" Member="Перечислено_в_Фонд" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Дата плат инстр]" Member="Дата_плат_инстр" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Номер плат инстр]" Member="Номер_плат_инстр" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ID_платежный_док" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.СуммыВычетов" Method="СуммыВычетов">
     <Parameter Name="РаботникID" Parameter="работникID" Type="System.Int32" DbType="Int" />
     <Parameter Name="Дата" Parameter="дата" Type="System.DateTime" DbType="DateTime" />

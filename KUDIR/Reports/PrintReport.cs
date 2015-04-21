@@ -348,7 +348,6 @@ namespace Reports
             IXLRow newRow = ws.Row(10);
             List<Reports.Data.СтраховойВзносForPrint> list = new Data().Get_СтраховойВзнос(year, emplID);
 
-            int i = 0;
             foreach (Reports.Data.СтраховойВзносForPrint record in list)
             {
                 newRow = ws.Row(GetRowIndexOn_СтраховойВзнос(record.info.Дата.Month, 10));
@@ -373,7 +372,6 @@ namespace Reports
                 newRow.Cell(16).Value = record.info.За_месяц;
                 newRow.Cell(17).Value = record.info.Количество_рабочих_дней;
                 newRow.Cell(18).Value = record.количествоПособий;
-                i++;
             }
 
             Работник employee = new Data().Get_Работник(emplID);
@@ -413,6 +411,32 @@ namespace Reports
                 }
                 newRow.Cell(12).Value = платежныеИнстр;
             }
+
+            wb.Save();
+        }
+        public void ПенсионныйВзнос(int year, int emplID)
+        {
+            XLWorkbook wb = GetCopyTemplate("ПенсионныйВзнос.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(6);
+            List<Reports.Data.ПенсВзносыForPrint> list = new Data().Get_ПенсионныеВзносы(year, emplID);
+
+            foreach(Reports.Data.ПенсВзносыForPrint record in list)
+            {
+                newRow = ws.Row(GetRowIndexOn_СтраховойВзнос(record.info.Дата.Month, 6));
+                newRow.Cell(1).Value = record.info.Дата.ToString("MMMM");
+                newRow.Cell(2).Value = record.выплаты[0];
+                newRow.Cell(3).Value = record.выплаты[1];
+                newRow.Cell(4).Value = record.выплаты[2];
+                newRow.Cell(5).Value = record.выплаты[3];
+                newRow.Cell(6).Value = record.итого;
+                newRow.Cell(7).Value = record.info.Сумма_на_которую_начисл_пенс_взносы;
+                newRow.Cell(6).Value = record.info.Сумма_начисленных_пенс_взносов;
+
+            }
+            Работник employee = new Data().Get_Работник(emplID);
+            ws.Cell(2, 1).Value = employee.ФИО;
+            ws.Cell(2, 8).Value = employee.Тариф_пенс_взносов;
 
             wb.Save();
         }

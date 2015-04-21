@@ -252,24 +252,8 @@ namespace Reports
                         inclusion.количествоПособий++;
                 }
 
-                inclusion.выплаты[0] = (from v in context.view_Зарплатыs where v.работникID == emplID && v.Начало_периода <= record.Дата && v.Конец_периода >= record.Дата && v.Зарплата_сумма.HasValue select v.Зарплата_сумма).Sum();
+                GetВыплатыРаботника(emplID, record.Дата, inclusion.выплаты);
 
-                var выплаты = from v in context.view_Выплатыs
-                            where v.работникID == emplID &&
-                                v.Начало_периода <= record.Дата && v.Конец_периода >= record.Дата &&
-                                v.Сумма.HasValue && v.Причина != null
-                            select v;
-                int i = 1;
-                foreach (var v in выплаты)
-                {
-                    if (i == 3)
-                        break;
-                    if (v.Причина.IndexOf("зарплат", StringComparison.InvariantCultureIgnoreCase) < 0)
-                    {
-                        inclusion.выплаты[i] = v.Сумма.Value;
-                        i++;
-                    }
-                }
                 list.Add(inclusion);
             }
             return list;
@@ -323,6 +307,30 @@ namespace Reports
                     }
                     list.Add(p);
                 }
+            }
+            return list;
+        }
+        public List<ПенсВзносыForPrint> Get_ПенсионныеВзносы(int year, int emplID)
+        {
+            List<ПенсВзносыForPrint> list = new List<ПенсВзносыForPrint>();
+            var query = from v in context.view_ПенсВзносыs where v.работникID == emplID && v.Дата.Year == year select v;
+
+            foreach(var record in query)
+            {
+                if (list.FindIndex(p => p.info.Дата.Month == record.Дата.Month) != -1)
+                    continue;
+                ПенсВзносыForPrint pens = new ПенсВзносыForPrint();
+                pens.info = record;
+                pens.выплаты = new decimal?[4];
+                GetВыплатыРаботника(emplID, record.Дата, pens.выплаты);
+                pens.итого = 0;
+                foreach(var d in pens.выплаты)
+                {
+                    if (d.HasValue)
+                        pens.итого += d.Value;
+                }
+
+                list.Add(pens);
             }
             return list;
         }
@@ -393,7 +401,6 @@ namespace Reports
             public Decimal?[] пособия;
             public Decimal?[] выплаты;
             public int количествоПособий;
-            public Работник employee;
         }
 
         public class ПодоходныйНалогПеречислForPrint
@@ -413,7 +420,34 @@ namespace Reports
             public view_СтрахВзнос info;
             public List<ПлатежнаяИнструкция> платежки;
         }
-
+        public struct ПенсВзносыForPrint
+        {
+            public view_ПенсВзносы info;
+            public Decimal?[] выплаты;
+            public Decimal итого;
+        }
         #endregion
+
+        void GetВыплатыРаботника(int emplID, DateTime date, Decimal?[] выплаты)
+        {
+            выплаты[0] = (from v in context.view_Зарплатыs where v.работникID == emplID && v.Начало_периода <= date && v.Конец_периода >= date && v.Зарплата_сумма.HasValue select v.Зарплата_сумма).Sum();
+
+            var query = from v in context.view_Выплатыs
+                          where v.работникID == emplID &&
+                              v.Начало_периода <= date && v.Конец_периода >= date &&
+                              v.Сумма.HasValue && v.Причина != null
+                          select v;
+            int i = 1;
+            foreach (var v in query)
+            {
+                if (i == 3)
+                    break;
+                if (v.Причина.IndexOf("зарплат", StringComparison.InvariantCultureIgnoreCase) < 0)
+                {
+                    выплаты[i] = v.Сумма.Value;
+                    i++;
+                }
+            }
+        }
     }
 }
