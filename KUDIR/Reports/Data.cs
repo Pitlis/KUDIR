@@ -195,6 +195,51 @@ namespace Reports
                         where v.ФИО != null
                         select v).ToList<Производственный_кооператив>();
         }
+        public List<СтраховойВзносForPrint> Get_СтраховойВзнос(int year, int emplID)
+        {
+            List<СтраховойВзносForPrint> list = new List<СтраховойВзносForPrint>();
+            var query = from v in context.view_СтрахВзносs where v.работникID == emplID && v.Дата.Year == year select v;
+            foreach(var record in query)
+            {
+                СтраховойВзносForPrint inclusion = new СтраховойВзносForPrint();
+                inclusion.info = record;
+                Decimal? temp = 0;
+                inclusion.пособия = new decimal?[6];
+                inclusion.выплаты = new decimal?[4];
+                context.СтандартныеПособия(emplID, record.Дата, ref inclusion.пособия[0], ref inclusion.пособия[1], ref inclusion.пособия[2], ref inclusion.пособия[3], ref inclusion.пособия[5], ref inclusion.пособия[4], ref temp, ref temp, ref temp);
+                inclusion.количествоПособий = 0;
+                foreach(var p in inclusion.пособия)
+                {
+                    if (p.HasValue)
+                        inclusion.количествоПособий++;
+                }
+
+                inclusion.выплаты[0] = (from v in context.view_Зарплатыs where v.работникID == emplID && v.Начало_периода <= record.Дата && v.Конец_периода >= record.Дата && v.Зарплата_сумма.HasValue select v.Зарплата_сумма).Sum();
+
+                var выплаты = from v in context.view_Выплатыs
+                            where v.работникID == emplID &&
+                                v.Начало_периода <= record.Дата && v.Конец_периода >= record.Дата &&
+                                v.Сумма.HasValue && v.Причина != null
+                            select v;
+                int i = 1;
+                foreach (var v in выплаты)
+                {
+                    if (i == 3)
+                        break;
+                    if (v.Причина.IndexOf("зарплат", StringComparison.InvariantCultureIgnoreCase) < 0)
+                    {
+                        inclusion.выплаты[i] = v.Сумма.Value;
+                        i++;
+                    }
+                }
+                list.Add(inclusion);
+            }
+            return list;
+        }
+        public Работник Get_Работник(int emplID)
+        {
+            return (from v in context.Работникs where v.работникID == emplID select v).First();
+        }
 
         #region Дополнительные типы
 
@@ -254,6 +299,15 @@ namespace Reports
         {
             public Decimal? summ;
             public string Name;
+        }
+
+        public struct СтраховойВзносForPrint
+        {
+            public view_СтрахВзнос info;
+            public Decimal?[] пособия;
+            public Decimal?[] выплаты;
+            public int количествоПособий;
+            public Работник employee;
         }
 
         #endregion

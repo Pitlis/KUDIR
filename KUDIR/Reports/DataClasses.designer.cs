@@ -181,6 +181,14 @@ namespace Reports
 			}
 		}
 		
+		public System.Data.Linq.Table<view_СтрахВзнос> view_СтрахВзносs
+		{
+			get
+			{
+				return this.GetTable<view_СтрахВзнос>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.СуммыВычетов")]
 		public int СуммыВычетов([global::System.Data.Linq.Mapping.ParameterAttribute(Name="РаботникID", DbType="Int")] System.Nullable<int> работникID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Дата", DbType="DateTime")] System.Nullable<System.DateTime> дата, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Стандартные", DbType="Money")] ref System.Nullable<decimal> стандартные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Социальные", DbType="Money")] ref System.Nullable<decimal> социальные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Имущественные", DbType="Money")] ref System.Nullable<decimal> имущественные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Профессиональные", DbType="Money")] ref System.Nullable<decimal> профессиональные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ОсвобождаемыеДоходы", DbType="Money")] ref System.Nullable<decimal> освобождаемыеДоходы)
 		{
@@ -190,6 +198,22 @@ namespace Reports
 			имущественные = ((System.Nullable<decimal>)(result.GetParameterValue(4)));
 			профессиональные = ((System.Nullable<decimal>)(result.GetParameterValue(5)));
 			освобождаемыеДоходы = ((System.Nullable<decimal>)(result.GetParameterValue(6)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.СтандартныеПособия")]
+		public int СтандартныеПособия([global::System.Data.Linq.Mapping.ParameterAttribute(Name="РаботникID", DbType="Int")] System.Nullable<int> работникID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Дата", DbType="DateTime")] System.Nullable<System.DateTime> дата, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ПоВремНетрудосп", DbType="Money")] ref System.Nullable<decimal> поВремНетрудосп, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ПоБеремИРодам", DbType="Money")] ref System.Nullable<decimal> поБеремИРодам, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Единовременное", DbType="Money")] ref System.Nullable<decimal> единовременное, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ПоУходуЗаРебенком", DbType="Money")] ref System.Nullable<decimal> поУходуЗаРебенком, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Опекуну", DbType="Money")] ref System.Nullable<decimal> опекуну, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="НаДетей", DbType="Money")] ref System.Nullable<decimal> наДетей, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="РождениеРебенка", DbType="Money")] ref System.Nullable<decimal> рождениеРебенка, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ЖенщинамУчетБеременность", DbType="Money")] ref System.Nullable<decimal> женщинамУчетБеременность, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Погребение", DbType="Money")] ref System.Nullable<decimal> погребение)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), работникID, дата, поВремНетрудосп, поБеремИРодам, единовременное, поУходуЗаРебенком, опекуну, наДетей, рождениеРебенка, женщинамУчетБеременность, погребение);
+			поВремНетрудосп = ((System.Nullable<decimal>)(result.GetParameterValue(2)));
+			поБеремИРодам = ((System.Nullable<decimal>)(result.GetParameterValue(3)));
+			единовременное = ((System.Nullable<decimal>)(result.GetParameterValue(4)));
+			поУходуЗаРебенком = ((System.Nullable<decimal>)(result.GetParameterValue(5)));
+			опекуну = ((System.Nullable<decimal>)(result.GetParameterValue(6)));
+			наДетей = ((System.Nullable<decimal>)(result.GetParameterValue(7)));
+			рождениеРебенка = ((System.Nullable<decimal>)(result.GetParameterValue(8)));
+			женщинамУчетБеременность = ((System.Nullable<decimal>)(result.GetParameterValue(9)));
+			погребение = ((System.Nullable<decimal>)(result.GetParameterValue(10)));
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -3269,6 +3293,375 @@ namespace Reports
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.view_СтрахВзнос")]
+	public partial class view_СтрахВзнос
+	{
+		
+		private int _работникID;
+		
+		private string _ФИО;
+		
+		private System.DateTime _Дата;
+		
+		private System.Nullable<decimal> _Общая_сумма_выплат;
+		
+		private System.Nullable<decimal> _Сумма_на_которую_начисл_страх_взносы;
+		
+		private System.Nullable<float> _Сумма_начисл_страх_взносов_всего;
+		
+		private System.Nullable<decimal> _в_том_числе_1_процент;
+		
+		private System.Nullable<decimal> _Иные_платежи;
+		
+		private System.Nullable<decimal> _Перечислено_фондом_плательщику;
+		
+		private System.Nullable<decimal> _Сумма_начисленных_пособий;
+		
+		private System.Nullable<decimal> _Остаток_задолженности_за_пред_период;
+		
+		private System.Nullable<float> _Подлежит_уплате;
+		
+		private System.Nullable<decimal> _Перечислено_в_Фонд;
+		
+		private System.Nullable<System.DateTime> _Дата_плат_инстр;
+		
+		private string _Номер_плат_инстр;
+		
+		private System.Nullable<float> _Остаток_задолженности;
+		
+		private System.Nullable<int> _ID_платежный_док;
+		
+		private bool _DEL;
+		
+		private System.Nullable<byte> _За_месяц;
+		
+		private System.Nullable<short> _Количество_рабочих_дней;
+		
+		public view_СтрахВзнос()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_работникID", DbType="Int NOT NULL")]
+		public int работникID
+		{
+			get
+			{
+				return this._работникID;
+			}
+			set
+			{
+				if ((this._работникID != value))
+				{
+					this._работникID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ФИО", DbType="VarChar(150)")]
+		public string ФИО
+		{
+			get
+			{
+				return this._ФИО;
+			}
+			set
+			{
+				if ((this._ФИО != value))
+				{
+					this._ФИО = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Дата", DbType="DateTime NOT NULL")]
+		public System.DateTime Дата
+		{
+			get
+			{
+				return this._Дата;
+			}
+			set
+			{
+				if ((this._Дата != value))
+				{
+					this._Дата = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Общая сумма выплат]", Storage="_Общая_сумма_выплат", DbType="Money")]
+		public System.Nullable<decimal> Общая_сумма_выплат
+		{
+			get
+			{
+				return this._Общая_сумма_выплат;
+			}
+			set
+			{
+				if ((this._Общая_сумма_выплат != value))
+				{
+					this._Общая_сумма_выплат = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Сумма на которую начисл страх взносы]", Storage="_Сумма_на_которую_начисл_страх_взносы", DbType="Money")]
+		public System.Nullable<decimal> Сумма_на_которую_начисл_страх_взносы
+		{
+			get
+			{
+				return this._Сумма_на_которую_начисл_страх_взносы;
+			}
+			set
+			{
+				if ((this._Сумма_на_которую_начисл_страх_взносы != value))
+				{
+					this._Сумма_на_которую_начисл_страх_взносы = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Сумма начисл страх взносов всего]", Storage="_Сумма_начисл_страх_взносов_всего", DbType="Real")]
+		public System.Nullable<float> Сумма_начисл_страх_взносов_всего
+		{
+			get
+			{
+				return this._Сумма_начисл_страх_взносов_всего;
+			}
+			set
+			{
+				if ((this._Сумма_начисл_страх_взносов_всего != value))
+				{
+					this._Сумма_начисл_страх_взносов_всего = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[в том числе 1 процент]", Storage="_в_том_числе_1_процент", DbType="Money")]
+		public System.Nullable<decimal> в_том_числе_1_процент
+		{
+			get
+			{
+				return this._в_том_числе_1_процент;
+			}
+			set
+			{
+				if ((this._в_том_числе_1_процент != value))
+				{
+					this._в_том_числе_1_процент = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Иные платежи]", Storage="_Иные_платежи", DbType="Money")]
+		public System.Nullable<decimal> Иные_платежи
+		{
+			get
+			{
+				return this._Иные_платежи;
+			}
+			set
+			{
+				if ((this._Иные_платежи != value))
+				{
+					this._Иные_платежи = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Перечислено фондом плательщику]", Storage="_Перечислено_фондом_плательщику", DbType="Money")]
+		public System.Nullable<decimal> Перечислено_фондом_плательщику
+		{
+			get
+			{
+				return this._Перечислено_фондом_плательщику;
+			}
+			set
+			{
+				if ((this._Перечислено_фондом_плательщику != value))
+				{
+					this._Перечислено_фондом_плательщику = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Сумма начисленных пособий]", Storage="_Сумма_начисленных_пособий", DbType="Money")]
+		public System.Nullable<decimal> Сумма_начисленных_пособий
+		{
+			get
+			{
+				return this._Сумма_начисленных_пособий;
+			}
+			set
+			{
+				if ((this._Сумма_начисленных_пособий != value))
+				{
+					this._Сумма_начисленных_пособий = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Остаток задолженности за пред период]", Storage="_Остаток_задолженности_за_пред_период", DbType="Money")]
+		public System.Nullable<decimal> Остаток_задолженности_за_пред_период
+		{
+			get
+			{
+				return this._Остаток_задолженности_за_пред_период;
+			}
+			set
+			{
+				if ((this._Остаток_задолженности_за_пред_период != value))
+				{
+					this._Остаток_задолженности_за_пред_период = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Подлежит уплате]", Storage="_Подлежит_уплате", DbType="Real")]
+		public System.Nullable<float> Подлежит_уплате
+		{
+			get
+			{
+				return this._Подлежит_уплате;
+			}
+			set
+			{
+				if ((this._Подлежит_уплате != value))
+				{
+					this._Подлежит_уплате = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Перечислено в Фонд]", Storage="_Перечислено_в_Фонд", DbType="Money")]
+		public System.Nullable<decimal> Перечислено_в_Фонд
+		{
+			get
+			{
+				return this._Перечислено_в_Фонд;
+			}
+			set
+			{
+				if ((this._Перечислено_в_Фонд != value))
+				{
+					this._Перечислено_в_Фонд = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Дата плат инстр]", Storage="_Дата_плат_инстр", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_плат_инстр
+		{
+			get
+			{
+				return this._Дата_плат_инстр;
+			}
+			set
+			{
+				if ((this._Дата_плат_инстр != value))
+				{
+					this._Дата_плат_инстр = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Номер плат инстр]", Storage="_Номер_плат_инстр", DbType="VarChar(20)")]
+		public string Номер_плат_инстр
+		{
+			get
+			{
+				return this._Номер_плат_инстр;
+			}
+			set
+			{
+				if ((this._Номер_плат_инстр != value))
+				{
+					this._Номер_плат_инстр = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Остаток задолженности]", Storage="_Остаток_задолженности", DbType="Real")]
+		public System.Nullable<float> Остаток_задолженности
+		{
+			get
+			{
+				return this._Остаток_задолженности;
+			}
+			set
+			{
+				if ((this._Остаток_задолженности != value))
+				{
+					this._Остаток_задолженности = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_платежный_док", DbType="Int")]
+		public System.Nullable<int> ID_платежный_док
+		{
+			get
+			{
+				return this._ID_платежный_док;
+			}
+			set
+			{
+				if ((this._ID_платежный_док != value))
+				{
+					this._ID_платежный_док = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit NOT NULL")]
+		public bool DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this._DEL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[За месяц]", Storage="_За_месяц", DbType="TinyInt")]
+		public System.Nullable<byte> За_месяц
+		{
+			get
+			{
+				return this._За_месяц;
+			}
+			set
+			{
+				if ((this._За_месяц != value))
+				{
+					this._За_месяц = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Количество рабочих дней]", Storage="_Количество_рабочих_дней", DbType="SmallInt")]
+		public System.Nullable<short> Количество_рабочих_дней
+		{
+			get
+			{
+				return this._Количество_рабочих_дней;
+			}
+			set
+			{
+				if ((this._Количество_рабочих_дней != value))
+				{
+					this._Количество_рабочих_дней = value;
+				}
 			}
 		}
 	}

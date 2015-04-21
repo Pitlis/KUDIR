@@ -44,6 +44,18 @@ namespace Reports
             return date.Value.ToString("dd/MM/yyyy");
         }
 
+        int GetRowIndexOn_СтраховойВзнос(int month, int startIndex)
+        {
+            int index = startIndex;
+            if (month > 3)
+                index += 2;
+            if (month > 6)
+                index += 2;
+            if (month > 9)
+                index += 2;
+            return index + month;
+        }
+
         #region Отчеты
 
         public void Выручка(DateTime startPeriod, DateTime endPeriod)
@@ -321,6 +333,48 @@ namespace Reports
                 newRow.Cell(7).Value = record.Иные_выплаты_при_выходе_из_кооператива;
                 i++;
             }
+            wb.Save();
+        }
+        public void СтраховойВзнос(int year, int emplID)
+        {
+            XLWorkbook wb = GetCopyTemplate("СтраховойВзнос.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(10);
+            List<Reports.Data.СтраховойВзносForPrint> list = new Data().Get_СтраховойВзнос(year, emplID);
+
+            int i = 0;
+            foreach (Reports.Data.СтраховойВзносForPrint record in list)
+            {
+                newRow = ws.Row(GetRowIndexOn_СтраховойВзнос(record.info.Дата.Month, 10));
+                newRow.Cell(1).Value = record.info.Дата.ToString("MMMM");
+                newRow.Cell(2).Value = record.выплаты[0];
+                newRow.Cell(3).Value = record.выплаты[1];
+                newRow.Cell(4).Value = record.выплаты[2];
+                newRow.Cell(5).Value = record.выплаты[3];
+
+                newRow.Cell(6).Value = record.info.Общая_сумма_выплат;
+                newRow.Cell(7).Value = record.info.Сумма_на_которую_начисл_страх_взносы;
+                newRow.Cell(8).Value = record.info.Сумма_начисл_страх_взносов_всего;
+                newRow.Cell(9).Value = record.info.в_том_числе_1_процент;
+
+                newRow.Cell(10).Value = record.пособия[0];
+                newRow.Cell(11).Value = record.пособия[1];
+                newRow.Cell(12).Value = record.пособия[2];
+                newRow.Cell(13).Value = record.пособия[3];
+                newRow.Cell(14).Value = record.пособия[4];
+                newRow.Cell(15).Value = record.пособия[5];
+
+                newRow.Cell(16).Value = record.info.За_месяц;
+                newRow.Cell(17).Value = record.info.Количество_рабочих_дней;
+                newRow.Cell(18).Value = record.количествоПособий;
+                i++;
+            }
+
+            Работник employee = new Data().Get_Работник(emplID);
+            ws.Cell(2, 1).Value = employee.ФИО;
+            ws.Cell(4, 1).Value = DateToString(employee.Дата_договора) + ", " + employee.Номер_договора + ", " + DateToString(employee.Дата_выплаты_вознаграждения);
+            ws.Cell(4, 11).Value = employee.Инвалидность;
+
             wb.Save();
         }
 

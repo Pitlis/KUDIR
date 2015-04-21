@@ -192,6 +192,30 @@
       <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.view_СтрахВзнос" Member="view_СтрахВзносs">
+    <Type Name="view_СтрахВзнос">
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ФИО" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Дата" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Общая сумма выплат]" Member="Общая_сумма_выплат" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Сумма на которую начисл страх взносы]" Member="Сумма_на_которую_начисл_страх_взносы" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Сумма начисл страх взносов всего]" Member="Сумма_начисл_страх_взносов_всего" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="[в том числе 1 процент]" Member="в_том_числе_1_процент" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Иные платежи]" Member="Иные_платежи" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Перечислено фондом плательщику]" Member="Перечислено_фондом_плательщику" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Сумма начисленных пособий]" Member="Сумма_начисленных_пособий" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Остаток задолженности за пред период]" Member="Остаток_задолженности_за_пред_период" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Подлежит уплате]" Member="Подлежит_уплате" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="[Перечислено в Фонд]" Member="Перечислено_в_Фонд" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Дата плат инстр]" Member="Дата_плат_инстр" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Номер плат инстр]" Member="Номер_плат_инстр" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="[Остаток задолженности]" Member="Остаток_задолженности" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="ID_платежный_док" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="[За месяц]" Member="За_месяц" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="[Количество рабочих дней]" Member="Количество_рабочих_дней" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.СуммыВычетов" Method="СуммыВычетов">
     <Parameter Name="РаботникID" Parameter="работникID" Type="System.Int32" DbType="Int" />
     <Parameter Name="Дата" Parameter="дата" Type="System.DateTime" DbType="DateTime" />
@@ -200,6 +224,20 @@
     <Parameter Name="Имущественные" Parameter="имущественные" Type="System.Decimal" DbType="Money" Direction="InOut" />
     <Parameter Name="Профессиональные" Parameter="профессиональные" Type="System.Decimal" DbType="Money" Direction="InOut" />
     <Parameter Name="ОсвобождаемыеДоходы" Parameter="освобождаемыеДоходы" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.СтандартныеПособия" Method="СтандартныеПособия">
+    <Parameter Name="РаботникID" Parameter="работникID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Дата" Parameter="дата" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="ПоВремНетрудосп" Parameter="поВремНетрудосп" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Parameter Name="ПоБеремИРодам" Parameter="поБеремИРодам" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Parameter Name="Единовременное" Parameter="единовременное" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Parameter Name="ПоУходуЗаРебенком" Parameter="поУходуЗаРебенком" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Parameter Name="Опекуну" Parameter="опекуну" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Parameter Name="НаДетей" Parameter="наДетей" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Parameter Name="РождениеРебенка" Parameter="рождениеРебенка" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Parameter Name="ЖенщинамУчетБеременность" Parameter="женщинамУчетБеременность" Type="System.Decimal" DbType="Money" Direction="InOut" />
+    <Parameter Name="Погребение" Parameter="погребение" Type="System.Decimal" DbType="Money" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

@@ -38,7 +38,7 @@ namespace KUDIR
 
             PrintReport pr = new PrintReport("D:\\Отчет.xlsx");
             //pr.НалоговыйАгент(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10));
-            pr.Кооператив();
+            pr.СтраховойВзнос(2014, 1);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
