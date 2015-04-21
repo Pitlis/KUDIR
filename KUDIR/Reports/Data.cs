@@ -177,17 +177,17 @@ namespace Reports
 
             foreach(var record in query)
             {
-                List<ПодоходныйНалогПеречислForPrint> result = list.FindAll(p => p.date.Month == record.Месяц.Month && p.date.Year == record.Месяц.Year);
-                if (result.Count > 0)
+                int index = list.FindIndex(p => p.date.Month == record.Месяц.Month && p.date.Year == record.Месяц.Year);
+                if (index != -1)
                 {
-                    result[0].Начислено += record.Начислено.Value;
+                    list[index].Начислено += record.Начислено.Value;
                     if(record.Номер_платежной_инструкции != null && record.Перечислено.HasValue)
                     {
                         ПлатежнаяИнструкция pInstr = new ПлатежнаяИнструкция();
                         pInstr.Перечислено = record.Перечислено.Value;
                         pInstr.дата = record.Дата;
                         pInstr.номер = record.Номер_платежной_инструкции;
-                        result[0].платежки.Add(pInstr);
+                        list[index].платежки.Add(pInstr);
                     }
                 }
                 else
@@ -276,6 +276,54 @@ namespace Reports
         {
             return (from v in context.Работникs where v.работникID == emplID && v.DEL == false select v).First();
         }
+        public List<СтрахВзносПеречислForPrint> Get_СтраховыеВзносыПеречислено(int year)
+        {
+            List<СтрахВзносПеречислForPrint> list = new List<СтрахВзносПеречислForPrint>();
+            var query = from v in context.view_СтрахВзносs where v.Дата.Year == year orderby v.Дата select v;
+            
+            foreach(var record in query)
+            {
+                //слишком много полей... вместо создания отдельной сущности, буду пихать в копию существуюей
+                int index = list.FindIndex(p => p.info.Дата.Year == record.Дата.Year && p.info.Дата.Month == record.Дата.Month);
+                if(index != -1)
+                {
+                    list[index].info.Общая_сумма_выплат += record.Общая_сумма_выплат.HasValue ? record.Общая_сумма_выплат.Value : 0;
+                    list[index].info.Сумма_на_которую_начисл_страх_взносы += record.Сумма_на_которую_начисл_страх_взносы.HasValue ? record.Сумма_на_которую_начисл_страх_взносы.Value : 0;
+                    list[index].info.Сумма_начисл_страх_взносов_всего += record.Сумма_начисл_страх_взносов_всего.HasValue ? record.Сумма_начисл_страх_взносов_всего.Value : 0;
+                    list[index].info.в_том_числе_1_процент += record.в_том_числе_1_процент.HasValue ? record.в_том_числе_1_процент.Value : 0;
+                    list[index].info.Иные_платежи += record.Иные_платежи.HasValue ? record.Иные_платежи.Value : 0;
+                    list[index].info.Перечислено_фондом_плательщику += record.Перечислено_фондом_плательщику.HasValue ? record.Перечислено_фондом_плательщику.Value : 0;
+                    list[index].info.Сумма_начисленных_пособий += record.Сумма_начисленных_пособий.HasValue ? record.Сумма_начисленных_пособий.Value : 0;
+                    list[index].info.Остаток_задолженности_за_пред_период += record.Остаток_задолженности_за_пред_период.HasValue ? record.Остаток_задолженности_за_пред_период.Value : 0;
+                    list[index].info.Подлежит_уплате += record.Подлежит_уплате.HasValue ? record.Подлежит_уплате.Value : 0;
+                    list[index].info.Перечислено_в_Фонд += record.Перечислено_в_Фонд.HasValue ? record.Перечислено_в_Фонд.Value : 0;
+                    if (record.Номер_плат_инстр != null && record.Перечислено_в_Фонд.HasValue)
+                    {
+                        ПлатежнаяИнструкция pInstr = new ПлатежнаяИнструкция();
+                        pInstr.Перечислено = record.Перечислено_в_Фонд.Value;
+                        pInstr.дата = record.Дата;
+                        pInstr.номер = record.Номер_плат_инстр;
+                        list[index].платежки.Add(pInstr);
+                    }
+                }
+                else
+                {
+                    СтрахВзносПеречислForPrint p = new СтрахВзносПеречислForPrint();
+                    p.платежки = new List<ПлатежнаяИнструкция>();
+                    p.info = record;
+                    if (record.Номер_плат_инстр != null && record.Перечислено_в_Фонд.HasValue)
+                    {
+                        ПлатежнаяИнструкция pInstr = new ПлатежнаяИнструкция();
+                        pInstr.Перечислено = record.Перечислено_в_Фонд.Value;
+                        pInstr.дата = record.Дата;
+                        pInstr.номер = record.Номер_плат_инстр;
+                        p.платежки.Add(pInstr);
+                    }
+                    list.Add(p);
+                }
+            }
+            return list;
+        }
 
         #region Дополнительные типы
 
@@ -346,17 +394,22 @@ namespace Reports
             public Работник employee;
         }
 
-        public struct ПодоходныйНалогПеречислForPrint
+        public class ПодоходныйНалогПеречислForPrint
         {
             public DateTime date;
-            public Decimal Начислено;
-            public List<ПлатежнаяИнструкция> платежки;
+            public Decimal Начислено = 0;
+            public List<ПлатежнаяИнструкция> платежки = new List<ПлатежнаяИнструкция>();
         }
         public struct ПлатежнаяИнструкция
         {
             public Decimal? Перечислено;
             public DateTime? дата;
             public string номер;
+        }
+        public struct СтрахВзносПеречислForPrint
+        {
+            public view_СтрахВзнос info;
+            public List<ПлатежнаяИнструкция> платежки;
         }
 
         #endregion

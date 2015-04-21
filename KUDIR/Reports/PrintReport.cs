@@ -383,6 +383,39 @@ namespace Reports
 
             wb.Save();
         }
+        public void СтраховыеВзносыПеречислено(int year)
+        {
+            XLWorkbook wb = GetCopyTemplate("ПеречисленныйСтраховойВзнос.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(4);
+            List<Reports.Data.СтрахВзносПеречислForPrint> list = new Data().Get_СтраховыеВзносыПеречислено(year);
+
+            foreach (Reports.Data.СтрахВзносПеречислForPrint record in list)
+            {
+                newRow = ws.Row(GetRowIndexOn_СтраховойВзнос(record.info.Дата.Month, 4));
+                newRow.Cell(1).Value = record.info.Дата.ToString("MMMM");
+                newRow.Cell(2).Value = record.info.Общая_сумма_выплат;
+                newRow.Cell(3).Value = record.info.Сумма_на_которую_начисл_страх_взносы;
+                newRow.Cell(4).Value = record.info.Сумма_начисл_страх_взносов_всего;
+                newRow.Cell(5).Value = record.info.в_том_числе_1_процент;
+                newRow.Cell(6).Value = record.info.Иные_платежи;
+                newRow.Cell(7).Value = record.info.Перечислено_фондом_плательщику;
+                newRow.Cell(8).Value = record.info.Сумма_начисленных_пособий;
+                newRow.Cell(9).Value = record.info.Остаток_задолженности_за_пред_период;
+                newRow.Cell(10).Value = record.info.Подлежит_уплате;
+                newRow.Cell(11).Value = record.info.Перечислено_в_Фонд;
+
+                string платежныеИнстр = "";
+                foreach (var plat in record.платежки)
+                {
+                    платежныеИнстр += DateToString(plat.дата);
+                    платежныеИнстр += ", " + plat.номер + ";   ";
+                }
+                newRow.Cell(12).Value = платежныеИнстр;
+            }
+
+            wb.Save();
+        }
 
         #endregion
     }
