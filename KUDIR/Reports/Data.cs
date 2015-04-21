@@ -334,6 +334,49 @@ namespace Reports
             }
             return list;
         }
+        public List<ПенсВзносПеречисленоForPrint> Get_ПенсВзносыПеречислено(int year)
+        {
+            List<ПенсВзносПеречисленоForPrint> list = new List<ПенсВзносПеречисленоForPrint>();
+            var query = from v in context.view_ПенсВзносыs where v.Дата.Year == year orderby v.Дата select v;
+
+            foreach (var record in query)
+            {
+                int index = list.FindIndex(p => p.info.Дата.Year == record.Дата.Year && p.info.Дата.Month == record.Дата.Month);
+                if (index != -1)
+                {
+                    list[index].info.Сумма_на_которую_начисл_пенс_взносы += record.Сумма_на_которую_начисл_пенс_взносы.HasValue ? record.Сумма_на_которую_начисл_пенс_взносы.Value : 0;
+                    list[index].info.Сумма_начисленных_пенс_взносов += record.Сумма_начисленных_пенс_взносов.HasValue ? record.Сумма_начисленных_пенс_взносов.Value : 0;
+                    list[index].info.Остаток_задолженности_за_пред_период += record.Остаток_задолженности_за_пред_период.HasValue ? record.Остаток_задолженности_за_пред_период.Value : 0;
+                    list[index].info.Иные_платежи += record.Иные_платежи.HasValue ? record.Иные_платежи.Value : 0;
+                    list[index].info.Подлежит_уплате += record.Подлежит_уплате.HasValue ? record.Подлежит_уплате.Value : 0;
+                    list[index].info.Перечислено_в_Фонд += record.Перечислено_в_Фонд.HasValue ? record.Перечислено_в_Фонд.Value : 0;
+                    if (record.Номер_плат_инстр != null && record.Перечислено_в_Фонд.HasValue)
+                    {
+                        ПлатежнаяИнструкция pInstr = new ПлатежнаяИнструкция();
+                        pInstr.Перечислено = record.Перечислено_в_Фонд.Value;
+                        pInstr.дата = record.Дата;
+                        pInstr.номер = record.Номер_плат_инстр;
+                        list[index].платежки.Add(pInstr);
+                    }
+                }
+                else
+                {
+                    ПенсВзносПеречисленоForPrint p = new ПенсВзносПеречисленоForPrint();
+                    p.платежки = new List<ПлатежнаяИнструкция>();
+                    p.info = record;
+                    if (record.Номер_плат_инстр != null && record.Перечислено_в_Фонд.HasValue)
+                    {
+                        ПлатежнаяИнструкция pInstr = new ПлатежнаяИнструкция();
+                        pInstr.Перечислено = record.Перечислено_в_Фонд.Value;
+                        pInstr.дата = record.Дата;
+                        pInstr.номер = record.Номер_плат_инстр;
+                        p.платежки.Add(pInstr);
+                    }
+                    list.Add(p);
+                }
+            }
+            return list;
+        }
 
         #region Дополнительные типы
 
@@ -425,6 +468,11 @@ namespace Reports
             public view_ПенсВзносы info;
             public Decimal?[] выплаты;
             public Decimal итого;
+        }
+        public struct ПенсВзносПеречисленоForPrint
+        {
+            public view_ПенсВзносы info;
+            public List<ПлатежнаяИнструкция> платежки;
         }
         #endregion
 

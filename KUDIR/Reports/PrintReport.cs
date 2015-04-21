@@ -440,6 +440,35 @@ namespace Reports
 
             wb.Save();
         }
+        public void ПенсВзносыПеречислено(int year)
+        {
+            XLWorkbook wb = GetCopyTemplate("ПенсионныйВзносПеречислено.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(4);
+            List<Reports.Data.ПенсВзносПеречисленоForPrint> list = new Data().Get_ПенсВзносыПеречислено(year);
+
+            foreach (Reports.Data.ПенсВзносПеречисленоForPrint record in list)
+            {
+                newRow = ws.Row(GetRowIndexOn_СтраховойВзнос(record.info.Дата.Month, 4));
+                newRow.Cell(1).Value = record.info.Дата.ToString("MMMM");
+                newRow.Cell(2).Value = record.info.Сумма_на_которую_начисл_пенс_взносы;
+                newRow.Cell(3).Value = record.info.Сумма_начисленных_пенс_взносов;
+                newRow.Cell(4).Value = record.info.Остаток_задолженности_за_пред_период;
+                newRow.Cell(5).Value = record.info.Иные_платежи;
+                newRow.Cell(6).Value = record.info.Подлежит_уплате;
+                newRow.Cell(7).Value = record.info.Перечислено_в_Фонд;
+
+                string платежныеИнстр = "";
+                foreach (var plat in record.платежки)
+                {
+                    платежныеИнстр += DateToString(plat.дата);
+                    платежныеИнстр += ", " + plat.номер + ";   ";
+                }
+                newRow.Cell(8).Value = платежныеИнстр;
+            }
+
+            wb.Save();
+        }
 
         #endregion
     }
