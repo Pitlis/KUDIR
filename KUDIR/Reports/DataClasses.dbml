@@ -269,6 +269,18 @@
       <Association Name="Строение_Стоимость_строения" Member="Строение" ThisKey="ID_строение" OtherKey="ID" Type="Строение" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Незавершенное_строение" Member="Незавершенное_строениеs">
+    <Type Name="Незавершенное_строение">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Наименование" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Адрес" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Дата_на_которую_истек_нормат_срок" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Нормативный_срок" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Сумма_затрат" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Дата_акта_приемки" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.СуммыВычетов" Method="СуммыВычетов">
     <Parameter Name="РаботникID" Parameter="работникID" Type="System.Int32" DbType="Int" />
     <Parameter Name="Дата" Parameter="дата" Type="System.DateTime" DbType="DateTime" />

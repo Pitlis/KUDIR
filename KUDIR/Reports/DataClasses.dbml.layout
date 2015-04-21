@@ -118,5 +118,11 @@
         <classShapeMoniker Id="0c68220a-c44b-44ff-9390-40fc9563e3f4" />
       </nodes>
     </associationConnector>
+    <classShape Id="6034db1f-2c9d-4549-80c3-0451042c8c98" absoluteBounds="0.5, 9.75, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/DataClassesDataContext/Незавершенное_строение" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7c558dfc-ee68-4f69-b9fb-359bf38e0402" absoluteBounds="0.51499999999999968, 10.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

@@ -453,6 +453,10 @@ namespace Reports
             }
             return build;
         }
+        public List<Незавершенное_строение> Get_НезавершСтроение()
+        {
+            return (from b in context.Незавершенное_строениеs where b.DEL == false && b.Наименование != null && b.Адрес != null select b).ToList<Незавершенное_строение>();
+        }
 
         #region Дополнительные типы
 

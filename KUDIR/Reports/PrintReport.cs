@@ -520,6 +520,27 @@ namespace Reports
 
             wb.Save();
         }
+        public void НезавершСтроение()
+        {
+            XLWorkbook wb = GetCopyTemplate("НезавершенныеСтроения.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(3);
+            List<Незавершенное_строение> list = new Data().Get_НезавершСтроение();
+
+            int i = 1;
+            foreach (var record in list)
+            {
+                newRow = InsertRow(newRow, 1, 7, 8);
+                newRow.Cell(1).Value = i;
+                newRow.Cell(2).Value = record.Наименование + ", " + record.Адрес;
+                newRow.Cell(3).Value = record.Нормативный_срок;
+                newRow.Cell(4).Value = DateToString(record.Дата_на_которую_истек_нормат_срок);
+                newRow.Cell(5).Value = record.Сумма_затрат;
+                newRow.Cell(6).Value = DateToString(record.Дата_акта_приемки);
+                i++;
+            }
+            wb.Save();
+        }
 
         #endregion
     }
