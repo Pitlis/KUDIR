@@ -27,6 +27,8 @@ namespace KUDIR.Forms
             InitializeComponent();
         }
 
+
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -38,6 +40,12 @@ namespace KUDIR.Forms
                         break;
                     case 1:
                         chart2();
+                        break;
+                    case 2:
+                        chart3();
+                        break;
+                    case 3:
+                        chart4();
                         break;
                     default:
                         break;
@@ -93,7 +101,34 @@ namespace KUDIR.Forms
                     break;
             }
             OpenReport(fileName);
-
+        }
+        void chart3()
+        {
+            string fileName = null;
+            fileName = Report("кооператив");
+            OpenReport(fileName);
+        }
+        void chart4()
+        {
+            string fileName = null;
+            switch (tabChart4.SelectedIndex)
+            {
+                case 0:
+                    fileName = Report(cb1_year.SelectedValue == null ? -1 : (int)cb1_year.SelectedValue, cb2_empl.SelectedValue == null ? -1 : (int)cb2_empl.SelectedValue, "страховой взнос");
+                    break;
+                case 1:
+                    fileName = Report(cb2_year.SelectedValue == null ? -1 : (int)cb2_year.SelectedValue, "перечисл страх взносы");
+                    break;
+                case 2:
+                    fileName = Report(cb3_year.SelectedValue == null ? -1 : (int)cb3_year.SelectedValue, cb3_empl.SelectedValue == null ? -1 : (int)cb3_empl.SelectedValue, "пенсионный взнос");
+                    break;
+                case 3:
+                    fileName = Report(cb4_year.SelectedValue == null ? -1 : (int)cb4_year.SelectedValue, "перечисл пенс взносы");
+                    break;
+                default:
+                    break;
+            }
+            OpenReport(fileName);
         }
 
         string GetPathForSave(string name)
@@ -195,6 +230,88 @@ namespace KUDIR.Forms
             }
             return fileName;
         }
+        string Report(string reportType)
+        {
+            string fileName = GetPathForSave(reportType);
+            if (fileName != null)
+            {
+                PrintReport pr = new PrintReport(fileName);
+                try
+                {
+                    switch (reportType)
+                    {
+                        case "кооператив":
+                            pr.Кооператив();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Ошибка при формировании отчета!");
+                }
+            }
+            return fileName;
+        }
+        string Report(int year, int emplID, string reportType)
+        {
+            if (year == -1 || emplID == -1)
+                throw new Exception("Должны быть выбраны год и работник!");
+            string fileName = GetPathForSave(reportType);
+            if (fileName != null)
+            {
+                PrintReport pr = new PrintReport(fileName);
+                try
+                {
+                    switch (reportType)
+                    {
+                        case "страховой взнос":
+                            pr.СтраховойВзнос(year, emplID);
+                            break;
+                        case "пенсионный взнос":
+                            pr.ПенсионныйВзнос(year, emplID);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Ошибка при формировании отчета!");
+                }
+            }
+            return fileName;
+        }
+        string Report(int year, string reportType)
+        {
+            if (year == -1)
+                throw new Exception("Должен быть выбран год!");
+            string fileName = GetPathForSave(reportType);
+            if (fileName != null)
+            {
+                PrintReport pr = new PrintReport(fileName);
+                try
+                {
+                    switch (reportType)
+                    {
+                        case "перечисл страх взносы":
+                            pr.СтраховыеВзносыПеречислено(year);
+                            break;
+                        case "перечисл пенс взносы":
+                            pr.ПенсВзносыПеречислено(year);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Ошибка при формировании отчета!");
+                }
+            }
+            return fileName;
+        }
 
         #endregion
 
@@ -206,6 +323,15 @@ namespace KUDIR.Forms
                 cb1_empl.ItemsSource = GetEmployees();
             }
             //cb1_empl.ItemsSource = 
+        }
+        private void tabChart4_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(tabChart4.SelectedIndex == 0 || tabChart4.SelectedIndex == 2)
+            {
+                var empl = GetEmployees();
+                cb2_empl.ItemsSource = empl;
+                cb3_empl.ItemsSource = empl;
+            }
         }
 
         Dictionary<string, int> GetEmployees()
@@ -224,5 +350,20 @@ namespace KUDIR.Forms
             }
             return dict;
         }
+
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
+            //глупое место
+            List<int> years = new List<int>();
+            for (int i = 2000; i <= DateTime.Now.Year; ++i)
+                years.Add(i);
+            cb1_year.ItemsSource = years;
+            cb2_year.ItemsSource = years;
+            cb3_year.ItemsSource = years;
+            cb4_year.ItemsSource = years;
+            //----
+        }
+
+
     }
 }
