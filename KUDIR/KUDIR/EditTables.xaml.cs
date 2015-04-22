@@ -36,9 +36,9 @@ namespace KUDIR
             grid.ShowData(data);
 
 
-            PrintReport pr = new PrintReport("D:\\Отчет.xlsx");
+            //PrintReport pr = new PrintReport("D:\\Отчет.xlsx");
             //pr.Выручка(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10));
-            pr.НДСреализация(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10));
+            //pr.НДСреализация(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10));
             //pr.РасходыФонда(2014);
         }
 

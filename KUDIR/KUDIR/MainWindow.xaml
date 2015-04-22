@@ -6,7 +6,7 @@
         <Button Name="btnSeller" Content="Продавец" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="140" Height="140" Background="#FF1AF04A" BorderBrush="{x:Null}" Foreground="Black" FontFamily="Segoe Print" FontSize="24" Click="btnSeller_Click"/>
         <Button x:Name="btnSeller_Copy" Content="TODO" HorizontalAlignment="Left" Margin="182,10,0,0" VerticalAlignment="Top" Width="140" Height="140" Click="btnSeller_Copy_Click"/>
         <Button x:Name="btnSeller_Copy1" Content="TODO" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top" Width="140" Height="140" Click="btnSeller_Copy1_Click"/>
-        <Button x:Name="btnSeller_Copy2" Content="TODO" HorizontalAlignment="Left" Margin="182,170,0,0" VerticalAlignment="Top" Width="140" Height="140"/>
+        <Button x:Name="btnSeller_Copy2" Content="TODO" HorizontalAlignment="Left" Margin="182,170,0,0" VerticalAlignment="Top" Width="140" Height="140" Click="btnSeller_Copy2_Click"/>
 
     </Grid>
 </Window>

@@ -201,7 +201,7 @@ namespace Reports
                 result += record.Сумма_бр.HasValue ? record.Сумма_бр.Value : 0;
             }
             newRow.RowBelow(1).Cell(4).Value = result;
-
+            
             wb.Save();
         }
         public void ПодоходныйНалог(DateTime startPeriod, DateTime endPeriod, int emplID)
