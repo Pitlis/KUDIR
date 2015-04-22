@@ -610,6 +610,67 @@ namespace Reports
             newRow.RowBelow(1).Cell(9).Value = result3;
             newRow.RowBelow(1).Cell(11).Value = result4;
 
+            ws.Cell(2, 2).Value = DateToString(startPeriod);
+            ws.Cell(2, 4).Value = DateToString(endPeriod);
+
+            wb.Save();
+        }
+        public void НДСреализация(DateTime startPeriod, DateTime endPeriod)
+        {
+            XLWorkbook wb = GetCopyTemplate("НДСреализация.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(7);
+            List<Reports.Data.НДСреализForPrint> list = new Data().Get_НДСреализация(startPeriod, endPeriod);
+            Decimal[] results = new decimal[10];
+
+            foreach (var record in list)
+            {
+                newRow = InsertRow(newRow, 1, 12, 8);
+                newRow.Cell(1).Value = DateToString(record.info.Дата_документа_поставщика) + ", " + record.info.Номер_документа_поставщика;
+                newRow.Cell(2).Value = record.info.Наименование_покупателя;
+                newRow.Cell(3).Value = record.info.Учетный_номер_плательщика;
+                newRow.Cell(4).Value = DateToString(record.info.Дата_оплаты);
+                newRow.Cell(5).Value = record.info.Стоимость_включая_НДС;
+
+
+                newRow.Cell(6).Value = record.st1;
+                newRow.Cell(7).Value = record.nds1;
+                newRow.Cell(8).Value = record.st2;
+                newRow.Cell(9).Value = record.nds2;
+                newRow.Cell(10).Value = record.st3;
+                newRow.Cell(11).Value = record.st4;
+                newRow.Cell(12).Value = record.nds4;
+                newRow.Cell(13).Value = record.all;
+                newRow.Cell(14).Value = record.rb;
+
+                results[0] += record.info.Стоимость_включая_НДС.HasValue ? record.info.Стоимость_включая_НДС.Value : 0;
+                results[1] += record.st1;
+                results[2] += record.nds1;
+                results[3] += record.st2;
+                results[4] += record.nds2;
+                results[5] += record.st3;
+                results[6] += record.st4;
+                results[7] += record.nds4;
+                results[8] += record.all;
+                results[9] += record.rb;
+
+                newRow.Cell(5).Style.DateFormat.Format = "#";
+                newRow.Cell(6).Style.DateFormat.Format = "#";
+                newRow.Cell(7).Style.DateFormat.Format = "#";
+                newRow.Cell(8).Style.DateFormat.Format = "#";
+                newRow.Cell(9).Style.DateFormat.Format = "#";
+                newRow.Cell(10).Style.DateFormat.Format = "#";
+                newRow.Cell(11).Style.DateFormat.Format = "#";
+                newRow.Cell(12).Style.DateFormat.Format = "#";
+                newRow.Cell(13).Style.DateFormat.Format = "#";
+                newRow.Cell(14).Style.DateFormat.Format = "#";
+            }
+            for (int i = 0; i < 10; ++i)
+                newRow.RowBelow(1).Cell(5+i).Value = results[i];
+
+            ws.Cell(2, 2).Value = DateToString(startPeriod);
+            ws.Cell(2, 4).Value = DateToString(endPeriod);
+
             wb.Save();
         }
 

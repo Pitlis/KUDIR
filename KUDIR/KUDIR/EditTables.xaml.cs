@@ -31,14 +31,14 @@ namespace KUDIR
         Data data;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            data = new Data(Data.DataTypes.НДС_Приобретение, strConnect);
+            data = new Data(Data.DataTypes.НДС_Реализация, strConnect);
             DataGridConfig grid = new DataGridConfig(dgTable);
             grid.ShowData(data);
 
 
             PrintReport pr = new PrintReport("D:\\Отчет.xlsx");
             //pr.Выручка(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10));
-            pr.НДСприобретение(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10));
+            pr.НДСреализация(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10));
             //pr.РасходыФонда(2014);
         }
 

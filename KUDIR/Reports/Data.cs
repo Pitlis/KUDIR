@@ -517,6 +517,73 @@ namespace Reports
             }
             return list;
         }
+        public List<НДСреализForPrint> Get_НДСреализация(DateTime start, DateTime end)
+        {
+            var queqy = from n in context.view_НДС_Реализацияs
+                        where
+                            n.Дата_оплаты >= start &&
+                            n.Дата_оплаты <= end &&
+                            n.Номер_документа_поставщика != null
+                        orderby n.Дата_оплаты
+                        select n;
+
+            List<НДСреализForPrint> list = new List<НДСреализForPrint>();
+            foreach (var record in queqy)
+            {
+                int index = list.FindIndex(n => n.НомерДокумента.Equals(record.Номер_документа_поставщика) && n.info.Дата_оплаты.Value.Date == record.Дата_оплаты.Value.Date);
+                if (index != -1)
+                {
+                    list[index].all += record.Стоимость_объектов_освобождаемых_от_НДС.HasValue ? (Decimal)record.Стоимость_объектов_освобождаемых_от_НДС.Value : 0;
+                    list[index].rb += record.из_них_оборот_за_пределами_РБ.HasValue ? (Decimal)record.из_них_оборот_за_пределами_РБ.Value : 0;
+                    switch (record.Размер_НДС)
+                    {
+                        case 20:
+                            list[index].st1 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            list[index].nds1 += record.Сумма_НДС.HasValue ? (Decimal)record.Сумма_НДС.Value : 0;
+                            break;
+                        case 10:
+                            list[index].st2 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            list[index].nds2 += record.Сумма_НДС.HasValue ? (Decimal)record.Сумма_НДС.Value : 0;
+                            break;
+                        case 0:
+                            list[index].st3 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            break;
+                        default:
+                            list[index].st4 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            list[index].nds4 += record.Сумма_НДС.HasValue ? (Decimal)record.Сумма_НДС.Value : 0;
+                            break;
+                    }
+                }
+                else
+                {
+                    НДСреализForPrint n = new НДСреализForPrint();
+                    n.НомерДокумента = record.Номер_документа_поставщика;
+                    n.all += record.Стоимость_объектов_освобождаемых_от_НДС.HasValue ? (Decimal)record.Стоимость_объектов_освобождаемых_от_НДС.Value : 0;
+                    n.rb += record.из_них_оборот_за_пределами_РБ.HasValue ? (Decimal)record.из_них_оборот_за_пределами_РБ.Value : 0;
+                    switch (record.Размер_НДС)
+                    {
+                        case 20:
+                            n.st1 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            n.nds1 += record.Сумма_НДС.HasValue ? (Decimal)record.Сумма_НДС.Value : 0;
+                            break;
+                        case 10:
+                            n.st2 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            n.nds2 += record.Сумма_НДС.HasValue ? (Decimal)record.Сумма_НДС.Value : 0;
+                            break;
+                        case 0:
+                            list[index].st3 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            break;
+                        default:
+                            n.st4 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            n.nds4 += record.Сумма_НДС.HasValue ? (Decimal)record.Сумма_НДС.Value : 0;
+                            break;
+                    }
+                    n.info = record;
+                    list.Add(n);
+                }
+            }
+            return list;
+        }
 
         #region Дополнительные типы
 
@@ -648,6 +715,21 @@ namespace Reports
             public Decimal nds3 = 0;
             public viev_НДС_Приобретение info;
         }
+        public class НДСреализForPrint
+        {
+            public string НомерДокумента;
+            public Decimal st1 = 0;
+            public Decimal nds1 = 0;
+            public Decimal st2 = 0;
+            public Decimal nds2 = 0;
+            public Decimal st3 = 0;
+            public Decimal st4 = 0;
+            public Decimal nds4 = 0;
+            public Decimal all = 0;
+            public Decimal rb = 0;
+            public view_НДС_Реализация info;
+        }
+        
         #endregion
 
         void GetВыплатыРаботника(int emplID, DateTime date, Decimal?[] выплаты)
