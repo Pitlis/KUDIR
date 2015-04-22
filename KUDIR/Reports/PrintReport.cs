@@ -65,7 +65,7 @@ namespace Reports
             IXLRow newRow = ws.Row(4);
             Data.ВыручкаForPrint records = new Data().Get_Выручка(startPeriod, endPeriod);
 
-            foreach(Reports.Выручка record in records.list)
+            foreach (Reports.Выручка record in records.list)
             {
                 newRow = InsertRow(newRow, 1, 6, 10);
                 newRow.Cell(1).Value = DateToString(record.Дата_записи);
@@ -94,7 +94,7 @@ namespace Reports
             Dictionary<Reports.Data.Отгрузка_Key, Reports.Data.Отгрузка_info> records = new Data().Get_Отгрузка(startPeriod, endPeriod);
 
             Decimal[] results = new Decimal[12];
-            foreach(var record in records)
+            foreach (var record in records)
             {
                 newRow = InsertRow(newRow, 1, 32, 8);
                 newRow.Cell(1).Value = DateToString(record.Key.date);
@@ -106,7 +106,7 @@ namespace Reports
                 newRow.Cell(4).Value = record.Value.commonInfo.Наим_валюты;
                 newRow.Cell(5).Value = record.Value.commonInfo.Стоимость_в_валюте;
 
-                foreach(var payment in record.Value.платежи)
+                foreach (var payment in record.Value.платежи)
                 {
                     if (!payment.Дата_оплаты.HasValue && !payment.Дата_док_оплаты.HasValue)
                         continue;
@@ -188,8 +188,8 @@ namespace Reports
             {
                 newRow = InsertRow(newRow, 1, 6, 10);
                 newRow.Cell(1).Value = record.Название;
-                newRow.Cell(2).Value = record.Номер_договора + ", " + 
-                    DateToString(record.Дата_договора) +  ", " + 
+                newRow.Cell(2).Value = record.Номер_договора + ", " +
+                    DateToString(record.Дата_договора) + ", " +
                     record.Предмет_договора;
                 newRow.Cell(3).Value = record.Док_задолж_Наим + ", " +
                     record.Док_задолж_Номер + ", " +
@@ -211,7 +211,7 @@ namespace Reports
             IXLRow newRow = ws.Row(12);
             Reports.Data.РаботникForPrint empl = new Data().Get_ПодоходныйНалог(startPeriod, endPeriod, emplID);
 
-            foreach(var record in empl.payments)
+            foreach (var record in empl.payments)
             {
                 newRow = InsertRow(newRow, 1, 15, 8);
                 newRow.Cell(1).Value = record.Key.ToString("MMMM");
@@ -254,7 +254,7 @@ namespace Reports
                 newRow.Cell(3).Value = record.Начислено;
 
                 string платежныеИнстр = "";
-                foreach(var plat in record.платежки)
+                foreach (var plat in record.платежки)
                 {
                     платежныеИнстр += plat.Перечислено;
                     платежныеИнстр += ", " + DateToString(plat.дата);
@@ -421,7 +421,7 @@ namespace Reports
             IXLRow newRow = ws.Row(6);
             List<Reports.Data.ПенсВзносыForPrint> list = new Data().Get_ПенсионныеВзносы(year, emplID);
 
-            foreach(Reports.Data.ПенсВзносыForPrint record in list)
+            foreach (Reports.Data.ПенсВзносыForPrint record in list)
             {
                 newRow = ws.Row(GetRowIndexOn_СтраховойВзнос(record.info.Дата.Month, 6));
                 newRow.Cell(1).Value = record.info.Дата.ToString("MMMM");
@@ -513,9 +513,9 @@ namespace Reports
             ws.Cell(8, 1).Value = build.Vvod;
             ws.Cell(10, 1).Value = build.Exit;
 
-            if(build.type != -1)
+            if (build.type != -1)
             {
-                ws.Cell(7+build.type, 6).Value = "X";
+                ws.Cell(7 + build.type, 6).Value = "X";
             }
 
             wb.Save();
@@ -561,6 +561,55 @@ namespace Reports
                 newRow.Cell(7).Value = record.Стоимость;
                 i++;
             }
+            wb.Save();
+        }
+        public void НДСприобретение(DateTime startPeriod, DateTime endPeriod)
+        {
+            XLWorkbook wb = GetCopyTemplate("НДСприобретение.xlsx");
+            IXLWorksheet ws = wb.Worksheet(1);
+            IXLRow newRow = ws.Row(7);
+            List<Reports.Data.НДСForPrint> list = new Data().Get_НДСприобретение(startPeriod, endPeriod);
+            Decimal result1 = 0;
+            Decimal result2 = 0;
+            Decimal result3 = 0;
+            Decimal result4 = 0;
+
+            foreach (var record in list)
+            {
+                newRow = InsertRow(newRow, 1, 12, 8);
+                newRow.Cell(1).Value = DateToString(record.info.Дата_приобретения) + ", " + record.info.Номер_документа_приобр;
+                newRow.Cell(2).Value = DateToString(record.info.Дата_оплаты) + ", " + record.info.Номер_документа_оплаты;
+                newRow.Cell(3).Value = record.info.Наименование_продавца;
+                newRow.Cell(4).Value = record.info.Учетный_номер_плательщика;
+                newRow.Cell(5).Value = record.info.Стоимость_включая_НДС;
+
+
+                newRow.Cell(6).Value = record.st1;
+                newRow.Cell(7).Value = record.nds1;
+                newRow.Cell(8).Value = record.st2;
+                newRow.Cell(9).Value = record.nds2;
+                newRow.Cell(10).Value = record.st3;
+                newRow.Cell(11).Value = record.nds3;
+
+                newRow.Cell(12).Value = record.st1 + record.st2 + record.st3;
+                result1 += record.info.Стоимость_включая_НДС.HasValue ? record.info.Стоимость_включая_НДС.Value : 0;
+                result2 += record.nds1;
+                result3 += record.nds2;
+                result4 += record.nds3;
+
+                newRow.Cell(5).Style.DateFormat.Format = "#";
+                newRow.Cell(6).Style.DateFormat.Format = "#";
+                newRow.Cell(7).Style.DateFormat.Format = "#";
+                newRow.Cell(8).Style.DateFormat.Format = "#";
+                newRow.Cell(9).Style.DateFormat.Format = "#";
+                newRow.Cell(10).Style.DateFormat.Format = "#";
+                newRow.Cell(11).Style.DateFormat.Format = "#";
+            }
+            newRow.RowBelow(1).Cell(5).Value = result1;
+            newRow.RowBelow(1).Cell(7).Value = result2;
+            newRow.RowBelow(1).Cell(9).Value = result3;
+            newRow.RowBelow(1).Cell(11).Value = result4;
+
             wb.Save();
         }
 

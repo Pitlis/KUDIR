@@ -241,6 +241,22 @@ namespace Reports
 			}
 		}
 		
+		public System.Data.Linq.Table<view_НДС_Реализация> view_НДС_Реализацияs
+		{
+			get
+			{
+				return this.GetTable<view_НДС_Реализация>();
+			}
+		}
+		
+		public System.Data.Linq.Table<viev_НДС_Приобретение> viev_НДС_Приобретениеs
+		{
+			get
+			{
+				return this.GetTable<viev_НДС_Приобретение>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.СуммыВычетов")]
 		public int СуммыВычетов([global::System.Data.Linq.Mapping.ParameterAttribute(Name="РаботникID", DbType="Int")] System.Nullable<int> работникID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Дата", DbType="DateTime")] System.Nullable<System.DateTime> дата, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Стандартные", DbType="Money")] ref System.Nullable<decimal> стандартные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Социальные", DbType="Money")] ref System.Nullable<decimal> социальные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Имущественные", DbType="Money")] ref System.Nullable<decimal> имущественные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Профессиональные", DbType="Money")] ref System.Nullable<decimal> профессиональные, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ОсвобождаемыеДоходы", DbType="Money")] ref System.Nullable<decimal> освобождаемыеДоходы)
 		{
@@ -5210,6 +5226,510 @@ namespace Reports
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.view_НДС_Реализация")]
+	public partial class view_НДС_Реализация
+	{
+		
+		private int _ID;
+		
+		private bool _DEL;
+		
+		private System.Nullable<bool> _Уплачено_при_приобретении;
+		
+		private System.Nullable<System.DateTime> _Дата_документа_поставщика;
+		
+		private string _Номер_документа_поставщика;
+		
+		private string _Наименование_покупателя;
+		
+		private string _Учетный_номер_плательщика;
+		
+		private System.Nullable<System.DateTime> _Дата_оплаты;
+		
+		private System.Nullable<int> _Размер_НДС;
+		
+		private System.Nullable<decimal> _Стоимость_включая_НДС;
+		
+		private System.Nullable<float> _Стоимость_без_НДС;
+		
+		private System.Nullable<float> _Сумма_НДС;
+		
+		private System.Nullable<decimal> _Стоимость_объектов_освобождаемых_от_НДС;
+		
+		private System.Nullable<decimal> _из_них_оборот_за_пределами_РБ;
+		
+		public view_НДС_Реализация()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit NOT NULL")]
+		public bool DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this._DEL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Уплачено_при_приобретении", DbType="Bit")]
+		public System.Nullable<bool> Уплачено_при_приобретении
+		{
+			get
+			{
+				return this._Уплачено_при_приобретении;
+			}
+			set
+			{
+				if ((this._Уплачено_при_приобретении != value))
+				{
+					this._Уплачено_при_приобретении = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Дата документа поставщика]", Storage="_Дата_документа_поставщика", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_документа_поставщика
+		{
+			get
+			{
+				return this._Дата_документа_поставщика;
+			}
+			set
+			{
+				if ((this._Дата_документа_поставщика != value))
+				{
+					this._Дата_документа_поставщика = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Номер документа поставщика]", Storage="_Номер_документа_поставщика", DbType="VarChar(30)")]
+		public string Номер_документа_поставщика
+		{
+			get
+			{
+				return this._Номер_документа_поставщика;
+			}
+			set
+			{
+				if ((this._Номер_документа_поставщика != value))
+				{
+					this._Номер_документа_поставщика = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Наименование покупателя]", Storage="_Наименование_покупателя", DbType="VarChar(80)")]
+		public string Наименование_покупателя
+		{
+			get
+			{
+				return this._Наименование_покупателя;
+			}
+			set
+			{
+				if ((this._Наименование_покупателя != value))
+				{
+					this._Наименование_покупателя = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Учетный номер плательщика]", Storage="_Учетный_номер_плательщика", DbType="VarChar(30)")]
+		public string Учетный_номер_плательщика
+		{
+			get
+			{
+				return this._Учетный_номер_плательщика;
+			}
+			set
+			{
+				if ((this._Учетный_номер_плательщика != value))
+				{
+					this._Учетный_номер_плательщика = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Дата оплаты]", Storage="_Дата_оплаты", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_оплаты
+		{
+			get
+			{
+				return this._Дата_оплаты;
+			}
+			set
+			{
+				if ((this._Дата_оплаты != value))
+				{
+					this._Дата_оплаты = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Размер НДС]", Storage="_Размер_НДС", DbType="Int")]
+		public System.Nullable<int> Размер_НДС
+		{
+			get
+			{
+				return this._Размер_НДС;
+			}
+			set
+			{
+				if ((this._Размер_НДС != value))
+				{
+					this._Размер_НДС = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Стоимость включая НДС]", Storage="_Стоимость_включая_НДС", DbType="Money")]
+		public System.Nullable<decimal> Стоимость_включая_НДС
+		{
+			get
+			{
+				return this._Стоимость_включая_НДС;
+			}
+			set
+			{
+				if ((this._Стоимость_включая_НДС != value))
+				{
+					this._Стоимость_включая_НДС = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Стоимость без НДС]", Storage="_Стоимость_без_НДС", DbType="Real")]
+		public System.Nullable<float> Стоимость_без_НДС
+		{
+			get
+			{
+				return this._Стоимость_без_НДС;
+			}
+			set
+			{
+				if ((this._Стоимость_без_НДС != value))
+				{
+					this._Стоимость_без_НДС = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Сумма НДС]", Storage="_Сумма_НДС", DbType="Real")]
+		public System.Nullable<float> Сумма_НДС
+		{
+			get
+			{
+				return this._Сумма_НДС;
+			}
+			set
+			{
+				if ((this._Сумма_НДС != value))
+				{
+					this._Сумма_НДС = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Стоимость объектов освобождаемых от НДС]", Storage="_Стоимость_объектов_освобождаемых_от_НДС", DbType="Money")]
+		public System.Nullable<decimal> Стоимость_объектов_освобождаемых_от_НДС
+		{
+			get
+			{
+				return this._Стоимость_объектов_освобождаемых_от_НДС;
+			}
+			set
+			{
+				if ((this._Стоимость_объектов_освобождаемых_от_НДС != value))
+				{
+					this._Стоимость_объектов_освобождаемых_от_НДС = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[из них оборот за пределами РБ]", Storage="_из_них_оборот_за_пределами_РБ", DbType="Money")]
+		public System.Nullable<decimal> из_них_оборот_за_пределами_РБ
+		{
+			get
+			{
+				return this._из_них_оборот_за_пределами_РБ;
+			}
+			set
+			{
+				if ((this._из_них_оборот_за_пределами_РБ != value))
+				{
+					this._из_них_оборот_за_пределами_РБ = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.viev_НДС_Приобретение")]
+	public partial class viev_НДС_Приобретение
+	{
+		
+		private int _ID;
+		
+		private bool _DEL;
+		
+		private System.Nullable<bool> _Уплачено_при_приобретении;
+		
+		private System.Nullable<System.DateTime> _Дата_приобретения;
+		
+		private string _Номер_документа_приобр;
+		
+		private System.Nullable<System.DateTime> _Дата_оплаты;
+		
+		private string _Номер_документа_оплаты;
+		
+		private string _Наименование_продавца;
+		
+		private string _Учетный_номер_плательщика;
+		
+		private System.Nullable<int> _Размер_НДС;
+		
+		private System.Nullable<decimal> _Стоимость_включая_НДС;
+		
+		private System.Nullable<float> _Стоимость_без_НДС;
+		
+		private System.Nullable<float> _Сумма_НДС;
+		
+		public viev_НДС_Приобретение()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEL", DbType="Bit NOT NULL")]
+		public bool DEL
+		{
+			get
+			{
+				return this._DEL;
+			}
+			set
+			{
+				if ((this._DEL != value))
+				{
+					this._DEL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Уплачено_при_приобретении", DbType="Bit")]
+		public System.Nullable<bool> Уплачено_при_приобретении
+		{
+			get
+			{
+				return this._Уплачено_при_приобретении;
+			}
+			set
+			{
+				if ((this._Уплачено_при_приобретении != value))
+				{
+					this._Уплачено_при_приобретении = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Дата приобретения]", Storage="_Дата_приобретения", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_приобретения
+		{
+			get
+			{
+				return this._Дата_приобретения;
+			}
+			set
+			{
+				if ((this._Дата_приобретения != value))
+				{
+					this._Дата_приобретения = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Номер документа приобр]", Storage="_Номер_документа_приобр", DbType="VarChar(30)")]
+		public string Номер_документа_приобр
+		{
+			get
+			{
+				return this._Номер_документа_приобр;
+			}
+			set
+			{
+				if ((this._Номер_документа_приобр != value))
+				{
+					this._Номер_документа_приобр = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Дата оплаты]", Storage="_Дата_оплаты", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Дата_оплаты
+		{
+			get
+			{
+				return this._Дата_оплаты;
+			}
+			set
+			{
+				if ((this._Дата_оплаты != value))
+				{
+					this._Дата_оплаты = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Номер документа оплаты]", Storage="_Номер_документа_оплаты", DbType="VarChar(20)")]
+		public string Номер_документа_оплаты
+		{
+			get
+			{
+				return this._Номер_документа_оплаты;
+			}
+			set
+			{
+				if ((this._Номер_документа_оплаты != value))
+				{
+					this._Номер_документа_оплаты = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Наименование продавца]", Storage="_Наименование_продавца", DbType="VarChar(80)")]
+		public string Наименование_продавца
+		{
+			get
+			{
+				return this._Наименование_продавца;
+			}
+			set
+			{
+				if ((this._Наименование_продавца != value))
+				{
+					this._Наименование_продавца = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Учетный номер плательщика]", Storage="_Учетный_номер_плательщика", DbType="VarChar(30)")]
+		public string Учетный_номер_плательщика
+		{
+			get
+			{
+				return this._Учетный_номер_плательщика;
+			}
+			set
+			{
+				if ((this._Учетный_номер_плательщика != value))
+				{
+					this._Учетный_номер_плательщика = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Размер НДС]", Storage="_Размер_НДС", DbType="Int")]
+		public System.Nullable<int> Размер_НДС
+		{
+			get
+			{
+				return this._Размер_НДС;
+			}
+			set
+			{
+				if ((this._Размер_НДС != value))
+				{
+					this._Размер_НДС = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Стоимость включая НДС]", Storage="_Стоимость_включая_НДС", DbType="Money")]
+		public System.Nullable<decimal> Стоимость_включая_НДС
+		{
+			get
+			{
+				return this._Стоимость_включая_НДС;
+			}
+			set
+			{
+				if ((this._Стоимость_включая_НДС != value))
+				{
+					this._Стоимость_включая_НДС = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Стоимость без НДС]", Storage="_Стоимость_без_НДС", DbType="Real")]
+		public System.Nullable<float> Стоимость_без_НДС
+		{
+			get
+			{
+				return this._Стоимость_без_НДС;
+			}
+			set
+			{
+				if ((this._Стоимость_без_НДС != value))
+				{
+					this._Стоимость_без_НДС = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Сумма НДС]", Storage="_Сумма_НДС", DbType="Real")]
+		public System.Nullable<float> Сумма_НДС
+		{
+			get
+			{
+				return this._Сумма_НДС;
+			}
+			set
+			{
+				if ((this._Сумма_НДС != value))
+				{
+					this._Сумма_НДС = value;
+				}
 			}
 		}
 	}

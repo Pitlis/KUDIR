@@ -294,6 +294,41 @@
       <Column Name="Счет_факт_Дата" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.view_НДС_Реализация" Member="view_НДС_Реализацияs">
+    <Type Name="view_НДС_Реализация">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Уплачено_при_приобретении" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[Дата документа поставщика]" Member="Дата_документа_поставщика" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Номер документа поставщика]" Member="Номер_документа_поставщика" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="[Наименование покупателя]" Member="Наименование_покупателя" Type="System.String" DbType="VarChar(80)" CanBeNull="true" />
+      <Column Name="[Учетный номер плательщика]" Member="Учетный_номер_плательщика" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="[Дата оплаты]" Member="Дата_оплаты" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Размер НДС]" Member="Размер_НДС" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Стоимость включая НДС]" Member="Стоимость_включая_НДС" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Стоимость без НДС]" Member="Стоимость_без_НДС" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="[Сумма НДС]" Member="Сумма_НДС" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="[Стоимость объектов освобождаемых от НДС]" Member="Стоимость_объектов_освобождаемых_от_НДС" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[из них оборот за пределами РБ]" Member="из_них_оборот_за_пределами_РБ" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.viev_НДС_Приобретение" Member="viev_НДС_Приобретениеs">
+    <Type Name="viev_НДС_Приобретение">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Уплачено_при_приобретении" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[Дата приобретения]" Member="Дата_приобретения" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Номер документа приобр]" Member="Номер_документа_приобр" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="[Дата оплаты]" Member="Дата_оплаты" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Номер документа оплаты]" Member="Номер_документа_оплаты" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="[Наименование продавца]" Member="Наименование_продавца" Type="System.String" DbType="VarChar(80)" CanBeNull="true" />
+      <Column Name="[Учетный номер плательщика]" Member="Учетный_номер_плательщика" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="[Размер НДС]" Member="Размер_НДС" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Стоимость включая НДС]" Member="Стоимость_включая_НДС" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Стоимость без НДС]" Member="Стоимость_без_НДС" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="[Сумма НДС]" Member="Сумма_НДС" Type="System.Single" DbType="Real" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.СуммыВычетов" Method="СуммыВычетов">
     <Parameter Name="РаботникID" Parameter="работникID" Type="System.Int32" DbType="Int" />
     <Parameter Name="Дата" Parameter="дата" Type="System.DateTime" DbType="DateTime" />

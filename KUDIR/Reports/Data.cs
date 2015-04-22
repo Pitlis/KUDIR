@@ -461,6 +461,62 @@ namespace Reports
         {
             return (from t in context.Товары_из_ТСs where t.DEL == false && t.Дата >= start && t.Дата <= end orderby t.Дата select t).ToList<Товары_из_ТС>();
         }
+        public List<НДСForPrint> Get_НДСприобретение(DateTime start, DateTime end)
+        {
+            var queqy = from n in context.viev_НДС_Приобретениеs where 
+                        n.Дата_приобретения >= start && 
+                        n.Дата_приобретения <= end &&
+                        n.Номер_документа_приобр != null
+                    orderby n.Дата_приобретения 
+                    select n;
+
+            List<НДСForPrint> list = new List<НДСForPrint>();
+            foreach(var record in queqy)
+            {
+                int index = list.FindIndex(n => n.НомерДокумента.Equals(record.Номер_документа_приобр) && n.info.Дата_приобретения.Value.Date == record.Дата_приобретения.Value.Date);
+                if(index != -1)
+                {
+                    switch (record.Размер_НДС)
+                    {
+                        case 20:
+                            list[index].st1 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            list[index].nds1 += record.Сумма_НДС.HasValue ? (Decimal)record.Сумма_НДС.Value : 0;
+                            break;
+                        case 10:
+                            list[index].st2 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            list[index].nds2 += record.Сумма_НДС.HasValue ? (Decimal)record.Сумма_НДС.Value : 0;
+                            break;
+                        default:
+                            list[index].st3 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            list[index].nds3 += record.Сумма_НДС.HasValue ? (Decimal)record.Сумма_НДС.Value : 0;
+                            break;
+                    }
+                }
+                else
+                {
+                    НДСForPrint n = new НДСForPrint();
+                    n.НомерДокумента = record.Номер_документа_приобр;
+                    switch (record.Размер_НДС)
+                    {
+                        case 20:
+                            n.st1 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            n.nds1 += record.Сумма_НДС.HasValue ? (Decimal)record.Сумма_НДС.Value : 0;
+                            break;
+                        case 10:
+                            n.st2 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            n.nds2 += record.Сумма_НДС.HasValue ? (Decimal)record.Сумма_НДС.Value : 0;
+                            break;
+                        default:
+                            n.st3 += record.Стоимость_без_НДС.HasValue ? (Decimal)record.Стоимость_без_НДС.Value : 0;
+                            n.nds3 += record.Сумма_НДС.HasValue ? (Decimal)record.Сумма_НДС.Value : 0;
+                            break;
+                    }
+                    n.info = record;
+                    list.Add(n);
+                }
+            }
+            return list;
+        }
 
         #region Дополнительные типы
 
@@ -580,6 +636,17 @@ namespace Reports
             public string Exit;
             public int type;
             public List<Стоимость_строения> info;
+        }
+        public class НДСForPrint
+        {
+            public string НомерДокумента;
+            public Decimal st1 = 0;
+            public Decimal nds1 = 0;
+            public Decimal st2 = 0;
+            public Decimal nds2 = 0;
+            public Decimal st3 = 0;
+            public Decimal nds3 = 0;
+            public viev_НДС_Приобретение info;
         }
         #endregion
 

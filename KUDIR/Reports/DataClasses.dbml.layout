@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.625, 15.875" name="DataClasses">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.625, 19.75" name="DataClasses">
   <DataContextMoniker Name="/DataClassesDataContext" />
   <nestedChildShapes>
     <classShape Id="54645809-ce55-4277-a2c5-2bda68924b3f" absoluteBounds="11.75, 1.375, 2, 2.5401025390625">
@@ -50,7 +50,7 @@
         <elementListCompartment Id="daac2b8a-3495-49cd-b658-9b5dacf010cc" absoluteBounds="0.51500000000000057, 4.085, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.5 : 6.35500325520833); (6.875 : 6.35500325520833); (6.875 : 6.07859537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 6.35500325520833); (6.875 : 6.35500325520833); (6.875 : 6.07859537760417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Работник/Работник_Удержания" />
       <nodes>
         <classShapeMoniker Id="c84ed7a5-5ca6-490d-b450-d4e0b140d7f8" />
@@ -111,7 +111,7 @@
         <elementListCompartment Id="34f08d87-e6f5-4449-af2d-1e9bb0408b26" absoluteBounds="4.39, 12.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.468749 : 11.5208154296875); (3.468749 : 12.9239005533854); (4.375 : 12.9239005533854)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.468749 : 11.5208154296875); (3.468749 : 12.9239005533854); (4.375 : 12.9239005533854)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Строение/Строение_Стоимость_строения" />
       <nodes>
         <classShapeMoniker Id="e40718a4-b407-4d2c-888a-e5585900e7e1" />
@@ -128,6 +128,18 @@
       <DataClassMoniker Name="/DataClassesDataContext/Товары_из_ТС" />
       <nestedChildShapes>
         <elementListCompartment Id="e3b6dfc7-efd4-49ca-bec3-fc71eb4bf39d" absoluteBounds="0.89000000000000057, 13.585, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="759b1faa-7a07-431e-aa14-f684c3fc8e38" absoluteBounds="4.25, 16, 2, 3.5016097005208326">
+      <DataClassMoniker Name="/DataClassesDataContext/view_НДС_Реализация" />
+      <nestedChildShapes>
+        <elementListCompartment Id="91e21d53-c875-4c0b-86cd-455f4984d3e1" absoluteBounds="4.265, 16.46, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a3ace3c5-3c49-478d-8a37-74a239b30c1c" absoluteBounds="6.875, 16, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/DataClassesDataContext/viev_НДС_Приобретение" />
+      <nestedChildShapes>
+        <elementListCompartment Id="95814d1e-470c-46a5-bdce-369507114ef9" absoluteBounds="6.89, 16.46, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
