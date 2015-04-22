@@ -47,6 +47,15 @@ namespace KUDIR.Forms
                     case 3:
                         chart4();
                         break;
+                    case 4:
+                        chart5();
+                        break;
+                    case 5:
+                        chart6();
+                        break;
+                    case 6:
+                        chart7();
+                        break;
                     default:
                         break;
                 }
@@ -130,6 +139,34 @@ namespace KUDIR.Forms
             }
             OpenReport(fileName);
         }
+        void chart5()
+        {
+            string fileName = null;
+            fileName = Report(cb5_year.SelectedValue == null ? -1 : (int)cb5_year.SelectedValue, "расходы фонда");
+            OpenReport(fileName);
+        }
+        void chart6()
+        {
+            string fileName = null;
+            switch (tabChart5.SelectedIndex)
+            {
+                case 0:
+                    fileName = Report((cb6_year.SelectedItem == null ? -1 : (int)cb6_year.SelectedValue), (cb1_build.SelectedItem == null ? -1 : (int)cb1_build.SelectedValue), "строение");
+                    break;
+                case 1:
+                    fileName = Report("незавершенные строения");
+                    break;
+                default:
+                    break;
+            }
+            OpenReport(fileName);
+        }
+        void chart7()
+        {
+            string fileName = null;
+            fileName = Report(dp9_start.SelectedDate, dp9_end.SelectedDate, "товарыТС");
+            OpenReport(fileName);
+        }
 
         string GetPathForSave(string name)
         {
@@ -193,6 +230,9 @@ namespace KUDIR.Forms
                         case "перечисл подоходные налоги":
                             pr.ПодоходныйНалогПеречислено(startPeriod.Value, endPeriod.Value);
                             break;
+                        case "товарыТС":
+                            pr.ТоварыТС(startPeriod.Value, endPeriod.Value);
+                            break;
                         default:
                             break;
                     }
@@ -243,6 +283,9 @@ namespace KUDIR.Forms
                         case "кооператив":
                             pr.Кооператив();
                             break;
+                        case "незавершенные строения":
+                            pr.НезавершСтроение();
+                            break;
                         default:
                             break;
                     }
@@ -257,7 +300,7 @@ namespace KUDIR.Forms
         string Report(int year, int emplID, string reportType)
         {
             if (year == -1 || emplID == -1)
-                throw new Exception("Должны быть выбраны год и работник!");
+                throw new Exception("Заполнены не все поля!");
             string fileName = GetPathForSave(reportType);
             if (fileName != null)
             {
@@ -271,6 +314,9 @@ namespace KUDIR.Forms
                             break;
                         case "пенсионный взнос":
                             pr.ПенсионныйВзнос(year, emplID);
+                            break;
+                        case "строение":
+                            pr.Строение(year, emplID);
                             break;
                         default:
                             break;
@@ -301,6 +347,9 @@ namespace KUDIR.Forms
                         case "перечисл пенс взносы":
                             pr.ПенсВзносыПеречислено(year);
                             break;
+                        case "расходы фонда":
+                            pr.РасходыФонда(year);
+                            break;
                         default:
                             break;
                     }
@@ -326,11 +375,19 @@ namespace KUDIR.Forms
         }
         private void tabChart4_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(tabChart4.SelectedIndex == 0 || tabChart4.SelectedIndex == 2)
+            if (tabChart4.SelectedIndex == 0 || tabChart4.SelectedIndex == 2)
             {
                 var empl = GetEmployees();
                 cb2_empl.ItemsSource = empl;
                 cb3_empl.ItemsSource = empl;
+            }
+        }
+        private void tabChart5_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tabChart5.SelectedIndex == 0)
+            {
+                var build = GetBuilds();
+                cb1_build.ItemsSource = build;
             }
         }
 
@@ -346,7 +403,23 @@ namespace KUDIR.Forms
                 {
                     dict.Add(name, id);
                 }
-                catch{}
+                catch { }
+            }
+            return dict;
+        }
+        Dictionary<string, int> GetBuilds()
+        {
+            Dictionary<string, int> dict = new Dictionary<string, int>();
+            Data data = new Data(Data.DataTypes.Строение, strConnect);
+            for (int i = 0; i < data.Table.Rows.Count; i++)
+            {
+                int id = (int)data.Table.Rows[i]["ID"];
+                string name = data.Table.Rows[i]["Наименование"].ToString();
+                try
+                {
+                    dict.Add(name, id);
+                }
+                catch { }
             }
             return dict;
         }
@@ -355,12 +428,14 @@ namespace KUDIR.Forms
         {
             //глупое место
             List<int> years = new List<int>();
-            for (int i = 2000; i <= DateTime.Now.Year; ++i)
+            for (int i = 2000; i <= DateTime.Now.Year + 1; ++i)
                 years.Add(i);
             cb1_year.ItemsSource = years;
             cb2_year.ItemsSource = years;
             cb3_year.ItemsSource = years;
             cb4_year.ItemsSource = years;
+            cb5_year.ItemsSource = years;
+            cb6_year.ItemsSource = years;
             //----
         }
 

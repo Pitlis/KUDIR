@@ -173,6 +173,57 @@
                     </TabControl>
                 </Grid>
             </TabItem>
+            <TabItem Header="Раздел V" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="65" Margin="-2,1,0,-1">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Учет исчисленных и перечисленных в Фонд страховых взносов" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="442"/>
+                    <Label Content="Год" HorizontalAlignment="Left" Margin="14,131,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.632,0.526"/>
+                    <ComboBox x:Name="cb5_year" Margin="48,135,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Раздел VI" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="69" Margin="-2,1,-10,-1">
+                <Grid Background="#FFE5E5E5">
+                    <TabControl Name="tabChart5" TabStripPlacement="Left" HorizontalAlignment="Right" Height="348" VerticalAlignment="Top" Width="592" Margin="-10,0,0,-38" SelectionChanged="tabChart5_SelectionChanged">
+                        <TabItem Header="Учет &#xD;&#xA;капитальных&#xD;&#xA;строений" Margin="9,-2,0,-15" Padding="0,1,30,1">
+                            <Grid Background="#FFE5E5E5" Margin="0,0,1,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="13*"/>
+                                    <RowDefinition Height="326*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="56*"/>
+                                    <ColumnDefinition Width="25*"/>
+                                    <ColumnDefinition Width="9*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Учет капитальных строений (зданий, сооружений), их частей, машино-мест,&#xD;&#xA; находящихся в собственности, хозяйственном ведении,&#xD;&#xA; оперативном управлении или пользовании,&#xD;&#xA; капитальных строений (зданий, сооружений, их частей, машино-мест,&#xD;&#xA; подлежащих государственной регистрации, в период до такой регистрации)" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="442" Grid.RowSpan="2" Height="107"/>
+                                <ComboBox SelectedValuePath="Value" DisplayMemberPath="Key" x:Name="cb1_build" HorizontalAlignment="Left" Margin="228,122,0,0" VerticalAlignment="Top" Width="219" Grid.Row="1" Grid.ColumnSpan="3"/>
+                                <Label Content="Строение" HorizontalAlignment="Left" Margin="139,118,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <Label Content="Год" HorizontalAlignment="Left" Margin="16,118,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-6.632,0.526"/>
+                                <ComboBox Name="cb6_year" Margin="50,122,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Незавершенное&#xD;&#xA;строительство         " Margin="9,14,0,-20" HorizontalContentAlignment="Left" Padding="3,1,8,1">
+                            <Grid Background="#FFE5E5E5" HorizontalAlignment="Right" Width="513">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="25*"/>
+                                </Grid.RowDefinitions>
+                                <Label Content="Учет зданий, сооружений и передаточных устройств &#xD;&#xA;сверхнормативного незавершенного строительства&#xD;&#xA;&#xD;&#xA;(выводятся все записи в книге)" HorizontalAlignment="Left" Margin="71,77,0,0" VerticalAlignment="Top" Width="442" Height="93" FontSize="16" Grid.Row="2"/>
+                            </Grid>
+                        </TabItem>
+
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Раздел VII" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="71" Margin="-2,1,0,-1">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Учет товаров, в том числе сырья и материалов, основных средств и отдельных предметов в составе &#xD;&#xA;оборотных средств, ввозимых на территорию Республики Беларусь &#xD;&#xA;из государств - членов Таможенного Союза" HorizontalAlignment="Left" Margin="6,10,0,0" VerticalAlignment="Top" Width="566" Height="69"/>
+                    <DatePicker x:Name="dp9_start" HorizontalAlignment="Left" Margin="452,130,0,0" VerticalAlignment="Top"/>
+                    <DatePicker x:Name="dp9_end" HorizontalAlignment="Left" Margin="452,160,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Начало периода" HorizontalAlignment="Left" Margin="334,128,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Конец периода" HorizontalAlignment="Left" Margin="340,159,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
 
         </TabControl>
         <Button Content="Сформировать отчет в MS Excel" HorizontalAlignment="Left" Margin="352,335,0,0" VerticalAlignment="Top" Width="232" Height="27" Click="Button_Click"/>
