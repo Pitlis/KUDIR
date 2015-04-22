@@ -549,6 +549,7 @@ namespace Reports
             List<Товары_из_ТС> list = new Data().Get_ТоварыТС(startPeriod, endPeriod);
 
             int i = 1;
+            Decimal result = 0;
             foreach (var record in list)
             {
                 newRow = InsertRow(newRow, 1, 7, 8);
@@ -559,8 +560,12 @@ namespace Reports
                 newRow.Cell(5).Value = record.Счет_факт_Номер;
                 newRow.Cell(6).Value = DateToString(record.Счет_факт_Дата);
                 newRow.Cell(7).Value = record.Стоимость;
+
+                result += record.Стоимость.HasValue ? record.Стоимость.Value : 0;
                 i++;
             }
+            newRow.RowBelow(1).Cell(6).Value = "Итого:";
+            newRow.RowBelow(1).Cell(7).Value = result;
             wb.Save();
         }
         public void НДСприобретение(DateTime startPeriod, DateTime endPeriod)
