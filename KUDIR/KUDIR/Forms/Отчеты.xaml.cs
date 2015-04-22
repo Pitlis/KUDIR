@@ -56,6 +56,9 @@ namespace KUDIR.Forms
                     case 6:
                         chart7();
                         break;
+                    case 7:
+                        chart8();
+                        break;
                     default:
                         break;
                 }
@@ -167,6 +170,22 @@ namespace KUDIR.Forms
             fileName = Report(dp9_start.SelectedDate, dp9_end.SelectedDate, "товарыТС");
             OpenReport(fileName);
         }
+        void chart8()
+        {
+            string fileName = null;
+            switch (tabChart6.SelectedIndex)
+            {
+                case 0:
+                    fileName = Report(dp10_start.SelectedDate, dp10_end.SelectedDate, "НДС при приобретении");
+                    break;
+                case 1:
+                    fileName = Report(dp11_start.SelectedDate, dp11_end.SelectedDate, "НДС при реализации");
+                    break;
+                default:
+                    break;
+            }
+            OpenReport(fileName);
+        }
 
         string GetPathForSave(string name)
         {
@@ -232,6 +251,12 @@ namespace KUDIR.Forms
                             break;
                         case "товарыТС":
                             pr.ТоварыТС(startPeriod.Value, endPeriod.Value);
+                            break;
+                        case "НДС при приобретении":
+                            pr.НДСприобретение(startPeriod.Value, endPeriod.Value);
+                            break;
+                        case "НДС при реализации":
+                            pr.НДСреализация(startPeriod.Value, endPeriod.Value);
                             break;
                         default:
                             break;

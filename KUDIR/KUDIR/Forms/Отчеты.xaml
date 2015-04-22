@@ -224,6 +224,43 @@
                     <Label Content="Конец периода" HorizontalAlignment="Left" Margin="340,159,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="Раздел VIII" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="74" Margin="-2,1,0,-1">
+                <Grid Background="#FFE5E5E5">
+                    <TabControl Name="tabChart6" TabStripPlacement="Left" HorizontalAlignment="Right" Height="348" VerticalAlignment="Top" Width="592" Margin="-10,0,0,-38" SelectionChanged="tabChart2_SelectionChanged">
+                        <TabItem Header="НДС при&#xD;&#xA;приобретении" Margin="9,-2,-1,-15" Padding="0,1,20,1">
+                            <Grid Background="#FFE5E5E5" Margin="0,0,1,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="13*"/>
+                                    <RowDefinition Height="326*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="56*"/>
+                                    <ColumnDefinition Width="25*"/>
+                                    <ColumnDefinition Width="9*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Суммы налога на добавленную стоимость, уплаченные при приобретении&#xD;&#xA;(ввозе) товаров (работ, услуг), имущественных прав" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="442" Grid.RowSpan="2"/>
+                                <DatePicker Name="dp10_start" HorizontalAlignment="Left" Margin="63,43,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
+                                <DatePicker Name="dp10_end" HorizontalAlignment="Left" Margin="63,73,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
+                                <Label Content="Начало периода" HorizontalAlignment="Left" Margin="228,41,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2"/>
+                                <Label Content="Конец периода" HorizontalAlignment="Left" Margin="233,71,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="НДС при&#xD;&#xA;реализации      " Margin="9,14,0,-20" HorizontalContentAlignment="Left" Padding="5,1,30,1">
+                            <Grid Background="#FFE5E5E5" HorizontalAlignment="Right" Width="513">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="39"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Label Content="Суммы налога на добавленную стоимость, исчисленные по оборотам &#xD;&#xA;по реализации (приобретению) товаров (работ, услуг), имущественных прав" HorizontalAlignment="Left" Margin="62,10,0,0" VerticalAlignment="Top" Width="442" Height="46" Grid.RowSpan="2"/>
+                                <DatePicker Name="dp11_start" HorizontalAlignment="Left" Margin="402,16.5,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <DatePicker Name="dp11_end" HorizontalAlignment="Left" Margin="402,46.5,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <Label Content="Начало периода" HorizontalAlignment="Left" Margin="284,14.5,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <Label Content="Конец периода" HorizontalAlignment="Left" Margin="289,45.5,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
 
         </TabControl>
         <Button Content="Сформировать отчет в MS Excel" HorizontalAlignment="Left" Margin="352,335,0,0" VerticalAlignment="Top" Width="232" Height="27" Click="Button_Click"/>
