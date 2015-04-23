@@ -53,8 +53,15 @@ namespace KUDIR
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            data.Update();
-            ChangeButtonStatus();
+            try
+            {
+                data.Update();
+                ChangeButtonStatus();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

@@ -672,7 +672,15 @@ namespace KUDIR.Code
             }
             catch (SqlException ex)
             {
-                System.Windows.MessageBox.Show(ex.Message);
+                if(ex.Number == 50000)
+                {
+                    string[] messages = ex.Message.Split(new char[] { '\n' });
+                    throw new Exception(messages.Length > 0 ? messages[0] : "");
+                }
+                else
+                {
+                    throw;
+                }
             }
         }
         public bool HasChanges()

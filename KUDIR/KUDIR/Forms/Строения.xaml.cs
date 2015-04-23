@@ -141,13 +141,21 @@ namespace KUDIR.Forms
                 return;
             }
             LoadFromForm(build);
-            build.Update();
-            dataBuildInfo.Update();
-            ReloadBuildInfo();
-            if(currentBuild == -1 && dataBuild.Table.Rows.Count > 0)
+            try
             {
-                currentBuild = dataBuild.Table.Rows.Count - 1;
+                build.Update();
+                dataBuildInfo.Update();
+                ReloadBuildInfo();
+                if (currentBuild == -1 && dataBuild.Table.Rows.Count > 0)
+                {
+                    currentBuild = dataBuild.Table.Rows.Count - 1;
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         void ReloadBuildInfo()//грид обновляется при каждом переключении между строениями, и при создании новой записи

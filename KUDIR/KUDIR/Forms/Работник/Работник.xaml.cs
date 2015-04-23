@@ -149,12 +149,19 @@ namespace KUDIR.Forms
                 return;
             }
             LoadFromForm(employee);
-            employee.Update();
-            dataEmplInfo.Update();
-            ReloadGridsInfo();
-            if (currentEmpl == -1 && dataEmpl.Table.Rows.Count > 0)
+            try
             {
-                currentEmpl = dataEmpl.Table.Rows.Count - 1;
+                employee.Update();
+                dataEmplInfo.Update();
+                ReloadGridsInfo();
+                if (currentEmpl == -1 && dataEmpl.Table.Rows.Count > 0)
+                {
+                    currentEmpl = dataEmpl.Table.Rows.Count - 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

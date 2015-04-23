@@ -1,0 +1,175 @@
+CREATE TRIGGER IU_Кредитор
+ON Кредитор
+FOR INSERT, UPDATE
+AS
+DECLARE @dateDogovor datetime
+DECLARE @dateDocument datetime
+SELECT @dateDocument = Док_задолж_Дата, @dateDogovor = Дата_договора FROM inserted
+IF (@dateDogovor IS NOT NULL) AND (@dateDocument IS NOT NULL)
+	IF (@dateDocument < @dateDogovor)
+		begin
+			RAISERROR('Дата документа задолженности не должна быть меньше даты договора!', 11, 1)
+			ROLLBACK TRANSACTION 
+		end
+
+
+
+CREATE TRIGGER IU_Дивиденты
+ON Налоги_на_дивиденты
+FOR INSERT, UPDATE
+AS
+DECLARE @stavka INT
+SELECT @stavka = Ставка_налога FROM inserted
+IF (@stavka IS NOT NULL)
+	IF (@stavka > 100) OR (@stavka < 0)
+		begin
+			RAISERROR('Ставка налога должна находиться в диапазоне от 0 до 100!', 11, 1)
+			ROLLBACK TRANSACTION 
+		end
+
+
+
+CREATE TRIGGER IU_Работник
+ON Работник
+FOR INSERT, UPDATE
+AS
+IF PATINDEX('%[1-9]%',(SELECT ФИО FROM inserted)) <> 0
+	begin
+		RAISERROR('ФИО не должны содержать цифр!', 11, 1)
+		ROLLBACK TRANSACTION 
+	end
+
+
+
+
+CREATE TRIGGER IU_СтроениеСтоимость
+ON Стоимость_строения
+FOR INSERT, UPDATE
+AS
+DECLARE @sAll INT
+DECLARE @sArenda INT
+SELECT @sAll = Площадь_всего, @sArenda = Площадь_аренда FROM inserted
+IF (@sAll IS NOT NULL) AND (@sArenda IS NOT NULL)
+	IF (@sAll < @sArenda)
+		begin
+			RAISERROR('Общая площадь не может быть меньше площади, сданной в аренду!', 11, 1)
+			ROLLBACK TRANSACTION 
+		end
+
+
+
+
+CREATE TRIGGER IU_СтроениеСтоимостьПериод
+ON Стоимость_строения
+FOR INSERT, UPDATE
+AS
+DECLARE @date DATETIME
+DECLARE @idBuild INT
+
+SELECT @date = Период, @idBuild = ID_строение FROM inserted
+
+IF (@date IS NOT NULL)
+	IF ((SELECT COUNT(*) FROM Стоимость_строения WHERE (DEL = 0) AND  (ID_строение = @idBuild) AND (YEAR(@date) = YEAR(Период)) AND (MONTH(@date) = MONTH(Период))) > 0)
+		begin
+			RAISERROR('Запись о стоимости строения в данном периоде уже существует!', 11, 1)
+			ROLLBACK TRANSACTION 
+		end
+
+
+
+
+CREATE TRIGGER IU_СтраховойВзнос
+ON Страховой_взнос
+FOR INSERT, UPDATE
+AS
+DECLARE @m TINYINT
+SELECT @m = За_месяц FROM inserted
+IF (@m IS NOT NULL)
+	IF (@m > 12) OR (@m < 1)
+		begin
+			RAISERROR('Запись в графе <За месяц> должна быть числом в диапазоне от 1 до 12', 11, 1)
+			ROLLBACK TRANSACTION 
+		end
+
+
+
+
+CREATE TRIGGER IU_Строение
+ON Строение
+FOR INSERT, UPDATE
+AS
+DECLARE @dateStart datetime
+DECLARE @dateEnd datetime
+SELECT @dateStart = Дата_ввода_в_эксплуатацию, @dateEnd = Дата_выбытия FROM inserted
+IF (@dateStart IS NOT NULL) AND (@dateEnd IS NOT NULL)
+	IF (@dateStart > @dateEnd)
+		begin
+			RAISERROR('Дата ввода в эксплуатацию не может быть больше даты выбытия!', 11, 1)
+			ROLLBACK TRANSACTION 
+		end
+
+
+
+CREATE TRIGGER IU_Выплаты
+ON Выплаты
+FOR INSERT, UPDATE
+AS
+DECLARE @dateStart datetime
+DECLARE @dateEnd datetime
+SELECT @dateStart = Период_Начало, @dateEnd = Период_Конец FROM inserted
+IF (@dateStart IS NOT NULL) AND (@dateEnd IS NOT NULL)
+	IF (@dateStart > @dateEnd)
+		begin
+			RAISERROR('Начало периода должно быть раньше конца периода!', 11, 1)
+			ROLLBACK TRANSACTION 
+		end
+
+
+CREATE TRIGGER IU_РаботникТарифы
+ON Работник
+FOR INSERT, UPDATE
+AS
+DECLARE @tp SMALLINT
+DECLARE @ts SMALLINT
+
+SELECT @tp = Тариф_пенс_взносов, @ts = Тариф_страх_взносов FROM inserted
+
+IF(@tp IS NOT NULL)
+	IF((@tp > 100) OR (@tp < 0))
+	begin
+		RAISERROR('Тарифы взносов должны находиться в диапазоне от 0 до 100', 11, 1)
+		ROLLBACK TRANSACTION 
+	end
+
+IF(@ts IS NOT NULL)
+	IF((@ts > 100) OR (@ts < 0))
+	begin
+		RAISERROR('Тарифы взносов должны находиться в диапазоне от 0 до 100', 11, 1)
+		ROLLBACK TRANSACTION 
+	end
+
+
+
+
+CREATE TRIGGER IU_НалоговыйАгентТарифы
+ON Налоговый_агент
+FOR INSERT, UPDATE
+AS
+DECLARE @tp SMALLINT
+DECLARE @ts INT
+
+SELECT @tp = Ставка_налога_РБ, @ts = Ставка_налога_международн FROM inserted
+
+IF(@tp IS NOT NULL)
+	IF((@tp > 100) OR (@tp < 0))
+	begin
+		RAISERROR('Ставки налога должны находиться в диапазоне от 0 до 100', 11, 1)
+		ROLLBACK TRANSACTION 
+	end
+
+IF(@ts IS NOT NULL)
+	IF((@ts > 100) OR (@ts < 0))
+	begin
+		RAISERROR('Ставки налога должны находиться в диапазоне от 0 до 100', 11, 1)
+		ROLLBACK TRANSACTION 
+	end

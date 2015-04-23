@@ -67,7 +67,7 @@ namespace KUDIR
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.Hide();
+            Application.Current.Shutdown();
         }
     }
 }
