@@ -26,7 +26,7 @@ namespace KUDIR.Forms
         {
             InitializeComponent();
         }
-
+        public MainWindow mainMenu;
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -462,6 +462,15 @@ namespace KUDIR.Forms
             cb5_year.ItemsSource = years;
             cb6_year.ItemsSource = years;
             //----
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (mainMenu != null)
+            {
+                mainMenu.reports = null;
+                mainMenu.Show();
+            }
         }
 
 

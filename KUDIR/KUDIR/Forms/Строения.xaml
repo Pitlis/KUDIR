@@ -1,7 +1,7 @@
 ﻿<Window x:Name="lo" x:Class="KUDIR.Forms.Строения"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Учет капитальных строений" Height="600" Width="698.5" MinHeight="600" MinWidth="698" ContentRendered="lo_ContentRendered">
+        Title="Учет капитальных строений" Height="600" Width="698.5" MinHeight="600" MinWidth="698" ContentRendered="lo_ContentRendered" Closing="lo_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25" MaxHeight="25"></RowDefinition>
@@ -50,8 +50,7 @@
         <DatePicker Name="dpDocRegDate" HorizontalAlignment="Left" Margin="194,164,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
         <DatePicker Name="dpExitDate" HorizontalAlignment="Left" Margin="34,242,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.Column="1"/>
         <DatePicker Name="dpDocExitDate" HorizontalAlignment="Left" Margin="194,357,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-        <Menu Grid.ColumnSpan="2">
-            <MenuItem Header="MenuItem"/>
+        <Menu Grid.ColumnSpan="2" Margin="0,0,0,435" Grid.RowSpan="2">
             <Button Name="btnNext" Content="Следующее строение" VerticalAlignment="Top" Click="btnNext_Click" Height="25" />
             <Button Name="btnNew" Content="Новое" VerticalAlignment="Top" Width="75" Height="25" Click="btnNew_Click"/>
             <Button x:Name="btnDelete" Content="Удалить" VerticalAlignment="Top" Width="74" Height="25" Click="btnDelete_Click"/>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KUDIR.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,37 +21,53 @@ namespace KUDIR
     /// </summary>
     public partial class MainWindow : Window
     {
+        public EditTables editTables;
+        public Отчеты reports;
+
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void btnSeller_Click(object sender, RoutedEventArgs e)
+        private void btnBook_Click(object sender, RoutedEventArgs e)
         {
-            EditTables wind = new EditTables();
-            wind.Show();
-            this.Close();
+            if (editTables == null)
+            {
+                editTables = new EditTables();
+                editTables.mainMenu = this;
+                editTables.Show();
+                this.Hide();
+            }
+            else
+            {
+                editTables.Activate();
+            }
         }
 
-        private void btnSeller_Copy_Click(object sender, RoutedEventArgs e)
+        private void btnReports_Click(object sender, RoutedEventArgs e)
         {
-            Forms.Строения wind = new Forms.Строения();
-            wind.Show();
-            this.Close();
+            if (reports == null)
+            {
+                reports = new Отчеты();
+                reports.mainMenu = this;
+                reports.Show();
+                this.Hide();
+            }
+            else
+            {
+                reports.Activate();
+            }
         }
 
-        private void btnSeller_Copy1_Click(object sender, RoutedEventArgs e)
+        private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            Forms.Работник wind = new Forms.Работник();
-            wind.Show();
-            this.Close();
+            Application.Current.Shutdown();
         }
 
-        private void btnSeller_Copy2_Click(object sender, RoutedEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Forms.Отчеты wind = new Forms.Отчеты();
-            wind.Show();
-            this.Close();
+            this.Hide();
         }
     }
 }

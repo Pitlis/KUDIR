@@ -392,6 +392,7 @@ namespace KUDIR.Code
             HiddenColumns.Add(_dataSet.Tables[0].Columns.IndexOf("ID_платежный_док"));
 
         }
+
         void Create_Работник()
         {
             _adapter = new SqlDataAdapter("Select * FROM Работник WHERE DEL = 0", connect);
@@ -674,7 +675,21 @@ namespace KUDIR.Code
                 System.Windows.MessageBox.Show(ex.Message);
             }
         }
-
-
+        public bool HasChanges()
+        {
+            return _dataSet.HasChanges();
+        }
+        public void Refresh()
+        {
+            try
+            {
+                _dataSet.Clear();
+                _adapter.Fill(_dataSet);
+            }
+            catch(SqlException ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

@@ -177,6 +177,14 @@ namespace KUDIR.Forms
         bool FormLoaded = false;
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (dataEmplInfo != null && dataEmplInfo.HasChanges())
+            {
+                MessageBoxResult result = MessageBox.Show("Все несохраненные изменения будут потеряны.\nДля сохранения нажмите \"Нет\" и кнопку \"Сохранить\"\n Продолжить без сохранения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.No)
+                {
+                    return;
+                }
+            }
             dgTable1.CanUserAddRows = true;
             dgTable1.Margin = new Thickness(0, 23, 0, 0);
             if (FormLoaded)
@@ -260,6 +268,17 @@ namespace KUDIR.Forms
                 ((DataPartialTables)dataEmplInfo).AddNewRecord(employee.работникID, wind.date, wind.Others, wind.Dolg, wind.docNumber, wind.docDate, wind.docMoney);
                 ReloadGridsInfo();
             }
+        }
+
+        public EditTables tablesForm;
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Все несохраненные изменения будут потеряны.\nПродолжить?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+            tablesForm.Show();
         }
 
     }

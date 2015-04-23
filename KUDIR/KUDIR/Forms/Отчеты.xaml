@@ -1,7 +1,7 @@
 ﻿<Window x:Class="KUDIR.Forms.Отчеты"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Отчеты" Height="400" Width="600" ResizeMode="NoResize" ContentRendered="Window_ContentRendered">
+        Title="Отчеты" Height="400" Width="600" ResizeMode="NoResize" ContentRendered="Window_ContentRendered" Closing="Window_Closing">
     <Grid Background="#FFF9F9F9">
         <TabControl Name="tab1" HorizontalAlignment="Left" Width="592" Margin="0,0,0,27">
             <TabItem Header="Раздел I" Height="23" VerticalAlignment="Top" Margin="-2,1,2,-1">

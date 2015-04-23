@@ -1,12 +1,12 @@
 ﻿<Window x:Class="KUDIR.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="КУДиР" Height="360" Width="350" MaxHeight="360" MaxWidth="350" MinHeight="360" MinWidth="350" Background="#FFFDFADB">
+        Title="КУДиР" Height="278" Width="517" ResizeMode="NoResize" Background="#FFFDFADB" Closing="Window_Closing">
     <Grid>
-        <Button Name="btnSeller" Content="Продавец" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="140" Height="140" Background="#FF1AF04A" BorderBrush="{x:Null}" Foreground="Black" FontFamily="Segoe Print" FontSize="24" Click="btnSeller_Click"/>
-        <Button x:Name="btnSeller_Copy" Content="TODO" HorizontalAlignment="Left" Margin="182,10,0,0" VerticalAlignment="Top" Width="140" Height="140" Click="btnSeller_Copy_Click"/>
-        <Button x:Name="btnSeller_Copy1" Content="TODO" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top" Width="140" Height="140" Click="btnSeller_Copy1_Click"/>
-        <Button x:Name="btnSeller_Copy2" Content="TODO" HorizontalAlignment="Left" Margin="182,170,0,0" VerticalAlignment="Top" Width="140" Height="140" Click="btnSeller_Copy2_Click"/>
-
+        <Button Name="btnBook" Content="Бухгалтерия" HorizontalAlignment="Left" Margin="22,67,0,0" VerticalAlignment="Top" Width="120" Height="107" FontSize="18" Click="btnBook_Click"/>
+        <Label Content="Главное меню" HorizontalAlignment="Left" Margin="172,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+        <Button Name="btnReports" Content="Печать" HorizontalAlignment="Left" Margin="187,67,0,0" VerticalAlignment="Top" Width="120" Height="107" FontSize="18" Click="btnReports_Click"/>
+        <Button Name="btnAdmin" Content="Настройки" HorizontalAlignment="Left" Margin="354,67,0,0" VerticalAlignment="Top" Width="120" Height="107" FontSize="18"/>
+        <Button Name="btnExit" Content="Выход" HorizontalAlignment="Left" Margin="172,200,0,0" VerticalAlignment="Top" Width="152" Height="30" Click="btnExit_Click"/>
     </Grid>
 </Window>
