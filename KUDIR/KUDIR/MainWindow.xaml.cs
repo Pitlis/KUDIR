@@ -71,8 +71,10 @@ namespace KUDIR
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (editTables == null && reports == null)
+            if (editTables == null)
             {
+                if (reports.mainMenu != null)
+                    reports.mainMenu = null;
                 Application.Current.Shutdown();
             }
             if(editTables != null)
