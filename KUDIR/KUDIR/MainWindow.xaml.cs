@@ -79,6 +79,7 @@ namespace KUDIR
             {
                 editTables.Show();
                 e.Cancel = true;
+                this.Hide();
             }
         }
     }
