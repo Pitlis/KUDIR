@@ -62,12 +62,24 @@ namespace KUDIR
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
+            if (editTables != null)
+                editTables.mainMenu = null;
+            if (reports != null)
+                reports.mainMenu = null;
             Application.Current.Shutdown();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Application.Current.Shutdown();
+            if (editTables == null && reports == null)
+            {
+                Application.Current.Shutdown();
+            }
+            if(editTables != null)
+            {
+                editTables.Show();
+                e.Cancel = true;
+            }
         }
     }
 }

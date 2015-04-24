@@ -27,7 +27,7 @@ namespace KUDIR.Forms
         int currentBuild = -2;
         DataGridConfig grid;
 
-        public MainWindow mainMenu;
+        public EditTables mainMenu;
 
         public Строения()
         {
@@ -187,15 +187,16 @@ namespace KUDIR.Forms
             InitForm();
         }
 
-        public EditTables tablesForm;
         private void lo_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Все несохраненные изменения будут потеряны.\nПродолжить?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No)
             {
+                e.Cancel = true;
                 return;
             }
-            tablesForm.Show();
+            if(mainMenu != null)
+                mainMenu.Show();
         }
 
     }

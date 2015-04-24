@@ -24,6 +24,8 @@ namespace KUDIR
     {
         string strConnect = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\VirtualBox\BBD\SHARE\KUDIR.mdf;Integrated Security=True;Connect Timeout=30";
         public MainWindow mainMenu;
+        public Forms.Работник formEmpl;
+        public Forms.Строения formBuild;
         public EditTables()
         {
             InitializeComponent();
@@ -34,11 +36,6 @@ namespace KUDIR
             data = new Data(Data.DataTypes.НДС_Реализация, strConnect);
             DataGridConfig grid = new DataGridConfig(dgTable);
             grid.ShowData(data);
-
-            //PrintReport pr = new PrintReport("D:\\Отчет.xlsx");
-            //pr.Выручка(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10));
-            //pr.НДСреализация(new DateTime(2014, 1, 1), new DateTime(2015, 10, 10));
-            //pr.РасходыФонда(2014);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -160,9 +157,9 @@ namespace KUDIR
 
         private void MenuItem_Click_6(object sender, RoutedEventArgs e)
         {
-            Forms.Строения wind = new Forms.Строения();
-            wind.tablesForm = this;
-            wind.Show();
+            formBuild = new Forms.Строения();
+            formBuild.mainMenu = this;
+            formBuild.Show();
             this.Hide();
         }
 
@@ -176,9 +173,9 @@ namespace KUDIR
 
         private void MenuItem_Click_8(object sender, RoutedEventArgs e)
         {
-            Forms.Работник wind = new Forms.Работник();
-            wind.tablesForm = this;
-            wind.Show();
+            formEmpl = new Forms.Работник();
+            formEmpl.mainMenu = this;
+            formEmpl.Show();
             this.Hide();
         }
 
@@ -234,6 +231,7 @@ namespace KUDIR
                 MessageBoxResult result = MessageBox.Show("Все несохраненные изменения будут потеряны.\nПродолжить?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.No)
                 {
+                    e.Cancel = true;
                     return;
                 }
             }
@@ -241,6 +239,14 @@ namespace KUDIR
             {
                 mainMenu.editTables = null;
                 mainMenu.Show();
+            }
+            if(formBuild != null)
+            {
+                formBuild.mainMenu = null;
+            }
+            if (formEmpl != null)
+            {
+                formEmpl.mainMenu = null;
             }
         }
     }

@@ -26,7 +26,7 @@ namespace KUDIR.Forms
         Data_Работник employee;
         int currentEmpl = -2;
         DataGridConfig grid;
-
+        public EditTables mainMenu;
         public Работник()
         {
             InitializeComponent();
@@ -57,7 +57,7 @@ namespace KUDIR.Forms
                 empl.Тариф_страх_взносов = null;
             }
             empl.Тариф_пенс_взносов = (short)tarif;
-            empl.Тариф_пенс_взносов = (short)tarif1;
+            empl.Тариф_страх_взносов = (short)tarif1;
             empl.ФИО = tbxName.Text;
             empl.Номер_договора = tbxNumber.Text;
             empl.Инвалидность = tbxInv.Text;
@@ -91,6 +91,7 @@ namespace KUDIR.Forms
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             dgTable1.CanUserAddRows = true;
+            dataEmpl = new Data(Data.DataTypes.Работник, strConnect);
             if (currentEmpl + 1 < dataEmpl.Table.Rows.Count && currentEmpl != -1)//Следующая запись есть
             {
                 currentEmpl++;
@@ -277,15 +278,16 @@ namespace KUDIR.Forms
             }
         }
 
-        public EditTables tablesForm;
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Все несохраненные изменения будут потеряны.\nПродолжить?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No)
             {
+                e.Cancel = true;
                 return;
             }
-            tablesForm.Show();
+            if(mainMenu != null)
+                mainMenu.Show();
         }
 
     }
