@@ -5,15 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using ClosedXML.Excel;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace Reports
 {
     public class PrintReport
     {
         string _fileName { get; set; }
+        SqlConnection _connect;
 
-        public PrintReport(string fileName)
+        public PrintReport(string fileName, string strConnect)
         {
+            _connect = new SqlConnection(strConnect);
             _fileName = fileName;
         }
 
@@ -63,7 +66,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("Выручка.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(4);
-            Data.ВыручкаForPrint records = new Data().Get_Выручка(startPeriod, endPeriod);
+            Data.ВыручкаForPrint records = new Data(_connect).Get_Выручка(startPeriod, endPeriod);
 
             foreach (Reports.Выручка record in records.list)
             {
@@ -91,7 +94,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("Отгрузка.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(5);
-            Dictionary<Reports.Data.Отгрузка_Key, Reports.Data.Отгрузка_info> records = new Data().Get_Отгрузка(startPeriod, endPeriod);
+            Dictionary<Reports.Data.Отгрузка_Key, Reports.Data.Отгрузка_info> records = new Data(_connect).Get_Отгрузка(startPeriod, endPeriod);
 
             Decimal[] results = new Decimal[12];
             foreach (var record in records)
@@ -136,7 +139,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("Предоплата.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(5);
-            Dictionary<Reports.Data.Предоплата_Key, Reports.Data.Предоплата_info> records = new Data().Get_Предоплата(startPeriod, endPeriod);
+            Dictionary<Reports.Data.Предоплата_Key, Reports.Data.Предоплата_info> records = new Data(_connect).Get_Предоплата(startPeriod, endPeriod);
 
             Decimal[] results = new Decimal[12];
             foreach (var record in records)
@@ -182,7 +185,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("Кредитор.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(5);
-            List<Кредитор> records = new Data().Get_Кредитор(startPeriod, endPeriod);
+            List<Кредитор> records = new Data(_connect).Get_Кредитор(startPeriod, endPeriod);
             Decimal result = 0;
             foreach (Reports.Кредитор record in records)
             {
@@ -209,7 +212,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("ПодоходныйНалог.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(12);
-            Reports.Data.РаботникForPrint empl = new Data().Get_ПодоходныйНалог(startPeriod, endPeriod, emplID);
+            Reports.Data.РаботникForPrint empl = new Data(_connect).Get_ПодоходныйНалог(startPeriod, endPeriod, emplID);
 
             foreach (var record in empl.payments)
             {
@@ -243,7 +246,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("ПодоходныйНалогПеречислено.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(4);
-            List<Reports.Data.ПодоходныйНалогПеречислForPrint> list = new Data().Get_ПодоходныйНалогПеречисл(startPeriod, endPeriod);
+            List<Reports.Data.ПодоходныйНалогПеречислForPrint> list = new Data(_connect).Get_ПодоходныйНалогПеречисл(startPeriod, endPeriod);
 
             int i = 1;
             foreach (var record in list)
@@ -270,7 +273,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("Дивиденты.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(5);
-            List<view_Дивиденты> list = new Data().Get_Дивиденты(startPeriod, endPeriod);
+            List<view_Дивиденты> list = new Data(_connect).Get_Дивиденты(startPeriod, endPeriod);
 
             int i = 1;
             foreach (var record in list)
@@ -295,7 +298,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("НалоговыйАгент.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(5);
-            List<view_НалоговыйАгент> list = new Data().Get_НалоговыйАгент(startPeriod, endPeriod);
+            List<view_НалоговыйАгент> list = new Data(_connect).Get_НалоговыйАгент(startPeriod, endPeriod);
 
             int i = 1;
             foreach (var record in list)
@@ -324,7 +327,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("Кооператив.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(3);
-            List<Производственный_кооператив> list = new Data().Get_Кооператив();
+            List<Производственный_кооператив> list = new Data(_connect).Get_Кооператив();
 
             int i = 1;
             foreach (var record in list)
@@ -346,7 +349,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("СтраховойВзнос.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(10);
-            List<Reports.Data.СтраховойВзносForPrint> list = new Data().Get_СтраховойВзнос(year, emplID);
+            List<Reports.Data.СтраховойВзносForPrint> list = new Data(_connect).Get_СтраховойВзнос(year, emplID);
 
             foreach (Reports.Data.СтраховойВзносForPrint record in list)
             {
@@ -374,7 +377,7 @@ namespace Reports
                 newRow.Cell(18).Value = record.количествоПособий;
             }
 
-            Работник employee = new Data().Get_Работник(emplID);
+            Работник employee = new Data(_connect).Get_Работник(emplID);
             ws.Cell(2, 1).Value = employee.ФИО;
             ws.Cell(4, 1).Value = DateToString(employee.Дата_договора) + ", " + employee.Номер_договора + ", " + DateToString(employee.Дата_выплаты_вознаграждения);
             ws.Cell(4, 11).Value = employee.Инвалидность;
@@ -386,7 +389,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("ПеречисленныйСтраховойВзнос.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(4);
-            List<Reports.Data.СтрахВзносПеречислForPrint> list = new Data().Get_СтраховыеВзносыПеречислено(year);
+            List<Reports.Data.СтрахВзносПеречислForPrint> list = new Data(_connect).Get_СтраховыеВзносыПеречислено(year);
 
             foreach (Reports.Data.СтрахВзносПеречислForPrint record in list)
             {
@@ -419,7 +422,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("ПенсионныйВзнос.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(6);
-            List<Reports.Data.ПенсВзносыForPrint> list = new Data().Get_ПенсионныеВзносы(year, emplID);
+            List<Reports.Data.ПенсВзносыForPrint> list = new Data(_connect).Get_ПенсионныеВзносы(year, emplID);
 
             foreach (Reports.Data.ПенсВзносыForPrint record in list)
             {
@@ -434,7 +437,7 @@ namespace Reports
                 newRow.Cell(6).Value = record.info.Сумма_начисленных_пенс_взносов;
 
             }
-            Работник employee = new Data().Get_Работник(emplID);
+            Работник employee = new Data(_connect).Get_Работник(emplID);
             ws.Cell(2, 1).Value = employee.ФИО;
             ws.Cell(2, 8).Value = employee.Тариф_пенс_взносов;
 
@@ -445,7 +448,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("ПенсионныйВзносПеречислено.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(4);
-            List<Reports.Data.ПенсВзносПеречисленоForPrint> list = new Data().Get_ПенсВзносыПеречислено(year);
+            List<Reports.Data.ПенсВзносПеречисленоForPrint> list = new Data(_connect).Get_ПенсВзносыПеречислено(year);
 
             foreach (Reports.Data.ПенсВзносПеречисленоForPrint record in list)
             {
@@ -474,7 +477,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("УчетРасходовФонда.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(10);
-            List<Reports.Data.РасходыФондаForPrint> list = new Data().Get_РасходыФонда(year);
+            List<Reports.Data.РасходыФондаForPrint> list = new Data(_connect).Get_РасходыФонда(year);
 
             foreach (Reports.Data.РасходыФондаForPrint record in list)
             {
@@ -497,7 +500,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("УчетСтроений.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(14);
-            Reports.Data.СтроениеForPrint build = new Data().Get_Строение(year, id);
+            Reports.Data.СтроениеForPrint build = new Data(_connect).Get_Строение(year, id);
 
             foreach (Стоимость_строения record in build.info)
             {
@@ -525,7 +528,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("НезавершенныеСтроения.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(3);
-            List<Незавершенное_строение> list = new Data().Get_НезавершСтроение();
+            List<Незавершенное_строение> list = new Data(_connect).Get_НезавершСтроение();
 
             int i = 1;
             foreach (var record in list)
@@ -546,7 +549,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("ТоварыТС.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(4);
-            List<Товары_из_ТС> list = new Data().Get_ТоварыТС(startPeriod, endPeriod);
+            List<Товары_из_ТС> list = new Data(_connect).Get_ТоварыТС(startPeriod, endPeriod);
 
             int i = 1;
             Decimal result = 0;
@@ -573,7 +576,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("НДСприобретение.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(7);
-            List<Reports.Data.НДСForPrint> list = new Data().Get_НДСприобретение(startPeriod, endPeriod);
+            List<Reports.Data.НДСForPrint> list = new Data(_connect).Get_НДСприобретение(startPeriod, endPeriod);
             Decimal result1 = 0;
             Decimal result2 = 0;
             Decimal result3 = 0;
@@ -625,7 +628,7 @@ namespace Reports
             XLWorkbook wb = GetCopyTemplate("НДСреализация.xlsx");
             IXLWorksheet ws = wb.Worksheet(1);
             IXLRow newRow = ws.Row(7);
-            List<Reports.Data.НДСреализForPrint> list = new Data().Get_НДСреализация(startPeriod, endPeriod);
+            List<Reports.Data.НДСреализForPrint> list = new Data(_connect).Get_НДСреализация(startPeriod, endPeriod);
             Decimal[] results = new decimal[10];
 
             foreach (var record in list)

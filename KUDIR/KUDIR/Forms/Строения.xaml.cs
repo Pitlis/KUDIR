@@ -20,7 +20,7 @@ namespace KUDIR.Forms
     /// </summary>
     public partial class Строения : Window
     {
-        string strConnect = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\VirtualBox\BBD\SHARE\KUDIR.mdf;Integrated Security=True;Connect Timeout=30";
+        public string strConnect;
         Data dataBuild;
         Data dataBuildInfo;
         Data_Строение build;

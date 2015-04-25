@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,12 +9,12 @@ namespace Reports
 {
     internal class Data
     {
-        static string connStr = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\VirtualBox\BBD\SHARE\KUDIR.mdf;Integrated Security=True;Connect Timeout=30";
         DataClassesDataContext context;
         const int ПодоходныйНалогПроцент = 13; //нужно дергать из конфига
-        public Data()
+
+        public Data(SqlConnection connect)
         {
-            context = new DataClassesDataContext(connStr);
+            context = new DataClassesDataContext(connect);
         }
 
         public ВыручкаForPrint Get_Выручка(DateTime start, DateTime end)

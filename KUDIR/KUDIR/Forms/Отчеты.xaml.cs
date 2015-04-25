@@ -27,7 +27,7 @@ namespace KUDIR.Forms
             InitializeComponent();
         }
         public MainWindow mainMenu;
-
+        public string strConnect;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -223,7 +223,7 @@ namespace KUDIR.Forms
             string fileName = GetPathForSave(reportType);
             if (fileName != null)
             {
-                PrintReport pr = new PrintReport(fileName);
+                PrintReport pr = new PrintReport(fileName, strConnect);
                 try
                 {
                     switch (reportType)
@@ -276,7 +276,7 @@ namespace KUDIR.Forms
             string fileName = GetPathForSave(reportType);
             if (fileName != null)
             {
-                PrintReport pr = new PrintReport(fileName);
+                PrintReport pr = new PrintReport(fileName, strConnect);
                 try
                 {
                     switch (reportType)
@@ -300,7 +300,7 @@ namespace KUDIR.Forms
             string fileName = GetPathForSave(reportType);
             if (fileName != null)
             {
-                PrintReport pr = new PrintReport(fileName);
+                PrintReport pr = new PrintReport(fileName, strConnect);
                 try
                 {
                     switch (reportType)
@@ -329,7 +329,7 @@ namespace KUDIR.Forms
             string fileName = GetPathForSave(reportType);
             if (fileName != null)
             {
-                PrintReport pr = new PrintReport(fileName);
+                PrintReport pr = new PrintReport(fileName, strConnect);
                 try
                 {
                     switch (reportType)
@@ -361,7 +361,7 @@ namespace KUDIR.Forms
             string fileName = GetPathForSave(reportType);
             if (fileName != null)
             {
-                PrintReport pr = new PrintReport(fileName);
+                PrintReport pr = new PrintReport(fileName, strConnect);
                 try
                 {
                     switch (reportType)
@@ -389,7 +389,7 @@ namespace KUDIR.Forms
 
         #endregion
 
-        string strConnect = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\VirtualBox\BBD\SHARE\KUDIR.mdf;Integrated Security=True;Connect Timeout=30";
+        
         private void tabChart2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (tabChart2.SelectedIndex == 1)

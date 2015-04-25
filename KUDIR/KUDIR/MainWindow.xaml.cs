@@ -1,4 +1,5 @@
-﻿using KUDIR.Forms;
+﻿using KUDIR.Code;
+using KUDIR.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace KUDIR
     {
         public EditTables editTables;
         public Отчеты reports;
-
+        public string strConnect;
 
         public MainWindow()
         {
@@ -36,6 +37,7 @@ namespace KUDIR
             {
                 editTables = new EditTables();
                 editTables.mainMenu = this;
+                editTables.strConnect = strConnect;
                 editTables.Show();
                 this.Hide();
             }
@@ -51,6 +53,7 @@ namespace KUDIR
             {
                 reports = new Отчеты();
                 reports.mainMenu = this;
+                reports.strConnect = strConnect;
                 reports.Show();
                 this.Hide();
             }

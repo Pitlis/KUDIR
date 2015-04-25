@@ -23,7 +23,7 @@ namespace KUDIR
     /// </summary>
     public partial class EditTables : Window
     {
-        string strConnect = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\VirtualBox\BBD\SHARE\KUDIR.mdf;Integrated Security=True;Connect Timeout=30";
+        public string strConnect;
         public MainWindow mainMenu;
         public Forms.Работник formEmpl;
         public Forms.Строения formBuild;
@@ -160,6 +160,7 @@ namespace KUDIR
         {
             formBuild = new Forms.Строения();
             formBuild.mainMenu = this;
+            formBuild.strConnect = strConnect;
             formBuild.Show();
             this.Hide();
         }
@@ -176,6 +177,7 @@ namespace KUDIR
         {
             formEmpl = new Forms.Работник();
             formEmpl.mainMenu = this;
+            formEmpl.strConnect = strConnect;
             formEmpl.Show();
             this.Hide();
         }
