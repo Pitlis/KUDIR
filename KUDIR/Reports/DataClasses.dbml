@@ -118,6 +118,12 @@
       <Column Name="Документы_вычеты" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="Тариф_страх_взносов" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Association Name="Работник_Удержания" Member="Удержанияs" ThisKey="работникID" OtherKey="работникID" Type="Удержания" />
+      <Association Name="Работник_Выплата_работнику" Member="Выплата_работникуs" ThisKey="работникID" OtherKey="работникID" Type="Выплата_работнику" />
+      <Association Name="Работник_Налоговый_вычет_работника" Member="Налоговый_вычет_работникаs" ThisKey="работникID" OtherKey="работникID" Type="Налоговый_вычет_работника" />
+      <Association Name="Работник_Пенсионный_взнос" Member="Пенсионный_взносs" ThisKey="работникID" OtherKey="работникID" Type="Пенсионный_взнос" />
+      <Association Name="Работник_Подоходный_налог" Member="Подоходный_налогs" ThisKey="работникID" OtherKey="работникID" Type="Подоходный_налог" />
+      <Association Name="Работник_Пособие_работника" Member="Пособие_работникаs" ThisKey="работникID" OtherKey="работникID" Type="Пособие_работника" />
+      <Association Name="Работник_Страховой_взнос" Member="Страховой_взносs" ThisKey="работникID" OtherKey="работникID" Type="Страховой_взнос" />
     </Type>
   </Table>
   <Table Name="dbo.view_Зарплаты" Member="view_Зарплатыs">
@@ -327,6 +333,189 @@
       <Column Name="[Стоимость включая НДС]" Member="Стоимость_включая_НДС" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="[Стоимость без НДС]" Member="Стоимость_без_НДС" Type="System.Single" DbType="Real" CanBeNull="true" />
       <Column Name="[Сумма НДС]" Member="Сумма_НДС" Type="System.Single" DbType="Real" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Выплата_работнику" Member="Выплата_работникуs">
+    <Type Name="Выплата_работнику">
+      <Column Name="Код_выплаты" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Работник_Выплата_работнику" Member="Работник" ThisKey="работникID" OtherKey="работникID" Type="Работник" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Выплаты_Выплата_работнику" Member="Выплаты" ThisKey="Код_выплаты" OtherKey="Код_выплаты" Type="Выплаты" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Выплаты" Member="Выплатыs">
+    <Type Name="Выплаты">
+      <Column Name="Код_выплаты" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Причина" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Сумма" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Период_Начало" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Период_Конец" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Начисляются_страх_взносы" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Начисляются_пенс_взносы" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Выплаты_Выплата_работнику" Member="Выплата_работникуs" ThisKey="Код_выплаты" OtherKey="Код_выплаты" Type="Выплата_работнику" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Налоги_на_дивиденты" Member="Налоги_на_дивидентыs">
+    <Type Name="Налоги_на_дивиденты">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Дата_начисления_дивидентов" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Сумма" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Наименование_организации" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Налоговая_база" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Ставка_налога" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ID_платежный_док" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Платежный_документ_Налоги_на_дивиденты" Member="Платежный_документ" ThisKey="ID_платежный_док" OtherKey="ID_платежный_док" Type="Платежный_документ" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Налоговые_вычеты" Member="Налоговые_вычетыs">
+    <Type Name="Налоговые_вычеты">
+      <Column Name="Код_вычета" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Тип_вычета" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Сумма" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Период_Начало" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Период_Конец" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Налоговые_вычеты_Налоговый_вычет_работника" Member="Налоговый_вычет_работникаs" ThisKey="Код_вычета" OtherKey="Код_вычета" Type="Налоговый_вычет_работника" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Налоговый_вычет_работника" Member="Налоговый_вычет_работникаs">
+    <Type Name="Налоговый_вычет_работника">
+      <Column Name="Код_вычета" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Налоговые_вычеты_Налоговый_вычет_работника" Member="Налоговые_вычеты" ThisKey="Код_вычета" OtherKey="Код_вычета" Type="Налоговые_вычеты" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Работник_Налоговый_вычет_работника" Member="Работник" ThisKey="работникID" OtherKey="работникID" Type="Работник" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Налоговый_агент" Member="Налоговый_агентs">
+    <Type Name="Налоговый_агент">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Наимен_организации" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Страна" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Вид_дохода" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Дата_платежа" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Сумма_платежа" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Сумма_затрат_для_налога" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Сумма_освоб_от_налога_РБ" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Сумма_освоб_от_налога_международн" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Ставка_налога_РБ" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Ставка_налога_международн" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ID_платежный_док" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Платежный_документ_Налоговый_агент" Member="Платежный_документ" ThisKey="ID_платежный_док" OtherKey="ID_платежный_док" Type="Платежный_документ" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.НДС" Member="НДСs">
+    <Type Name="НДС">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Уплачено_при_приобретении" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="НДС" Member="НДС1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Наим_прод_покуп" Type="System.String" DbType="VarChar(80)" CanBeNull="true" />
+      <Column Name="Дата_оплаты" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Номер_док_оплаты" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Уч_номер_плательщ" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Стоим_с_НДС" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Стоим_освоб_от_НДС_всего" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Оборот_за_пределами_РБ" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Док_приобр_поставщ_Наим" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Док_приобр_поставщ_Номер" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Док_приобр_поставщ_Дата" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Отгрузка_товаров" Member="Отгрузка_товаровs">
+    <Type Name="Отгрузка_товаров">
+      <Column Name="Лицо_которому_реализуется_товар" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Предоплачено" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Дата_отгрузки_предоплаты" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Стоимость_в_бр" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Стоимость_в_валюте" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Сумма_оплаты_отгр" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Наименование_валюты" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Док_отгр_опл_Наим" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Док_отгр_опл_Номер" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Док_отгр_опл_Дата" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Док_опл_отгр_Наим" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Док_опл_отгр_Номер" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Док_опл_отгр_Дата" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Дата_оплаты_отгр" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Пенсионный_взнос" Member="Пенсионный_взносs">
+    <Type Name="Пенсионный_взнос">
+      <Column Name="Иные_платежи" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Дата" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ID_платежный_док" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Задолж_за_пред_период" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="Работник_Пенсионный_взнос" Member="Работник" ThisKey="работникID" OtherKey="работникID" Type="Работник" IsForeignKey="true" />
+      <Association Name="Платежный_документ_Пенсионный_взнос" Member="Платежный_документ" ThisKey="ID_платежный_док" OtherKey="ID_платежный_док" Type="Платежный_документ" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Платежный_документ" Member="Платежный_документs">
+    <Type Name="Платежный_документ">
+      <Column Name="Номер_платежного_документа" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Дата" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Сумма" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ID_платежный_док" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Платежный_документ_Налоги_на_дивиденты" Member="Налоги_на_дивидентыs" ThisKey="ID_платежный_док" OtherKey="ID_платежный_док" Type="Налоги_на_дивиденты" />
+      <Association Name="Платежный_документ_Налоговый_агент" Member="Налоговый_агентs" ThisKey="ID_платежный_док" OtherKey="ID_платежный_док" Type="Налоговый_агент" />
+      <Association Name="Платежный_документ_Пенсионный_взнос" Member="Пенсионный_взносs" ThisKey="ID_платежный_док" OtherKey="ID_платежный_док" Type="Пенсионный_взнос" />
+      <Association Name="Платежный_документ_Подоходный_налог" Member="Подоходный_налогs" ThisKey="ID_платежный_док" OtherKey="ID_платежный_док" Type="Подоходный_налог" />
+      <Association Name="Платежный_документ_Страховой_взнос" Member="Страховой_взносs" ThisKey="ID_платежный_док" OtherKey="ID_платежный_док" Type="Страховой_взнос" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Подоходный_налог" Member="Подоходный_налогs">
+    <Type Name="Подоходный_налог">
+      <Column Name="Дата" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Начислено" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ID_платежный_док" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Работник_Подоходный_налог" Member="Работник" ThisKey="работникID" OtherKey="работникID" Type="Работник" IsForeignKey="true" />
+      <Association Name="Платежный_документ_Подоходный_налог" Member="Платежный_документ" ThisKey="ID_платежный_док" OtherKey="ID_платежный_док" Type="Платежный_документ" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Пособие_работника" Member="Пособие_работникаs">
+    <Type Name="Пособие_работника">
+      <Column Name="Код_пособия" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Работник_Пособие_работника" Member="Работник" ThisKey="работникID" OtherKey="работникID" Type="Работник" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Пособия_Пособие_работника" Member="Пособия" ThisKey="Код_пособия" OtherKey="Код_пособия" Type="Пособия" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Пособия" Member="Пособияs">
+    <Type Name="Пособия">
+      <Column Name="Код_пособия" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Причина" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Сумма" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Период_Начало" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Период_Конец" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Пособия_Пособие_работника" Member="Пособие_работникаs" ThisKey="Код_пособия" OtherKey="Код_пособия" Type="Пособие_работника" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Страховой_взнос" Member="Страховой_взносs">
+    <Type Name="Страховой_взнос">
+      <Column Name="Рабочих_дней" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Иные_платежи" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Перечислено_Фондом_плательщику" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Дата" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="работникID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="За_месяц" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="DEL" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ID_платежный_док" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Задолж_за_пред_период" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="Работник_Страховой_взнос" Member="Работник" ThisKey="работникID" OtherKey="работникID" Type="Работник" IsForeignKey="true" />
+      <Association Name="Платежный_документ_Страховой_взнос" Member="Платежный_документ" ThisKey="ID_платежный_док" OtherKey="ID_платежный_док" Type="Платежный_документ" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
   <Function Name="dbo.СуммыВычетов" Method="СуммыВычетов">
