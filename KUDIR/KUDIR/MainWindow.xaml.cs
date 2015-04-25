@@ -87,5 +87,16 @@ namespace KUDIR
                 this.Hide();
             }
         }
+
+        private void btnAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            if(editTables != null || reports != null)
+            {
+                MessageBox.Show("Перед входом в панель администрирования необходимо закрыть\nокна редактирования данных и печати отчетов!");
+                return;
+            }
+            Administrator wind = new Administrator();
+            wind.ShowDialog();
+        }
     }
 }

@@ -6,7 +6,7 @@
         <Button Name="btnBook" Content="Бухгалтерия" HorizontalAlignment="Left" Margin="22,67,0,0" VerticalAlignment="Top" Width="120" Height="107" FontSize="18" Click="btnBook_Click"/>
         <Label Content="Главное меню" HorizontalAlignment="Left" Margin="172,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Button Name="btnReports" Content="Печать" HorizontalAlignment="Left" Margin="187,67,0,0" VerticalAlignment="Top" Width="120" Height="107" FontSize="18" Click="btnReports_Click"/>
-        <Button Name="btnAdmin" Content="Настройки" HorizontalAlignment="Left" Margin="354,67,0,0" VerticalAlignment="Top" Width="120" Height="107" FontSize="18"/>
+        <Button Name="btnAdmin" Content="Настройки" HorizontalAlignment="Left" Margin="354,67,0,0" VerticalAlignment="Top" Width="120" Height="107" FontSize="18" Click="btnAdmin_Click"/>
         <Button Name="btnExit" Content="Выход" HorizontalAlignment="Left" Margin="172,200,0,0" VerticalAlignment="Top" Width="152" Height="30" Click="btnExit_Click"/>
     </Grid>
 </Window>

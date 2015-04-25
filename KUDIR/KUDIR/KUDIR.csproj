@@ -92,6 +92,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Administrator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Enter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +136,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Code\Admin.cs" />
     <Compile Include="Code\Authentication.cs" />
     <Compile Include="Code\Data.cs" />
     <Compile Include="Code\DataGridConfig.cs" />
@@ -142,6 +147,9 @@
     <Compile Include="Code\StoredProcedure.cs" />
     <Compile Include="EditTables.xaml.cs">
       <DependentUpon>EditTables.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Administrator.xaml.cs">
+      <DependentUpon>Administrator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Enter.xaml.cs">
       <DependentUpon>Enter.xaml</DependentUpon>
@@ -226,6 +234,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resouces\warning.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
