@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KUDIR.Code;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,9 +25,39 @@ namespace KUDIR.Forms
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
+        private void btnBackup_Click(object sender, RoutedEventArgs e)
+        {
+            string path = GetPathForSave();
+            if(path != null)
+            {
+                try
+                {
+                    DataBaseConfig.CreateCopyOfCurrentDB(path);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Ошибка создания резервной копии!\nПопробуйте перезапустить приложение.\n\n" + ex.Message);
+                    return;
+                }
+                MessageBox.Show("Копия успешно создана!");
+            }
+        }
+
+        string GetPathForSave()
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "DB_backup " + DateTime.Now.ToString("dd-MM-yyyy");
+            dlg.DefaultExt = ".mdf";
+            dlg.Filter = "DataBase (.mdf)|*.mdf";
+
+            Nullable<bool> result = dlg.ShowDialog();
+            string filename = null;
+            if (result == true)
+            {
+                filename = dlg.FileName;
+            }
+            return filename;
         }
     }
 }

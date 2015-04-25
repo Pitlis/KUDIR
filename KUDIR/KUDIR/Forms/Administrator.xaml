@@ -10,7 +10,7 @@
                     <Image Height="100" Margin="0,21,246,0" VerticalAlignment="Top" Source="/KUDIR;component/Resouces/warning.png" HorizontalAlignment="Right" Width="100"/>
                     <Label Content="Перед внесением любых изменений, рекомендуется сделать копию базы!" Margin="0,148,84,0" VerticalAlignment="Top" FontSize="13" HorizontalAlignment="Right" Width="455"/>
                     <Label Content="Вносите изменения только в том случае, если абсолютно точно понимаете, что делаете!" Margin="0,179,27,0" VerticalAlignment="Top" FontSize="13" HorizontalAlignment="Right" Width="541"/>
-                    <Button Content="Сделать резервную&#xA;          копию&#xA;     базы данных" Margin="0,231,230,0" VerticalAlignment="Top" Background="#FFA3F972" Height="73" FontSize="14" Click="Button_Click" HorizontalAlignment="Right" Width="137"/>
+                    <Button Name="btnBackup" Content="Сделать резервную&#xA;          копию&#xA;     базы данных" Margin="0,231,230,0" VerticalAlignment="Top" Background="#FFA3F972" Height="73" FontSize="14" HorizontalAlignment="Right" Width="137" Click="btnBackup_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Базы данных">
