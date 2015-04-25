@@ -73,7 +73,7 @@ namespace KUDIR
         {
             if (editTables == null)
             {
-                if (reports.mainMenu != null)
+                if (reports != null && reports.mainMenu != null)
                     reports.mainMenu = null;
                 Application.Current.Shutdown();
             }
