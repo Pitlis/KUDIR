@@ -249,5 +249,10 @@ namespace KUDIR
                 formEmpl.mainMenu = null;
             }
         }
+
+        private void MenuItem_Click_Generate(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
