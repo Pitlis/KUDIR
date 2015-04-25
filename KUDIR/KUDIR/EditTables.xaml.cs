@@ -253,6 +253,7 @@ namespace KUDIR
         private void MenuItem_Click_Generate(object sender, RoutedEventArgs e)
         {
 
+
         }
     }
 }
