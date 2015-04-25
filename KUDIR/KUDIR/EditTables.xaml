@@ -16,7 +16,8 @@
         <Menu Grid.Row="0" Grid.ColumnSpan="2" Margin="0,1,0,0">
             <MenuItem Header="Главное меню" Click="MenuItem_Click_13"/>
             <MenuItem Header="Выручка" >
-                <MenuItem Header="Учет валовой выручки" HorizontalAlignment="Left" Click="MenuItem_Click_1">
+                <MenuItem Header="Учет валовой выручки" HorizontalAlignment="Left"  Margin="0,0,-3,0" Width="257">
+                    <MenuItem Header="Данные" HorizontalAlignment="Left" Click="MenuItem_Click_1"/>
                     <MenuItem Header="Автозаполнение" HorizontalAlignment="Left" Click="MenuItem_Click_Generate"/>
                 </MenuItem>
                 <MenuItem Header="Отгрузка товаров" HorizontalAlignment="Left" Click="MenuItem_Click_2"/>

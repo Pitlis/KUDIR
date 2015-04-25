@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Reports;
+using KUDIR.Forms;
 
 namespace KUDIR
 {
@@ -252,8 +253,12 @@ namespace KUDIR
 
         private void MenuItem_Click_Generate(object sender, RoutedEventArgs e)
         {
-
-
+            ВыручкаГенерация wind = new ВыручкаГенерация();
+            if (wind.ShowDialog() == true)
+            {
+                new StoredProcedure(strConnect).Generate_Выручка(wind.date);
+                btnRefresh_Click(new Object(), new RoutedEventArgs());
+            }
         }
     }
 }
