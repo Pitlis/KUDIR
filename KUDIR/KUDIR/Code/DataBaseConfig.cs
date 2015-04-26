@@ -21,7 +21,7 @@ namespace KUDIR.Code
                 File.Copy(pathToFile, path);
 
                 SqlConnectionStringBuilder backupConnect = new SqlConnectionStringBuilder(connection.ConnectionString);
-                backupConnect.AttachDBFilename = path;
+                backupConnect.AttachDBFilename = Path.Combine(path);
                 if (!TestConnect(backupConnect.ConnectionString))
                 {
                     File.Delete(path);
@@ -80,6 +80,37 @@ namespace KUDIR.Code
         public static string GetSqlConnectionString()
         {
             return Settings.Default["KUDIRcs"].ToString();
+        }
+
+        public static void CreateNewDB(string path)
+        {
+            SqlConnectionStringBuilder connection = new SqlConnectionStringBuilder(GetSqlConnectionString());
+            string pathToFile = connection.AttachDBFilename;
+            try
+            {
+                File.WriteAllBytes(path + "//KUDIR.mdf", Properties.Resources.KUDIRempty);
+                File.WriteAllBytes(path + "//KUDIR_log.ldf", Properties.Resources.KUDIRempty_log);
+
+                SqlConnectionStringBuilder backupConnect = new SqlConnectionStringBuilder(connection.ConnectionString);
+                string p1, p2;
+                p1 = Path.Combine(path, "KUDIR.mdf");
+                p2 = Path.Combine(path, "KUDIR_log.ldf");
+                backupConnect.AttachDBFilename = p1;
+                if (!TestConnect(backupConnect.ConnectionString))
+                {
+                    File.Delete(p1);
+                    File.Delete(p2);
+                    throw new Exception();
+                }
+                else
+                {
+                    ChangeDB(p1);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Не удается создать новую базу:\n" + ex.Message);
+            }
         }
     }
 }

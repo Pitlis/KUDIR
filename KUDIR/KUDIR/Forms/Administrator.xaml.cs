@@ -76,7 +76,28 @@ namespace KUDIR.Forms
 
         private void btnNewBase_Click(object sender, RoutedEventArgs e)
         {
-
+            string path;
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+            if (result.ToString() == "OK")
+            {
+                path = dialog.SelectedPath;
+            }
+            else
+                path = null;
+            if (path != null)
+            {
+                try
+                {
+                    DataBaseConfig.CreateNewDB(path);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка создания базы!\n\n" + ex.Message);
+                    return;
+                }
+                MessageBox.Show("База успешно создана и подключена!!");
+            }
         }
 
         private void btnOpenBase_Click(object sender, RoutedEventArgs e)
