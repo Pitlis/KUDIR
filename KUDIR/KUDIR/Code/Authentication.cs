@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using KUDIR.Properties;
 
 namespace KUDIR.Code
 {
@@ -19,7 +20,7 @@ namespace KUDIR.Code
 
         public static string GetSqlConnectionString()
         {
-            return ConfigurationManager.ConnectionStrings["KUDIR"].ConnectionString;
+            return Settings.Default["KUDIRConnectionString"].ToString();
         }
     }
 }

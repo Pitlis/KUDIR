@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KUDIR.Properties;
 
 namespace KUDIR.Code
 {
@@ -13,7 +14,7 @@ namespace KUDIR.Code
     {
         public static void CreateCopyOfCurrentDB(string path)
         {
-            SqlConnectionStringBuilder connection = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["KUDIR"].ConnectionString);
+            SqlConnectionStringBuilder connection = new SqlConnectionStringBuilder(GetSqlConnectionString());
             string pathToFile = connection.AttachDBFilename;
             try
             {
@@ -32,6 +33,28 @@ namespace KUDIR.Code
                 throw new Exception("Не удается скопировать файл из-за исключения: " + ex.Message);
             }
         }
+        public static void ChangeDB(string path)
+        {
+            SqlConnectionStringBuilder connection = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["KUDIR"].ConnectionString);
+            connection.AttachDBFilename = Path.Combine(path);
+            SqlConnection connect = new SqlConnection(connection.ConnectionString);
+            try
+            {
+                connect.Open();
+                connect.Close();
+                Settings.Default["KUDIRcs"] = connect.ConnectionString;
+                Settings.Default.Save();
+                SqlConnection.ClearPool(connect);
+                connect.Dispose();
+            }
+            catch(Exception ex)
+            {
+                connect.Close();
+                SqlConnection.ClearPool(connect);
+                connect.Dispose();
+                throw;
+            }
+        }
 
         public static bool TestConnect(string strConnect)
         {
@@ -40,12 +63,23 @@ namespace KUDIR.Code
             {
                 connect.Open();
                 connect.Close();
+                SqlConnection.ClearPool(connect);
+                connect.Dispose();
             }
             catch(Exception ex)
             {
+                connect.Close();
+                SqlConnection.ClearPool(connect);
+                connect.Dispose();
                 return false;
             }
             return true;
+        }
+
+
+        public static string GetSqlConnectionString()
+        {
+            return Settings.Default["KUDIRcs"].ToString();
         }
     }
 }

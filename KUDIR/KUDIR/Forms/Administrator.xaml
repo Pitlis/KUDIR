@@ -15,9 +15,9 @@
             </TabItem>
             <TabItem Header="Базы данных">
                 <Grid Background="#FFE5E5E5">
-                    <Button Content="Создать новую БД" Margin="188,112,205,0" VerticalAlignment="Top" Height="24"/>
+                    <Button Name="btnNewBase" Content="Создать новую БД" Margin="188,112,205,0" VerticalAlignment="Top" Height="24" Click="btnNewBase_Click"/>
                     <Label Content="Подключение базы данных" HorizontalAlignment="Left" Margin="165,23,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <Button Content="Подключить существующую БД" Margin="188,159,205,0" VerticalAlignment="Top" Height="24"/>
+                    <Button Name="btnOpenBase" Content="Подключить существующую БД" Margin="188,159,205,0" VerticalAlignment="Top" Height="24" Click="btnOpenBase_Click"/>
                     <Separator HorizontalAlignment="Left" Height="100" Margin="146,23,0,0" VerticalAlignment="Top" Width="259"/>
                 </Grid>
             </TabItem>

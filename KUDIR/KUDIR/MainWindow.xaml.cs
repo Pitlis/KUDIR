@@ -37,7 +37,7 @@ namespace KUDIR
             {
                 editTables = new EditTables();
                 editTables.mainMenu = this;
-                editTables.strConnect = strConnect;
+                editTables.strConnect = DataBaseConfig.GetSqlConnectionString();
                 editTables.Show();
                 this.Hide();
             }
@@ -53,7 +53,7 @@ namespace KUDIR
             {
                 reports = new Отчеты();
                 reports.mainMenu = this;
-                reports.strConnect = strConnect;
+                reports.strConnect = DataBaseConfig.GetSqlConnectionString();
                 reports.Show();
                 this.Hide();
             }

@@ -33,5 +33,18 @@ namespace KUDIR.Properties {
                 return ((string)(this["KUDIRConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\v11.0;AttachDbFilename=D:\\VirtualBox\\BBD\\SHARE\\KUDIR.mdf;In" +
+            "tegrated Security=True;Connect Timeout=30")]
+        public string KUDIRcs {
+            get {
+                return ((string)(this["KUDIRcs"]));
+            }
+            set {
+                this["KUDIRcs"] = value;
+            }
+        }
     }
 }
