@@ -419,7 +419,16 @@ namespace KUDIR.Forms
         Dictionary<string, int> GetEmployees()
         {
             Dictionary<string, int> dict = new Dictionary<string, int>();
-            Data data = new Data(Data.DataTypes.Работник, strConnect);
+            Data data = null;
+            try
+            {
+               data = new Data(Data.DataTypes.Работник, strConnect);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Ошибка подключения к базе данных!\n\n\nПодробно:\n" + ex.Message);
+                return dict;
+            }
             for (int i = 0; i < data.Table.Rows.Count; i++)
             {
                 int id = (int)data.Table.Rows[i]["работникID"];
@@ -435,7 +444,16 @@ namespace KUDIR.Forms
         Dictionary<string, int> GetBuilds()
         {
             Dictionary<string, int> dict = new Dictionary<string, int>();
-            Data data = new Data(Data.DataTypes.Строение, strConnect);
+            Data data = null;
+            try
+            {
+                data = new Data(Data.DataTypes.Строение, strConnect);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка подключения к базе данных!\n\n\nПодробно:\n" + ex.Message);
+                return dict;
+            }
             for (int i = 0; i < data.Table.Rows.Count; i++)
             {
                 int id = (int)data.Table.Rows[i]["ID"];

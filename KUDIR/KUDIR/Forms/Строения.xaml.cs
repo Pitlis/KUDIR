@@ -85,8 +85,17 @@ namespace KUDIR.Forms
         }
         void InitForm()
         {
-            dataBuild = new Data(Data.DataTypes.Строение, strConnect);
-            dataBuildInfo = new Data(Data.DataTypes.СтоимостьСтроения, strConnect);
+            try
+            {
+                dataBuild = new Data(Data.DataTypes.Строение, strConnect);
+                dataBuildInfo = new Data(Data.DataTypes.СтоимостьСтроения, strConnect);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Ошибка подключения к базе данных!\n\n\nПодробно:\n" + ex.Message);
+                this.Close();
+                return;
+            }
             grid = new DataGridConfig(dgTable);
             if (dataBuild.Table.Rows.Count == 0)
             {

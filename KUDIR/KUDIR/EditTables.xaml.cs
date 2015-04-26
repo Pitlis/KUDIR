@@ -32,12 +32,7 @@ namespace KUDIR
             InitializeComponent();
         }
         Data data;
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            data = new Data(Data.DataTypes.НДС_Реализация, strConnect);
-            DataGridConfig grid = new DataGridConfig(dgTable);
-            grid.ShowData(data);
-        }
+
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -103,7 +98,7 @@ namespace KUDIR
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ошибка подключения к базе данных!\n\n\nПодробно:\n" + ex.Message);
                 return false;
             }
         }
@@ -258,8 +253,15 @@ namespace KUDIR
             ВыручкаГенерация wind = new ВыручкаГенерация();
             if (wind.ShowDialog() == true)
             {
-                new StoredProcedure(strConnect).Generate_Выручка(wind.date);
-                btnRefresh_Click(new Object(), new RoutedEventArgs());
+                try
+                {
+                    new StoredProcedure(strConnect).Generate_Выручка(wind.date);
+                    btnRefresh_Click(new Object(), new RoutedEventArgs());
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Ошибка подключения к базе данных!\n\n\nПодробно:\n" + ex.Message);
+                }
             }
         }
     }

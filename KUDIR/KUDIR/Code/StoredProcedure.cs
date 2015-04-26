@@ -22,16 +22,17 @@ namespace KUDIR.Code
             comIns.CommandType = CommandType.StoredProcedure;
             comIns.Parameters.Add(new SqlParameter("@Месяц ", date));
 
-            connect.Open();
+            
             using (connect)
             {
                 try
                 {
+                    connect.Open();
                     comIns.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    throw ex;
                 }
             }
         }

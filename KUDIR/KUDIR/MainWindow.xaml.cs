@@ -33,6 +33,10 @@ namespace KUDIR
 
         private void btnBook_Click(object sender, RoutedEventArgs e)
         {
+            if(!TestConnect())
+            {
+                return;
+            }
             if (editTables == null)
             {
                 editTables = new EditTables();
@@ -49,6 +53,10 @@ namespace KUDIR
 
         private void btnReports_Click(object sender, RoutedEventArgs e)
         {
+            if (!TestConnect())
+            {
+                return;
+            }
             if (reports == null)
             {
                 reports = new Отчеты();
@@ -97,6 +105,16 @@ namespace KUDIR
             }
             Administrator wind = new Administrator();
             wind.ShowDialog();
+        }
+
+        bool TestConnect()
+        {
+            if(!DataBaseConfig.TestConnect(DataBaseConfig.GetSqlConnectionString()))
+            {
+                MessageBox.Show("Ошибка подключения к базе данных!");
+                return false;
+            }
+            return true;
         }
     }
 }
