@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KUDIR.Code;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,7 @@ namespace KUDIR.Forms
         public Enter()
         {
             InitializeComponent();
-            if (!security)
+            if (!Authentication.Security)
             {
                 MainWindow wind = new MainWindow();
                 wind.strConnect = KUDIR.Code.Authentication.GetSqlConnectionString();
@@ -31,7 +32,6 @@ namespace KUDIR.Forms
             }
         }
 
-        bool security = false;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

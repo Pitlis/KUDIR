@@ -11,6 +11,7 @@ namespace KUDIR.Code
 {
     public class Authentication
     {
+        public static bool Security = false;
         public Authentication(string login, string password)
         {
             SqlConnectionStringBuilder connection = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["KUDIR"].ConnectionString);
