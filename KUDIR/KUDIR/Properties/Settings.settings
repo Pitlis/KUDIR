@@ -13,5 +13,8 @@
     <Setting Name="KUDIRcs" Type="System.String" Scope="User">
       <Value Profile="(Default)">Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\VirtualBox\BBD\SHARE\KUDIR.mdf;Integrated Security=True;Connect Timeout=30</Value>
     </Setting>
+    <Setting Name="KUDIR_SERVER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Data Source=MSSQLSERVER;Connect Timeout=30</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

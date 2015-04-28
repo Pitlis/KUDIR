@@ -9,6 +9,11 @@
         <TextBox Name="login" HorizontalAlignment="Left" Height="23" Margin="86,44,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <PasswordBox Name="pass" HorizontalAlignment="Left" Margin="86,81,0,0" VerticalAlignment="Top" Width="120"/>
         <Button Content="Войти" HorizontalAlignment="Left" Margin="141,125,0,0" VerticalAlignment="Top" Width="94" Click="Button_Click"/>
+        <Button Name="btnChangeServer" Content="" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="23" Height="24" Click="btnChangeServer_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/KUDIR;component/Resouces/gtkabout.png"/>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>

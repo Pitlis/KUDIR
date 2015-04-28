@@ -35,12 +35,30 @@ namespace KUDIR.Forms
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                Authentication user = new Authentication(login.Text, pass.Password);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+            MainWindow wind = new MainWindow();
+            wind.strConnect = KUDIR.Code.Authentication.GetSqlConnectionString();
+            wind.Show();
+            this.Close();
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnChangeServer_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeServer wind = new ChangeServer();
+            wind.ShowDialog();
         }
 
     }

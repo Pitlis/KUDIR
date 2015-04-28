@@ -264,5 +264,19 @@ namespace KUDIR
                 }
             }
         }
+
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
+            if (Authentication.Security)
+            {
+                if (Authentication.UserAccess == Authentication.Access.Продавец)
+                {
+                    miBuild.Visibility = System.Windows.Visibility.Collapsed;
+                    miNalog.Visibility = System.Windows.Visibility.Collapsed;
+                    miOthers.Visibility = System.Windows.Visibility.Collapsed;
+                    miWork.Visibility = System.Windows.Visibility.Collapsed;
+                }
+            }
+        }
     }
 }

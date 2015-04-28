@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>KUDIRsoft</ProductName>
     <PublisherName>Nikita Company</PublisherName>
-    <ApplicationRevision>11</ApplicationRevision>
+    <ApplicationRevision>14</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -95,6 +95,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\ChangeServer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Enter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,6 +153,9 @@
     </Compile>
     <Compile Include="Forms\Administrator.xaml.cs">
       <DependentUpon>Administrator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ChangeServer.xaml.cs">
+      <DependentUpon>ChangeServer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Enter.xaml.cs">
       <DependentUpon>Enter.xaml</DependentUpon>
@@ -244,6 +251,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resouces\gtkabout.png" />
     <Content Include="Resouces\KUDIRempty_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>KUDIRempty.mdf</DependentUpon>

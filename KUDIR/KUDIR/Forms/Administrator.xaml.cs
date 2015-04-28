@@ -151,6 +151,15 @@ namespace KUDIR.Forms
 
         private void Window_ContentRendered(object sender, EventArgs e) 
         {
+            if(Authentication.Security)
+            {
+                tiCopy.Visibility = System.Windows.Visibility.Collapsed;
+                tiBase.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                tiServer.Visibility = System.Windows.Visibility.Collapsed;
+            }
             cbTables.ItemsSource = new List<string>() { "Не выбрана", "Выплаты работника", "Выплаты", "Выручка", "Кредитор", "Налоги на дивиденты", "Налоговые вычеты", "Налоговый агент", "Налоговый вычет работника", "НДС", "Незавершенное строение", "Отгрузка товаров", "Пенсионный взнос", "Платежные документы", "Подоходный налог", "Пособие работника", "Пособия", "Производственный кооператив", "Работник", "Стоимость строения", "Страховой взнос", "Строение", "Товары из ТС", "Удержания"};
         }
 
@@ -339,6 +348,11 @@ namespace KUDIR.Forms
                 PrintTable(Filter.Exist);
                 return;
             }
+        }
+
+        private void btnServerSave_Click(object sender, RoutedEventArgs e)
+        {
+
         }
             
     }

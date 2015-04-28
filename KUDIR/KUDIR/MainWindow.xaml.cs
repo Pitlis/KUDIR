@@ -116,5 +116,31 @@ namespace KUDIR
             }
             return true;
         }
+
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
+            if(Authentication.Security)
+            {
+                txtLoginName.Content = Authentication.UserAccess.ToString();
+                switch (Authentication.UserAccess)
+                {
+                    case Authentication.Access.Администратор:
+                        break;
+                    case Authentication.Access.Продавец:
+                        btnReports.IsEnabled = false;
+                        btnAdmin.IsEnabled = false;
+                        break;
+                    case Authentication.Access.Бухгалтер:
+                        btnAdmin.IsEnabled = false;
+                        break;
+                    case Authentication.Access.Принтер:
+                        btnAdmin.IsEnabled = false;
+                        btnBook.IsEnabled = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 }

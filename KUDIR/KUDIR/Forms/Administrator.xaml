@@ -4,7 +4,7 @@
         Title="Администрирование системы" Height="500" Width="600" MinWidth="600" MinHeight="370" ContentRendered="Window_ContentRendered">
     <Grid>
         <TabControl>
-            <TabItem Header="Резервное копирование">
+            <TabItem Name="tiCopy" Header="Резервное копирование">
                 <Grid Background="#FFE5E5E5">
                     <Label Content="Все изменения, сделанные в данном разделе, могут нанести непоправимый вред базе данных!" Margin="0,121,-2,0" VerticalAlignment="Top" FontSize="13" HorizontalAlignment="Right" Width="580"/>
                     <Image Height="100" Margin="0,21,246,0" VerticalAlignment="Top" Source="/KUDIR;component/Resouces/warning.png" HorizontalAlignment="Right" Width="100"/>
@@ -13,11 +13,11 @@
                     <Button Name="btnBackup" Content="Сделать резервную&#xA;          копию&#xA;     базы данных" Margin="0,231,230,0" VerticalAlignment="Top" Background="#FFA3F972" Height="73" FontSize="14" HorizontalAlignment="Right" Width="137" Click="btnBackup_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Базы данных">
+            <TabItem Name="tiBase" Header="Базы данных">
                 <Grid Background="#FFE5E5E5">
-                    <Button Name="btnNewBase" Content="Создать новую БД" Margin="188,112,205,0" VerticalAlignment="Top" Height="24" Click="btnNewBase_Click"/>
+                    <Button Name="btnNewBase" Content="Создать новую БД" Margin="188,112,0,0" VerticalAlignment="Top" Height="24" Click="btnNewBase_Click" HorizontalAlignment="Left" Width="189"/>
                     <Label Content="Подключение базы данных" HorizontalAlignment="Left" Margin="165,23,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <Button Name="btnOpenBase" Content="Подключить существующую БД" Margin="188,159,205,0" VerticalAlignment="Top" Height="24" Click="btnOpenBase_Click"/>
+                    <Button Name="btnOpenBase" Content="Подключить существующую БД" Margin="188,159,0,0" VerticalAlignment="Top" Height="24" Click="btnOpenBase_Click" HorizontalAlignment="Left" Width="189"/>
                     <Separator HorizontalAlignment="Left" Height="100" Margin="146,23,0,0" VerticalAlignment="Top" Width="259"/>
                 </Grid>
             </TabItem>
@@ -36,6 +36,14 @@
                     <RadioButton Name="rbDel" GroupName="rbRecords" Content="Удаленные" HorizontalAlignment="Left" Margin="10,218,0,0" VerticalAlignment="Top"/>
                     <Label Content="Записи:" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top"/>
                     <Button Name="btnSave" Content="Сохранить" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="120" Click="btnSave_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Name="tiServer" Header="Сервер" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="73" Margin="-2,-2,-14,0">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Настройки доступа к MS SQL Server" HorizontalAlignment="Left" Margin="166,10,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label Content="Название сервера" HorizontalAlignment="Left" Margin="27,94,0,0" VerticalAlignment="Top"/>
+                    <TextBox Name="txtServerName" HorizontalAlignment="Left" Height="23" Margin="184,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239"/>
+                    <Button Name="btnServerSave" Content="Применить" HorizontalAlignment="Left" Margin="478,390,0,0" VerticalAlignment="Top" Width="94" Height="28" Click="btnServerSave_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>

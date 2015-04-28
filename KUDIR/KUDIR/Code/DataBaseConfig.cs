@@ -79,7 +79,7 @@ namespace KUDIR.Code
 
         public static string GetSqlConnectionString()
         {
-            return Settings.Default["KUDIRcs"].ToString();
+            return Authentication.GetSqlConnectionString();
         }
 
         public static void CreateNewDB(string path)
@@ -111,6 +111,14 @@ namespace KUDIR.Code
             {
                 throw new Exception("Не удается создать новую базу:\n" + ex.Message);
             }
+        }
+
+        public static void ChangeServerName(string Name)
+        {
+            SqlConnectionStringBuilder connection = new SqlConnectionStringBuilder(GetSqlConnectionString());
+            connection.DataSource = Name;
+            Settings.Default["KUDIR_SERVER"] = connection.ConnectionString;
+            Settings.Default.Save();
         }
     }
 }

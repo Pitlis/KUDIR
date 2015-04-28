@@ -46,5 +46,17 @@ namespace KUDIR.Properties {
                 this["KUDIRcs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=MSSQLSERVER;Connect Timeout=30")]
+        public string KUDIR_SERVER {
+            get {
+                return ((string)(this["KUDIR_SERVER"]));
+            }
+            set {
+                this["KUDIR_SERVER"] = value;
+            }
+        }
     }
 }
