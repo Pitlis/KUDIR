@@ -1,0 +1,210 @@
+GRANT SELECT ON Выплата_работнику TO Printer
+GRANT SELECT ON Выплаты TO Printer
+GRANT SELECT ON Выручка TO Printer
+GRANT SELECT ON Кредитор TO Printer
+GRANT SELECT ON Налоги_на_дивиденты TO Printer
+GRANT SELECT ON Налоговые_вычеты TO Printer
+GRANT SELECT ON Налоговый_агент TO Printer
+GRANT SELECT ON Налоговый_вычет_работника TO Printer
+GRANT SELECT ON НДС TO Printer
+GRANT SELECT ON Незавершенное_строение TO Printer
+GRANT SELECT ON Отгрузка_товаров TO Printer
+GRANT SELECT ON Пенсионный_взнос TO Printer
+GRANT SELECT ON Платежный_документ TO Printer
+GRANT SELECT ON Пособие_работника TO Printer
+GRANT SELECT ON Пособия TO Printer
+GRANT SELECT ON Производственный_кооператив TO Printer
+GRANT SELECT ON Работник TO Printer
+GRANT SELECT ON Стоимость_строения TO Printer
+GRANT SELECT ON Страховой_взнос TO Printer
+GRANT SELECT ON Строение TO Printer
+GRANT SELECT ON Товары_из_ТС TO Printer
+GRANT SELECT ON Удержания TO Printer
+
+
+GRANT SELECT ON viev_НДС_Приобретение TO Printer
+GRANT SELECT ON view_Выплаты TO Printer
+GRANT SELECT ON view_Вычет TO Printer
+GRANT SELECT ON view_Дивиденты TO Printer
+GRANT SELECT ON view_Зарплаты TO Printer
+GRANT SELECT ON view_НалоговыйАгент TO Printer
+GRANT SELECT ON view_НДС_Реализация TO Printer
+GRANT SELECT ON view_Отгрузка TO Printer
+GRANT SELECT ON view_Платежный_док TO Printer
+GRANT SELECT ON view_ПодоходныйНалогПеречисл TO Printer
+GRANT SELECT ON view_Пособие TO Printer
+GRANT SELECT ON view_Предоплата TO Printer
+GRANT SELECT ON view_Премии TO Printer
+GRANT SELECT ON view_СтрахВзнос TO Printer
+
+
+GRANT EXEC ON СтандартныеПособия TO Printer
+GRANT EXEC ON СуммыВычетов TO Printer
+
+
+
+================================
+
+
+GRANT SELECT, INSERT, UPDATE ON Выручка TO Продавец
+GRANT SELECT, INSERT, UPDATE ON Отгрузка_товаров TO Продавец
+GRANT SELECT, INSERT, UPDATE ON Кредитор TO Продавец
+GRANT SELECT, INSERT, UPDATE ON НДС TO Продавец
+
+GRANT SELECT, INSERT, UPDATE ON Выручка TO Продавец
+GRANT SELECT, INSERT, UPDATE ON Кредитор TO Продавец
+
+
+GRANT SELECT ON view_Отгрузка TO Продавец
+GRANT SELECT ON view_Предоплата TO Продавец
+GRANT SELECT ON viev_НДС_Приобретение TO Продавец
+GRANT SELECT ON view_НДС_Реализация TO Продавец
+
+
+
+
+================================
+
+
+
+
+GRANT SELECT, INSERT, UPDATE ON Выплата_работнику TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Выплаты TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Выручка TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Кредитор TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Налоги_на_дивиденты TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Налоговые_вычеты TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Налоговый_агент TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Налоговый_вычет_работника TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON НДС TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Незавершенное_строение TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Отгрузка_товаров TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Пенсионный_взнос TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Платежный_документ TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Пособие_работника TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Пособия TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Производственный_кооператив TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Работник TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Стоимость_строения TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Страховой_взнос TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Строение TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Товары_из_ТС TO Бухгалтер
+GRANT SELECT, INSERT, UPDATE  ON Удержания TO Бухгалтер
+
+
+GRANT SELECT ON viev_НДС_Приобретение TO Бухгалтер
+GRANT SELECT ON view_Выплаты TO Бухгалтер
+GRANT SELECT ON view_Вычет TO Бухгалтер
+GRANT SELECT ON view_Дивиденты TO Бухгалтер
+GRANT SELECT ON view_Зарплаты TO Бухгалтер
+GRANT SELECT ON view_НалоговыйАгент TO Бухгалтер
+GRANT SELECT ON view_НДС_Реализация TO Бухгалтер
+GRANT SELECT ON view_Отгрузка TO Бухгалтер
+GRANT SELECT ON view_Платежный_док TO Бухгалтер
+GRANT SELECT ON view_ПодоходныйНалогПеречисл TO Бухгалтер
+GRANT SELECT ON view_Пособие TO Бухгалтер
+GRANT SELECT ON view_Предоплата TO Бухгалтер
+GRANT SELECT ON view_Премии TO Бухгалтер
+GRANT SELECT ON view_СтрахВзнос TO Бухгалтер
+
+
+GRANT EXEC ON add_Выплата TO Бухгалтер
+GRANT EXEC ON add_ВыплатаРаботнику TO Бухгалтер
+GRANT EXEC ON add_Вычет TO Бухгалтер
+GRANT EXEC ON add_ВычетРаботника TO Бухгалтер
+GRANT EXEC ON add_Дивиденты TO Бухгалтер
+GRANT EXEC ON add_НалоговыйАгент TO Бухгалтер
+GRANT EXEC ON add_ПенсионныйВзнос TO Бухгалтер
+GRANT EXEC ON add_ПлатежныйДокумент TO Бухгалтер
+GRANT EXEC ON add_Пособие TO Бухгалтер
+GRANT EXEC ON add_ПособиеРаботника TO Бухгалтер
+GRANT EXEC ON add_СтраховойВзнос TO Бухгалтер
+GRANT EXEC ON Create_ПодоходНалогПеречислено TO Бухгалтер
+GRANT EXEC ON upd_Выплата TO Бухгалтер
+GRANT EXEC ON upd_Вычет TO Бухгалтер
+GRANT EXEC ON upd_Дивиденты TO Бухгалтер
+GRANT EXEC ON upd_НалоговыйАгент TO Бухгалтер
+GRANT EXEC ON upd_ПенсионныйВзнос TO Бухгалтер
+GRANT EXEC ON upd_Платежный_Док TO Бухгалтер
+GRANT EXEC ON upd_ПодоходныйНалогПеречислено TO Бухгалтер
+GRANT EXEC ON upd_Пособие TO Бухгалтер
+GRANT EXEC ON upd_СтраховойВзнос TO Бухгалтер
+GRANT EXEC ON АвтозаполнениеВыручка TO Бухгалтер
+GRANT EXEC ON СтандартныеПособия TO Бухгалтер
+GRANT EXEC ON СуммыВычетов TO Бухгалтер
+
+
+
+
+
+
+
+================================
+
+
+
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON Выплата_работнику TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Выплаты TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Выручка TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Кредитор TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Налоги_на_дивиденты TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Налоговые_вычеты TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Налоговый_агент TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Налоговый_вычет_работника TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON НДС TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Незавершенное_строение TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Отгрузка_товаров TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Пенсионный_взнос TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Платежный_документ TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Пособие_работника TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Пособия TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Производственный_кооператив TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Работник TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Стоимость_строения TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Страховой_взнос TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Строение TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Товары_из_ТС TO Администратор
+GRANT SELECT, INSERT, UPDATE, DELETE  ON Удержания TO Администратор
+
+
+GRANT SELECT ON viev_НДС_Приобретение TO Администратор
+GRANT SELECT ON view_Выплаты TO Администратор
+GRANT SELECT ON view_Вычет TO Администратор
+GRANT SELECT ON view_Дивиденты TO Администратор
+GRANT SELECT ON view_Зарплаты TO Администратор
+GRANT SELECT ON view_НалоговыйАгент TO Администратор
+GRANT SELECT ON view_НДС_Реализация TO Администратор
+GRANT SELECT ON view_Отгрузка TO Администратор
+GRANT SELECT ON view_Платежный_док TO Администратор
+GRANT SELECT ON view_ПодоходныйНалогПеречисл TO Администратор
+GRANT SELECT ON view_Пособие TO Администратор
+GRANT SELECT ON view_Предоплата TO Администратор
+GRANT SELECT ON view_Премии TO Администратор
+GRANT SELECT ON view_СтрахВзнос TO Администратор
+
+
+GRANT EXEC ON add_Выплата TO Администратор
+GRANT EXEC ON add_ВыплатаРаботнику TO Администратор
+GRANT EXEC ON add_Вычет TO Администратор
+GRANT EXEC ON add_ВычетРаботника TO Администратор
+GRANT EXEC ON add_Дивиденты TO Администратор
+GRANT EXEC ON add_НалоговыйАгент TO Администратор
+GRANT EXEC ON add_ПенсионныйВзнос TO Администратор
+GRANT EXEC ON add_ПлатежныйДокумент TO Администратор
+GRANT EXEC ON add_Пособие TO Администратор
+GRANT EXEC ON add_ПособиеРаботника TO Администратор
+GRANT EXEC ON add_СтраховойВзнос TO Администратор
+GRANT EXEC ON Create_ПодоходНалогПеречислено TO Администратор
+GRANT EXEC ON upd_Выплата TO Администратор
+GRANT EXEC ON upd_Вычет TO Администратор
+GRANT EXEC ON upd_Дивиденты TO Администратор
+GRANT EXEC ON upd_НалоговыйАгент TO Администратор
+GRANT EXEC ON upd_ПенсионныйВзнос TO Администратор
+GRANT EXEC ON upd_Платежный_Док TO Администратор
+GRANT EXEC ON upd_ПодоходныйНалогПеречислено TO Администратор
+GRANT EXEC ON upd_Пособие TO Администратор
+GRANT EXEC ON upd_СтраховойВзнос TO Администратор
+GRANT EXEC ON АвтозаполнениеВыручка TO Администратор
+GRANT EXEC ON СтандартныеПособия TO Администратор
+GRANT EXEC ON СуммыВычетов TO Администратор

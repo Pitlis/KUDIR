@@ -275,6 +275,7 @@ namespace KUDIR
                     miNalog.Visibility = System.Windows.Visibility.Collapsed;
                     miOthers.Visibility = System.Windows.Visibility.Collapsed;
                     miWork.Visibility = System.Windows.Visibility.Collapsed;
+                    miGenerate.IsEnabled = false;
                 }
             }
         }

@@ -18,7 +18,7 @@
             <MenuItem Header="Выручка" >
                 <MenuItem Header="Учет валовой выручки" HorizontalAlignment="Left"  Margin="0,0,-3,0" Width="257">
                     <MenuItem Header="Данные" HorizontalAlignment="Left" Click="MenuItem_Click_1"/>
-                    <MenuItem Header="Автозаполнение" HorizontalAlignment="Left" Click="MenuItem_Click_Generate"/>
+                    <MenuItem Name="miGenerate" Header="Автозаполнение" HorizontalAlignment="Left" Click="MenuItem_Click_Generate"/>
                 </MenuItem>
                 <MenuItem Header="Отгрузка товаров" HorizontalAlignment="Left" Click="MenuItem_Click_2"/>
                 <MenuItem Header="Предварительная оплата" HorizontalAlignment="Left" Click="MenuItem_Click"/>
