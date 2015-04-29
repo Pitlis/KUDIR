@@ -36,6 +36,7 @@ GRANT SELECT ON view_Пособие TO Printer
 GRANT SELECT ON view_Предоплата TO Printer
 GRANT SELECT ON view_Премии TO Printer
 GRANT SELECT ON view_СтрахВзнос TO Printer
+GRANT SELECT ON view_ПенсВзносы TO Printer
 
 
 GRANT EXEC ON СтандартныеПособия TO Printer
@@ -106,6 +107,7 @@ GRANT SELECT ON view_Пособие TO Бухгалтер
 GRANT SELECT ON view_Предоплата TO Бухгалтер
 GRANT SELECT ON view_Премии TO Бухгалтер
 GRANT SELECT ON view_СтрахВзнос TO Бухгалтер
+GRANT SELECT ON view_ПенсВзносы TO Бухгалтер
 
 
 GRANT EXEC ON add_Выплата TO Бухгалтер
@@ -182,6 +184,7 @@ GRANT SELECT ON view_Пособие TO Администратор
 GRANT SELECT ON view_Предоплата TO Администратор
 GRANT SELECT ON view_Премии TO Администратор
 GRANT SELECT ON view_СтрахВзнос TO Администратор
+GRANT SELECT ON view_ПенсВзносы TO Администратор
 
 
 GRANT EXEC ON add_Выплата TO Администратор

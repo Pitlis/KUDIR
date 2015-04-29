@@ -8,7 +8,7 @@
         <Button Name="btnReports" Content="Печать" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="206" Height="56" FontSize="18" Click="btnReports_Click"/>
         <Button Name="btnAdmin" Content="Настройки" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="206" Height="57" FontSize="18" Click="btnAdmin_Click"/>
         <Button Name="btnExit" Content="Выход" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="206" Height="57" Click="btnExit_Click" FontSize="18"/>
-        <Label Content="Вы вошли как:" HorizontalAlignment="Left" Margin="5,39,0,0" VerticalAlignment="Top" Width="91"/>
+        <Label Name="loginText" Content="Вы вошли как:" HorizontalAlignment="Left" Margin="5,39,0,0" VerticalAlignment="Top" Width="91"/>
         <Label Name="txtLoginName" Content="" HorizontalAlignment="Left" Margin="86,39,0,0" VerticalAlignment="Top" Width="130"/>
     </Grid>
 </Window>

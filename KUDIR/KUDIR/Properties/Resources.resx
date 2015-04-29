@@ -124,4 +124,61 @@
   <data name="KUDIRempty_log" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resouces\KUDIRempty_log.ldf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Выручка" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\выручка.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Дивиденты" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\дивиденты.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Кооператив" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\кооператив.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Кредитор" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\кредитор.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="НалоговыйАгент" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\налоговыйагент.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="НДСприобретение" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\ндсприобретение.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="НДСреализация" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\ндсреализация.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="НезавершенныеСтроения" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\незавершенныестроения.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Отгрузка" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\отгрузка.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ПенсионныйВзнос" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\пенсионныйвзнос.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ПенсионныйВзносПеречислено" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\пенсионныйвзносперечислено.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ПеречисленныйСтраховойВзнос" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\перечисленныйстраховойвзнос.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ПодоходныйНалог" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\подоходныйналог.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ПодоходныйНалогПеречислено" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\подоходныйналогперечислено.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Предоплата" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\предоплата.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="СтраховойВзнос" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\страховойвзнос.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ТоварыТС" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\товарытс.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="УчетРасходовФонда" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\учетрасходовфонда.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="УчетСтроений" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resouces\учетстроений.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

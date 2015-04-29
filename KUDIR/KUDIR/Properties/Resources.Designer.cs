@@ -79,5 +79,195 @@ namespace KUDIR.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Выручка {
+            get {
+                object obj = ResourceManager.GetObject("Выручка", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Дивиденты {
+            get {
+                object obj = ResourceManager.GetObject("Дивиденты", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Кооператив {
+            get {
+                object obj = ResourceManager.GetObject("Кооператив", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Кредитор {
+            get {
+                object obj = ResourceManager.GetObject("Кредитор", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] НалоговыйАгент {
+            get {
+                object obj = ResourceManager.GetObject("НалоговыйАгент", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] НДСприобретение {
+            get {
+                object obj = ResourceManager.GetObject("НДСприобретение", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] НДСреализация {
+            get {
+                object obj = ResourceManager.GetObject("НДСреализация", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] НезавершенныеСтроения {
+            get {
+                object obj = ResourceManager.GetObject("НезавершенныеСтроения", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Отгрузка {
+            get {
+                object obj = ResourceManager.GetObject("Отгрузка", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ПенсионныйВзнос {
+            get {
+                object obj = ResourceManager.GetObject("ПенсионныйВзнос", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ПенсионныйВзносПеречислено {
+            get {
+                object obj = ResourceManager.GetObject("ПенсионныйВзносПеречислено", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ПеречисленныйСтраховойВзнос {
+            get {
+                object obj = ResourceManager.GetObject("ПеречисленныйСтраховойВзнос", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ПодоходныйНалог {
+            get {
+                object obj = ResourceManager.GetObject("ПодоходныйНалог", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ПодоходныйНалогПеречислено {
+            get {
+                object obj = ResourceManager.GetObject("ПодоходныйНалогПеречислено", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Предоплата {
+            get {
+                object obj = ResourceManager.GetObject("Предоплата", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] СтраховойВзнос {
+            get {
+                object obj = ResourceManager.GetObject("СтраховойВзнос", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ТоварыТС {
+            get {
+                object obj = ResourceManager.GetObject("ТоварыТС", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] УчетРасходовФонда {
+            get {
+                object obj = ResourceManager.GetObject("УчетРасходовФонда", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] УчетСтроений {
+            get {
+                object obj = ResourceManager.GetObject("УчетСтроений", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

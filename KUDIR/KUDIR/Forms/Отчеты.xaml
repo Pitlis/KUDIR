@@ -180,7 +180,7 @@
                     <ComboBox x:Name="cb5_year" Margin="48,135,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Раздел VI" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="69" Margin="-2,1,-10,-1">
+            <TabItem Header="Раздел VI" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="79" Margin="-2,1,-8,-1">
                 <Grid Background="#FFE5E5E5">
                     <TabControl Name="tabChart5" TabStripPlacement="Left" HorizontalAlignment="Right" Height="348" VerticalAlignment="Top" Width="592" Margin="-10,0,0,-38" SelectionChanged="tabChart5_SelectionChanged">
                         <TabItem Header="Учет &#xD;&#xA;капитальных&#xD;&#xA;строений" Margin="9,-2,0,-15" Padding="0,1,30,1">
@@ -215,7 +215,7 @@
                     </TabControl>
                 </Grid>
             </TabItem>
-            <TabItem Header="Раздел VII" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="71" Margin="-2,1,0,-1">
+            <TabItem Header="Раздел VII" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="83" Margin="-2,1,0,-1">
                 <Grid Background="#FFE5E5E5">
                     <Label Content="Учет товаров, в том числе сырья и материалов, основных средств и отдельных предметов в составе &#xD;&#xA;оборотных средств, ввозимых на территорию Республики Беларусь &#xD;&#xA;из государств - членов Таможенного Союза" HorizontalAlignment="Left" Margin="6,10,0,0" VerticalAlignment="Top" Width="566" Height="69"/>
                     <DatePicker x:Name="dp9_start" HorizontalAlignment="Left" Margin="452,130,0,0" VerticalAlignment="Top"/>
@@ -224,7 +224,7 @@
                     <Label Content="Конец периода" HorizontalAlignment="Left" Margin="340,159,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Раздел VIII" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="74" Margin="-2,1,0,-1">
+            <TabItem Header="Раздел VIII" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="82" Margin="-2,1,0,-1">
                 <Grid Background="#FFE5E5E5">
                     <TabControl Name="tabChart6" TabStripPlacement="Left" HorizontalAlignment="Right" Height="348" VerticalAlignment="Top" Width="592" Margin="-10,0,0,-38" SelectionChanged="tabChart2_SelectionChanged">
                         <TabItem Header="НДС при&#xD;&#xA;приобретении" Margin="9,-2,-1,-15" Padding="0,1,20,1">

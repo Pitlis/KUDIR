@@ -141,6 +141,10 @@ namespace KUDIR
                         break;
                 }
             }
+            else
+            {
+                loginText.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
     }
 }

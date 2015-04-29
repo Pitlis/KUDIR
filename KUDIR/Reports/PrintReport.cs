@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ClosedXML.Excel;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace Reports
 {
@@ -13,16 +14,19 @@ namespace Reports
     {
         string _fileName { get; set; }
         SqlConnection _connect;
+        IReportTemplates _resources;
 
-        public PrintReport(string fileName, string strConnect)
+        public PrintReport(string fileName, string strConnect, IReportTemplates resources)
         {
             _connect = new SqlConnection(strConnect);
             _fileName = fileName;
+            _resources = resources;
         }
 
         XLWorkbook GetCopyTemplate(string template)
         {
-            XLWorkbook temp = new XLWorkbook(@"..\..\ReportTemplates\\" + template);
+            string tt =  Directory.GetCurrentDirectory();
+            XLWorkbook temp = new XLWorkbook(new MemoryStream(_resources.GetTemplate(template)));
             temp.SaveAs(_fileName);
             XLWorkbook wb = new XLWorkbook(_fileName);
             return wb;

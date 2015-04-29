@@ -223,7 +223,7 @@ namespace KUDIR.Forms
             string fileName = GetPathForSave(reportType);
             if (fileName != null)
             {
-                PrintReport pr = new PrintReport(fileName, strConnect);
+                PrintReport pr = new PrintReport(fileName, strConnect, new Code.ReportResources());
                 try
                 {
                     switch (reportType)
@@ -264,7 +264,7 @@ namespace KUDIR.Forms
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ошибка при формировании отчета!");
+                    throw new Exception("Ошибка при формировании отчета!\n" + ex.Message);
                 }
             }
             return fileName;
@@ -276,7 +276,7 @@ namespace KUDIR.Forms
             string fileName = GetPathForSave(reportType);
             if (fileName != null)
             {
-                PrintReport pr = new PrintReport(fileName, strConnect);
+                PrintReport pr = new PrintReport(fileName, strConnect, new Code.ReportResources());
                 try
                 {
                     switch (reportType)
@@ -300,7 +300,7 @@ namespace KUDIR.Forms
             string fileName = GetPathForSave(reportType);
             if (fileName != null)
             {
-                PrintReport pr = new PrintReport(fileName, strConnect);
+                PrintReport pr = new PrintReport(fileName, strConnect, new Code.ReportResources());
                 try
                 {
                     switch (reportType)
@@ -329,7 +329,7 @@ namespace KUDIR.Forms
             string fileName = GetPathForSave(reportType);
             if (fileName != null)
             {
-                PrintReport pr = new PrintReport(fileName, strConnect);
+                PrintReport pr = new PrintReport(fileName, strConnect, new Code.ReportResources());
                 try
                 {
                     switch (reportType)
@@ -361,7 +361,7 @@ namespace KUDIR.Forms
             string fileName = GetPathForSave(reportType);
             if (fileName != null)
             {
-                PrintReport pr = new PrintReport(fileName, strConnect);
+                PrintReport pr = new PrintReport(fileName, strConnect, new Code.ReportResources());
                 try
                 {
                     switch (reportType)
